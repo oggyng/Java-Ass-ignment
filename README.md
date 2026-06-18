@@ -1,12 +1,28 @@
-﻿# Java Assignment Cheat Sheets
+﻿# Java Assignment
+
+---
+
+## Introductions
+Just an assignment to create a Counseling Management System with four roles (Admin, Counselor, Receptionist. Students)
+
+Currently in: 
+**Testing Stage**
 
 ---
 
 ## Assignment Rules
 
  - Every **Parent class for roles data** should end up returning in `ArrayList` form.
-
- - Words in **CAPSLOCK** are just placeholders — insert ur own values. Do not copy them directly.
+ - Imported APIs:
+   ```java
+   import java.awt.*;
+   import java.awt.event.*;
+   import java.io.*;
+   import java.util.ArrayList;
+   ```
+ - Layout size: 800x600
+ - Self-destruct button (will available soon)
+ - For cheat sheets, words in **CAPSLOCK** are just placeholders — insert ur own values. Do not copy them directly.
 
 ---
 
@@ -143,4 +159,4 @@ add(new Button("6"));
 | `GridLayout` | Forms, calculators | Equal cells, row by row |
 
 ---
-### Stay tune for more...
+### Stay tune for more... (Can provide some ideas to https://github.com/oggyng/Java-Ass-ignment/issues if able :)
