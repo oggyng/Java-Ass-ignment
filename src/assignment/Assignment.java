@@ -35,60 +35,40 @@ import java.awt.event.*;
 import java.io.*;
 import java.util.ArrayList;
 
-//class Login {
-//    String username;
-//    String password;
-//
-//    Login(String username, String password) {
-//        this.username = username;
-//        this.password = password;
-//    }
-//
-//    String pwLength() {
-//        if (password.length() <8){
-//            return "Password must be at least 8 characters";
-//        }
-//        else{
-//            return "Login successfully!";
-//        }
-//    }
-//
-//    String toTxt() {
-//        return username + "," + password;
-//    }
-//}
 
-public class Assignment extends Frame  {
+public class Assignment extends Frame implements ActionListener {
 
     TextField nameField, pwField;
-    List studentList;
-    Button signInBut, signUpBut, forgetPwBut;
+    Button signInBut, signUpBut;
     Label status;
+    int tries = 3;
 
-//    ArrayList<Student> students = new ArrayList<>();
-//    final String loginFile = "loginData.txt";
+    final String loginFile = "loginData.txt";
 
     public Assignment() {
         setTitle("Login");
-        setSize(800, 600);
+        setSize(1200, 800);
         setLayout(new BorderLayout(10, 10));
         
-        // User login input panel (Center)
+        // User login menu panel
         Panel sect = new Panel(new GridLayout(0, 1, 5, 5));
         sect.add(new Label("Username:"));
         nameField = new TextField();
         sect.add(nameField);
+        
         sect.add(new Label("Password:"));
         pwField = new TextField();
         sect.add(pwField);
-        Panel innerSect = new Panel(new GridLayout(1,2,4,4));
-        signUpBut = new Button();
-        innerSect.add(signUpBut);
-        forgetPwBut = new Button();
-        innerSect.add(forgetPwBut);
-        sect.add(innerSect);
-        signInBut = new Button();
+       
+        status = new Label("                                                                         ");
+        sect.add(status);
+        
+        signInBut = new Button("Sign In");
+        signInBut.addActionListener(this);
         sect.add(signInBut);
+
+
+        
         Panel center = new Panel(new GridBagLayout());
         center.add(sect);
         add(center, BorderLayout.CENTER);
@@ -134,43 +114,35 @@ public class Assignment extends Frame  {
 
     /* One method handles every button. We check the source
        to decide what to do. */
-//    public void actionPerformed(ActionEvent e) {
-//        Object src = e.getSource();
-//        if (src == addBtn)         addStudent();
-//        else if (src == deleteBtn) deleteStudent();
-//        else if (src == clearBtn)  clearForm();
-//        else if (src == saveBtn)   saveToFile();
-//        else if (src == loadBtn)   loadFromFile();
-//    }
-//
-//    void addStudent() {
-//        String id   = idField.getText().trim();
-//        String name = nameField.getText().trim();
-//        String m    = marksField.getText().trim();
-//
-//        // input validation
-//        if (id.isEmpty() || name.isEmpty() || m.isEmpty()) {
-//            status.setText("Error: all fields are required.");
-//            return;
-//        }
-//        double marks;
-//        try {
-//            marks = Double.parseDouble(m);
-//        } catch (NumberFormatException ex) {
-//            status.setText("Error: marks must be a number.");
-//            return;
-//        }
-//        if (marks < 0 || marks > 100) {
-//            status.setText("Error: marks must be between 0 and 100.");
-//            return;
-//        }
-//
-//        Student s = new Student(id, name, marks);
-//        students.add(s);                 // store in memory
-//        studentList.add(s.toString());   // show on screen
-//        status.setText("Added: " + name + " (Grade " + s.grade() + ")");
-//        clearForm();
-//    }
+    public void actionPerformed(ActionEvent e) {
+        Object src = e.getSource();
+        if (src == signInBut){
+            signIn();
+        }
+    }
+
+    void signIn() {
+        String name   = nameField.getText().trim();
+        String password = pwField.getText().trim();
+
+        ArrayList<String> userList = Functions.readFile(loginFile);
+        for(String line : userList){
+            String[] part = line.split(",");
+            if(name.equals(part[0]) && password.equals(part[1])){
+                //----------------------------------------------
+                System.out.println("peak"); // user menu
+                //----------------------------------------------
+            }
+        }
+        
+        status.setText("Wrong username or password, please try again!");
+            tries--;
+            if(tries<=0){
+                status.setText("Too many login attempts, self destruct activated!");
+                dispose();
+            }
+            
+    }
 //
 //    void deleteStudent() {
 //        int i = studentList.getSelectedIndex();   // -1 if nothing selected
