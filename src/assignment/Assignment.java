@@ -73,37 +73,6 @@ public class Assignment extends Frame implements ActionListener {
         center.add(sect);
         add(center, BorderLayout.CENTER);
 
-//        // ===== CENTER: scrollable list of records =====
-//        studentList = new List();
-//        add(studentList, BorderLayout.CENTER);
-//
-//        // ===== SOUTH: button row (FlowLayout) + status line =====
-//        Panel buttons = new Panel(new FlowLayout());
-//        addBtn    = new Button("Add");
-//        deleteBtn = new Button("Delete");
-//        clearBtn  = new Button("Clear");
-//        saveBtn   = new Button("Save");
-//        loadBtn   = new Button("Load");
-//        // register one listener (this) for every button
-//        addBtn.addActionListener(this);
-//        deleteBtn.addActionListener(this);
-//        clearBtn.addActionListener(this);
-//        saveBtn.addActionListener(this);
-//        loadBtn.addActionListener(this);
-//        buttons.add(addBtn);
-//        buttons.add(deleteBtn);
-//        buttons.add(clearBtn);
-//        buttons.add(saveBtn);
-//        buttons.add(loadBtn);
-//
-//        status = new Label("Ready.");
-//
-//        // nest two panels so buttons sit above the status line
-//        Panel south = new Panel(new BorderLayout());
-//        south.add(buttons, BorderLayout.CENTER);
-//        south.add(status, BorderLayout.SOUTH);
-//        add(south, BorderLayout.SOUTH);
-
         // make the X button close the window
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) { dispose(); }
@@ -143,60 +112,6 @@ public class Assignment extends Frame implements ActionListener {
             }
             
     }
-//
-//    void deleteStudent() {
-//        int i = studentList.getSelectedIndex();   // -1 if nothing selected
-//        if (i == -1) {
-//            status.setText("Select a student to delete.");
-//            return;
-//        }
-//        Student removed = students.remove(i);
-//        studentList.remove(i);
-//        status.setText("Deleted: " + removed.name);
-//    }
-//
-//    void clearForm() {
-//        idField.setText("");
-//        nameField.setText("");
-//        marksField.setText("");
-//    }
-//
-//    // ===== FILE I/O: write every record to a text file =====
-//    void saveToFile() {
-//        try (PrintWriter pw = new PrintWriter(new FileWriter(FILE))) {
-//            for (Student s : students) {
-//                pw.println(s.toCSV());
-//            }
-//            status.setText("Saved " + students.size() + " records to " + FILE);
-//        } catch (IOException ex) {
-//            status.setText("Save failed: " + ex.getMessage());
-//        }
-//    }
-//
-//    // ===== FILE I/O: read records back from the text file =====
-//    void loadFromFile() {
-//        File f = new File(FILE);
-//        if (!f.exists()) {
-//            status.setText("No saved file found yet.");
-//            return;
-//        }
-//        students.clear();
-//        studentList.removeAll();
-//        try (BufferedReader br = new BufferedReader(new FileReader(f))) {
-//            String line;
-//            while ((line = br.readLine()) != null) {
-//                if (line.trim().isEmpty()) continue;
-//                String[] p = line.split(",");
-//                if (p.length < 3) continue;
-//                Student s = new Student(p[0], p[1], Double.parseDouble(p[2]));
-//                students.add(s);
-//                studentList.add(s.toString());
-//            }
-//            status.setText("Loaded " + students.size() + " records.");
-//        } catch (IOException | NumberFormatException ex) {
-//            status.setText("Load failed: " + ex.getMessage());
-//        }
-//    }
 
     public static void main(String[] args) {
         new Assignment();
