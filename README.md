@@ -6,7 +6,7 @@
 Just an assignment to create a Counseling Management System with four roles (Admin, Counselor, Receptionist. Students)
 
 Currently in: 
-**80% of Login Interface**
+**Stuck, unable to continue until my question has resolved**
 
 ---
 
