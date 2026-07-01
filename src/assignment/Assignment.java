@@ -32,88 +32,37 @@ package assignment;
 
 import java.awt.*;
 import java.awt.event.*;
+import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
 
 
-public class Assignment extends Frame implements ActionListener {
+public class Assignment extends JFrame{
 
-    TextField nameField, pwField;
-    Button signInBut, signUpBut;
-    Label status;
-    int tries = 3;
+    public LoginPanel loginPanel;
 
-    final String loginFile = "loginData.txt";
+    
 
     public Assignment() {
         setTitle("Login");
         setSize(1200, 800);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout(10, 10));
         
-        // User login menu panel
-        Panel sect = new Panel(new GridLayout(0, 1, 5, 5));
-        sect.add(new Label("Username:"));
-        nameField = new TextField();
-        sect.add(nameField);
+        loginPanel = new LoginPanel(this);
         
-        sect.add(new Label("Password:"));
-        pwField = new TextField();
-        sect.add(pwField);
-       
-        status = new Label("                                                                         ");
-        sect.add(status);
-        
-        signInBut = new Button("Sign In");
-        signInBut.addActionListener(this);
-        sect.add(signInBut);
-
-
-        
-        Panel center = new Panel(new GridBagLayout());
-        center.add(sect);
-        add(center, BorderLayout.CENTER);
-
-        // make the X button close the window
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) { dispose(); }
-        });
-
+        switchTo(loginPanel);
         setVisible(true);
     }
 
-    /* One method handles every button. We check the source
-       to decide what to do. */
-    public void actionPerformed(ActionEvent e) {
-        Object src = e.getSource();
-        if (src == signInBut){
-            signIn();
-        }
-    }
-
-    void signIn() {
-        String name   = nameField.getText().trim();
-        String password = pwField.getText().trim();
-
-        ArrayList<String> userList = Functions.readFile(loginFile);
-        for(String line : userList){
-            String[] part = line.split(",");
-            if(name.equals(part[0]) && password.equals(part[1])){
-                //----------------------------------------------
-                System.out.println("peak"); // user menu
-                //----------------------------------------------
-            }
-        }
-        
-        status.setText("Wrong username or password, please try again!");
-            tries--;
-            if(tries<=0){
-                status.setText("Too many login attempts, self destruct activated!");
-                dispose();
-            }
-            
+    public void switchTo(JPanel panel) {
+        getContentPane().removeAll();
+        getContentPane().add(panel, BorderLayout.CENTER);
+        revalidate();
+        repaint();
     }
 
     public static void main(String[] args) {
-        new Assignment();
+        java.awt.EventQueue.invokeLater(() -> new Assignment());
     }
 }
