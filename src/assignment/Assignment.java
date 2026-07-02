@@ -38,8 +38,12 @@ import java.util.ArrayList;
 
 
 public class Assignment extends JFrame{
-
+    
+    // this is where you should put every panel
     public LoginPanel loginPanel;
+    public CounselorMainPanel cMainPanel;
+    
+    private final JPanel contentPanel;
 
     
 
@@ -50,16 +54,26 @@ public class Assignment extends JFrame{
         setLayout(new BorderLayout(10, 10));
         
         loginPanel = new LoginPanel(this);
+        cMainPanel = new CounselorMainPanel(this);
+        
+        contentPanel = new JPanel(new BorderLayout());
         
         switchTo(loginPanel);
         setVisible(true);
     }
 
-    public void switchTo(JPanel panel) {
+    public final void switchTo(JPanel panel) {
         getContentPane().removeAll();
         getContentPane().add(panel, BorderLayout.CENTER);
         revalidate();
         repaint();
+    }
+    
+    public void switchContent(JPanel panel) {
+        contentPanel.removeAll();
+        contentPanel.add(panel, BorderLayout.CENTER);
+        contentPanel.revalidate();
+        contentPanel.repaint();
     }
 
     public static void main(String[] args) {
