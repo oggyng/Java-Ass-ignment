@@ -5,8 +5,18 @@
 ## Introductions
 Just an assignment to create a Counseling Management System with four roles (Admin, Counselor, Receptionist. Students)
 
+So apparently the cheatsheet for AWT is only useful on exam but useless on assignment :(
+
 Currently in: 
-**Stuck, unable to continue until my question has resolved**
+**Stuck, unable to continue until my question has resolved (this is so frustrating)**
+
+What I've done (Linkin Park reference):
+ - **readFile(FILENAME)** `It reads file ofc`
+ - **writeFile(FILENAME,MODE)** `It overwrites file for MODE=false, append data to file for MODE=true`
+ - **Login Interface** `Very cool, it can show or hide password, and so selft destruct when password is incorrect for three times`
+ - **Counselor Interface 30%** `Just each panels button, not yet added header and their respective interface swapping`
+ - **roleObject class** `Still configuring, need time to settle that, if no problem that will most likely be every role's property class`
+ - **switchTo(PANEL) and switchContent(PANEL)** `This is where you switch between interfaces`
 
 ---
 
@@ -19,10 +29,21 @@ Currently in:
    import java.awt.event.*;
    import java.io.*;
    import java.util.ArrayList;
+   import java.util.Data;
+   import java.swing.*;
    ```
- - Layout size: 1200x800
- - Self-destruct button (available)
+ - Layout size: 1200x800 (set in each main panel properties)
+ - Each page (interface) should be in individual java class file, easier to switch
+ - Self-destruct (available)
  - For cheat sheets, words in **CAPSLOCK** are just placeholders — insert ur own values. Do not copy them directly.
+
+---
+
+## Tips for the Assignment
+
+- Double click components while designing the panel can directly leads to the action listener for the component
+- You can put panels inside panel, therefore features like sidebars or header footer are able to make easily
+- Headache now imma continue to think tmr...
 
 ---
 
