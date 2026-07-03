@@ -25,12 +25,12 @@ What I've done (Linkin Park reference):
  - Every **Load from file** or **Save to file** should end up returning in `ArrayList` form.
  - Imported APIs:
    ```java
-   import java.awt.*;
-   import java.awt.event.*;
-   import java.io.*;
-   import java.util.ArrayList;
-   import java.util.Data;
-   import java.swing.*;
+   import java.awt.*; // Awt interface stuff
+   import java.awt.event.*; // Awt interface stuff
+   import java.io.*; // User input (I think won't use it
+   import java.util.ArrayList; // Array List
+   import java.util.Data; // Date
+   import java.swing.*; // Swing interfaces
    ```
  - Layout size: 1200x800 (set in each main panel properties)
  - Each page (interface) should be in individual java class file, easier to switch
@@ -65,7 +65,27 @@ ArrayList<DATATYPE> ARRAYNAME = new ArrayList<>();
 
 ---
 
-## AWT Layouts
+## Swing and AWT Stuffs
+
+---
+
+### Pop-up windows
+This is where you want to do pop-up notifications for example errors or alert
+```java
+import javax.swing.JOptionPane;
+
+JOptionpane.showMessageDialog(FRAME, TEXT);
+```
+---
+
+### Close windows
+So there will be three types of method to close your window, each with different functions
+```java
+FRAME.dispose(); // Close the window, but the system will still run if there are other frame running in the background
+FRAME.setVisible(false); // Make the window invisible, but still running in the background
+System.exit(0); // Close the whole system (why don't just do Alt-F4)
+
+```
 
 > `HGAP` = Horizontal gap, `VGAP` = Vertical gap
 

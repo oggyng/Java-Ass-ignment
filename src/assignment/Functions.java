@@ -53,11 +53,19 @@ public class Functions {
             System.out.println("Sum Ting Wong!");
         }
         
-
-        
-        
-        
         System.out.println("Debug: File Updated Successfully!");
+    }
+    
+    public static String[] pullUserData(String id){
+        String[] returnData = {};
+        for(String data : readFile("userData")){
+            String[] dataId = data.split(",");
+            if(id.equals(dataId[0])){
+                returnData = dataId;
+                break;
+            }
+        }
+        return returnData;
     }
     
 //    public static void removeData()

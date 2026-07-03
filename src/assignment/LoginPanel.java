@@ -108,13 +108,13 @@ public class LoginPanel extends javax.swing.JPanel {
         for(String line : userList){
             String[] part = line.split(",");
 
-            if(name.equals(part[0]) && password.equals(part[1])){
-                switch(part[2]){
+            if(name.equals(part[1]) && password.equals(part[2])){
+                switch(part[3]){
                     // Interfaces below (use switchTo)
                     case "Admin" -> System.out.println("Admin");
                     case "Receptionist" -> System.out.println("Admin");
                     case "Counselor"->{
-                        System.out.println(frame.cMainPanel);frame.switchTo(frame.cMainPanel); }
+                        frame.switchTo(frame.cMainPanel); }
                         
                     case "Student" -> System.out.println("Admin");
                 }
