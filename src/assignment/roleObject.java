@@ -5,17 +5,22 @@
 package assignment;
 
 import java.util.Date;
+
 /**
  *
  * @author User
  */
 public abstract class roleObject {
-    private String id, name, gender, email;
+    private String id, name, gender, email, role;
     private Date DoB;
-    roleObject(String id, String name, String gender, Date DoB, String email){
+    
+    public roleObject(String id){
+        this.id = id;
+    }
+    public roleObject(String id, String name, String gender, Date DoB, String email){
         this.id = id;
         this.name = name;
-        this. gender = gender;
+        this.gender = gender;
         this.DoB = DoB;
         this.email = email;
     }
@@ -30,7 +35,7 @@ public abstract class roleObject {
     public void setName(String name){
         this.name = name;
     }
-    public boolean setGender(String gender, String status){
+    public boolean setGender(String gender){
         if(gender.equals("Male")||gender.equals("Female")){
             this.gender = gender;
             return true;
@@ -39,11 +44,24 @@ public abstract class roleObject {
             return false;
         }
     }
-    public boolean setDoB(String status){
-        return DoB;
+    public boolean setDoB(String DoB){
+        if(DoB.matches("\\d{4}-\\d{2}-\\d{2}")){
+            // stuckkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk
+            // im thinking should i return in date object or just string
+            return true;
+        }
+        return true;
     }
-    public String setEmail(String status){
-        return email;
+    public boolean setEmail(String email){
+        if(email.matches("[a-zA-Z0-9._%+\\-]+@[a-zA-Z0-9.\\-]+\\.[a-zA-Z]{2,}")){
+            this.email = email;
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 }
+
+
 

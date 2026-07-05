@@ -11,12 +11,16 @@ package assignment;
 public class CounselorMainPanel extends javax.swing.JPanel {
     private boolean sbVisible = true;
     final Assignment frame;
+    private counselorObject user;
     /**
      * Creates new form CounselorMainPanel
      */
-    public CounselorMainPanel(Assignment frame) {
+    public CounselorMainPanel(Assignment frame, counselorObject user) {
         this.frame = frame;
+        this.user = user;
+        // create a method where u can read file and convert to object data
         initComponents();
+        jLabel1.setText("Welcome "+user.getId());
     }
 
     /**
@@ -29,6 +33,7 @@ public class CounselorMainPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         RecordBut = new javax.swing.JButton();
@@ -44,15 +49,24 @@ public class CounselorMainPanel extends javax.swing.JPanel {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
+        jLabel1.setText("Welcome");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1198, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(521, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(491, 491, 491))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 101, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(jLabel1)
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder(null, java.awt.Color.black));
@@ -94,6 +108,7 @@ public class CounselorMainPanel extends javax.swing.JPanel {
         );
 
         jButton2.setText("<");
+        jButton2.setContentAreaFilled(false);
         jButton2.addActionListener(this::jButton2ActionPerformed);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -159,6 +174,7 @@ public class CounselorMainPanel extends javax.swing.JPanel {
     private javax.swing.JButton RecordBut;
     private javax.swing.JButton RosterBut;
     private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;

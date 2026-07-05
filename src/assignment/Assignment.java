@@ -41,7 +41,7 @@ public class Assignment extends JFrame{
     
     // this is where you should put every panel
     public LoginPanel loginPanel;
-    public CounselorMainPanel cMainPanel;
+    
     
     private final JPanel contentPanel;
 
@@ -54,7 +54,7 @@ public class Assignment extends JFrame{
         setLayout(new BorderLayout(10, 10));
         
         loginPanel = new LoginPanel(this);
-        cMainPanel = new CounselorMainPanel(this);
+        
         
         contentPanel = new JPanel(new BorderLayout());
         

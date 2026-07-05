@@ -19,11 +19,17 @@ public class LoginPanel extends javax.swing.JPanel {
     private int tries = 3;
     final String loginFile = "loginData.txt";
     final char pwChar;
+    public CounselorMainPanel cMainPanel;
+    public counselorObject user;
+    
+    
     
     public LoginPanel(Assignment frame) {
         this.frame = frame;
         initComponents();
         pwChar = jPasswordField1.getEchoChar();
+        
+        
     }
 
     /**
@@ -114,7 +120,11 @@ public class LoginPanel extends javax.swing.JPanel {
                     case "Admin" -> System.out.println("Admin");
                     case "Receptionist" -> System.out.println("Admin");
                     case "Counselor"->{
-                        frame.switchTo(frame.cMainPanel); }
+                        user = new counselorObject("Counselor",part[0]);
+                        cMainPanel = new CounselorMainPanel(frame,user);
+                        frame.switchTo(cMainPanel); 
+                        
+                        }
                         
                     case "Student" -> System.out.println("Admin");
                 }
