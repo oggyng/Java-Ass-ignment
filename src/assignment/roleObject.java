@@ -6,20 +6,16 @@ package assignment;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Calendar;
 
 /**
  *
  * @author User
  */
 public abstract class roleObject {
-
-    String id;
-    private String name, gender, email, role;
+    private String id, name, gender, email;
     private Date DoB;
     
-    public roleObject(String id){
-        this.id = id;
-    }
     public roleObject(String id, String name, String gender, Date DoB, String email){
         this.id = id;
         this.name = name;
@@ -33,6 +29,12 @@ public abstract class roleObject {
     public String getGender(){return gender;}
     public Date getDoB(){return DoB;}
     public String getEmail(){return email;}
+    public int getAge(){
+        Calendar dob = Calendar.getInstance();
+        Calendar now = Calendar.getInstance();
+        dob.setTime(DoB);
+        return now.get(Calendar.YEAR)-dob.get(Calendar.YEAR);
+    }
 
     public void setId(String id, String role){
         String c;
@@ -69,15 +71,12 @@ public abstract class roleObject {
             return true;
         }
         else{
+            this.gender = null;
             return false;
         }
     }
     public boolean setDoB(String DoB){
-        if(DoB.matches("\\d{4}-\\d{2}-\\d{2}")){
-            // stuckkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk
-            // im thinking should i return in date object or just string
-            return true;
-        }
+        this.DoB = Functions.toDate(DoB);
         return true;
     }
     public boolean setEmail(String email){
@@ -86,6 +85,7 @@ public abstract class roleObject {
             return true;
         }
         else{
+            this.email = null;
             return false;
         }
     }

@@ -4,21 +4,13 @@
  */
 package assignment;
 
-import java.util.ArrayList;
-import java.text.ParseException;
 import java.util.Date;
-import java.text.SimpleDateFormat;
 
 /**
  *
  * @author User
  */
 public class counselorObject extends roleObject {
-    private String role;
-    public counselorObject(String role, String id){
-        super(id);
-        this.role = role;
-    }
     public counselorObject(String id, String name, String gender, Date DoB, String email){
         super(id,name,gender,DoB,email);
     }
