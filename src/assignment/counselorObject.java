@@ -4,6 +4,8 @@
  */
 package assignment;
 
+import java.util.ArrayList;
+import java.text.ParseException;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 
@@ -20,17 +22,10 @@ public class counselorObject extends roleObject {
     public counselorObject(String id, String name, String gender, Date DoB, String email){
         super(id,name,gender,DoB,email);
     }
-    
-    @Override
-    public void setId(String id) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
+   
     
     public static counselorObject extractFile(String line){
         String[] p = line.split(",");
-        SimpleDateFormat sdf = new SimpleDateFormat("yyy-MM-dd");
-        Date tempDate = sdf.parse(p[3]);
-        return new counselorObject(p[0],p[1],p[2],tempDate,p[4]);
+        return new counselorObject(p[0],p[1],p[2],Functions.toDate(p[3]),p[4]);
     }
-    
 }

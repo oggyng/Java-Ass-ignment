@@ -2,8 +2,9 @@ package assignment;
 
 import java.util.ArrayList;
 import java.io.*;
-import java.awt.*;
-import java.awt.event.*;
+import java.text.ParseException;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 
 public class Functions {
     public static ArrayList<String> readFile(String fileName){
@@ -60,12 +61,33 @@ public class Functions {
         ArrayList<String> returnData = new ArrayList<>();
         for(String lines : data){
             String[] dataId = lines.split(",");
-            if(target.equals(dataId[index])){
+            if(dataId[index].contains(target)){
                 returnData.add(lines);
                 break;
             }
         }
         return returnData;
+    }
+    
+    public static String filterID(String id, String fileName){
+        for(String line : readFile(fileName)){
+            String[] p = line.split(",");
+            if(p[0].equals(id)){
+                return line;
+            }
+        }
+        return null;
+    }
+    
+    public static Date toDate(String date){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date tempDate;
+        try {
+            tempDate = sdf.parse(date);
+        } catch (ParseException ex) {
+            tempDate = null;
+        }
+        return tempDate;
     }
     
 //    public static void removeData()

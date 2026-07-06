@@ -20,7 +20,7 @@ public class CounselorMainPanel extends javax.swing.JPanel {
         this.user = user;
         // create a method where u can read file and convert to object data
         initComponents();
-        jLabel1.setText("Welcome "+user.getId());
+        jLabel1.setText("Welcome "+user.getName());
     }
 
     /**

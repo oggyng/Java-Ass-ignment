@@ -4,6 +4,7 @@
  */
 package assignment;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -11,7 +12,9 @@ import java.util.Date;
  * @author User
  */
 public abstract class roleObject {
-    private String id, name, gender, email, role;
+
+    String id;
+    private String name, gender, email, role;
     private Date DoB;
     
     public roleObject(String id){
@@ -31,10 +34,35 @@ public abstract class roleObject {
     public Date getDoB(){return DoB;}
     public String getEmail(){return email;}
 
-    public abstract void setId(String id);
+    public void setId(String id, String role){
+        String c;
+        switch(role){
+            case "Admin" -> c = "A";
+            case "Receptionist" -> c= "R";
+            case "Counselor" -> c= "C";
+            case "Student" -> c="S";
+            default -> c=null;
+        }
+        ArrayList<String> lines = Functions.filterData(Functions.readFile("userData.txt"),c,0);
+        int max = 0;
+        for(String line : lines){
+            String[] p = line.split(",");
+            int idNum = Integer.parseInt(p[0].substring(1));
+            if(this.name.equals(p[1])){
+                System.out.println("Debug: User exists!");
+                return;
+            }
+            if(idNum > max){
+                max = idNum;
+            }
+        }
+        this.id = c+String.format("%03d", max+1);
+    }
+    
     public void setName(String name){
         this.name = name;
     }
+    
     public boolean setGender(String gender){
         if(gender.equals("Male")||gender.equals("Female")){
             this.gender = gender;

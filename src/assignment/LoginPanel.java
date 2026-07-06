@@ -120,7 +120,8 @@ public class LoginPanel extends javax.swing.JPanel {
                     case "Admin" -> System.out.println("Admin");
                     case "Receptionist" -> System.out.println("Admin");
                     case "Counselor"->{
-                        user = new counselorObject("Counselor",part[0]);
+                        String up = Functions.filterID(part[0],"userData.txt");
+                        user = counselorObject.extractFile(up);
                         cMainPanel = new CounselorMainPanel(frame,user);
                         frame.switchTo(cMainPanel); 
                         
