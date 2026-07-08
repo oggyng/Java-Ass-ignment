@@ -12,11 +12,15 @@ Currently in:
 
 What I've done (Linkin Park reference):
  - **readFile(FILENAME)** `It reads file ofc`
- - **writeFile(FILENAME,MODE)** `It overwrites file for MODE=false, append data to file for MODE=true`
+ - **inputFile(FILENAME,MODE)** `It overwrites file for MODE=false, append data to file for MODE=true`
  - **Login Interface** `Very cool, it can show or hide password, and so selft destruct when password is incorrect for three times`
  - **Counselor Interface 30%** `Just each panels button, not yet added header and their respective interface swapping`
  - **roleObject class** `Still configuring, need time to settle that, if no problem that will most likely be every role's property class`
  - **switchTo(PANEL) and switchContent(PANEL)** `This is where you switch between interfaces`
+ - **filterData(DATAARRAY,TARGET,INDEX)** `Filter data to ArrayList based on target and index column (input -1 for index if want to check all column)`
+ - **filterID(ID,FILENAME)** `Return a string line of user data based on id`
+ - **toDate(DATE)** `Convert string text to date object`
+ - **
 
 ---
 
@@ -33,9 +37,19 @@ What I've done (Linkin Park reference):
    import java.swing.*; // Swing interfaces
    ```
  - Layout size: 1200x800 (set in each main panel properties)
- - Each page (interface) should be in individual java class file, easier to switch
+ - Each page (interface) should be in individual java class file (JPanel form), easier to switch
+ - When a new user created, the system will automatically adds 1 to the max id and it will be the user id for the new user. Deleted user will remains the id and other new user will not replace the old id.
+ - However when an appointment needs to be updated (such as changing date or time), they will use the same appointment id, but adding or deleting appointment will be same as use.
+ - Every appointment should takes only 1 hr, and appointment should not exist before 10am and after 8pm (10hrs).
  - Self-destruct (available)
  - For cheat sheets, words in **CAPSLOCK** are just placeholders — insert ur own values. Do not copy them directly.
+
+---
+
+## Files
+ - **loginData** : `UID, username, password, roles`
+ - **userData** : `UID, username, gender, DOB, email`
+ - **appointment** : `AppointID, UID(Counselor), UID(Student), startDateTime, endDateTime, status(Approved, Declined, PendingAdd, PendingDelete, PendingUpdate, Done)`
 
 ---
 

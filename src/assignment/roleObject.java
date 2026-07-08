@@ -76,7 +76,7 @@ public abstract class roleObject {
         }
     }
     public boolean setDoB(String DoB){
-        this.DoB = Functions.toDate(DoB);
+        this.DoB = Functions.StringtoDate(DoB);
         return true;
     }
     public boolean setEmail(String email){

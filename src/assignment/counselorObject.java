@@ -18,6 +18,6 @@ public class counselorObject extends roleObject {
     
     public static counselorObject extractFile(String line){
         String[] p = line.split(",");
-        return new counselorObject(p[0],p[1],p[2],Functions.toDate(p[3]),p[4]);
+        return new counselorObject(p[0],p[1],p[2],Functions.StringtoDate(p[3]),p[4]);
     }
 }

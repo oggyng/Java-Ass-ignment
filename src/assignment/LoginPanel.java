@@ -6,6 +6,7 @@ package assignment;
 
 import java.util.ArrayList;
 import java.awt.*;
+import javax.swing.JOptionPane;
 /**
  *
  * @author User
@@ -139,11 +140,12 @@ public class LoginPanel extends javax.swing.JPanel {
             status.setText("Password must be at least 8 characters!");
         }
         else{
-            status.setText("Wrong username or password, please try again!");
+            status.setText("Wrong username or password, you have "+tries+" more tries!");
+            tries--;
         }
-        tries--;
-        if(tries<=0){
-            status.setText("Too many login attempts, self destruct activated!");
+        
+        if(tries<0){
+            JOptionPane.showMessageDialog(frame,"Too many login attempts, self destruct activated!");
             frame.dispose();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
