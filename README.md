@@ -83,12 +83,60 @@ ArrayList<DATATYPE> ARRAYNAME = new ArrayList<>();
 
 ---
 
-### Pop-up windows
-This is where you want to do pop-up notifications for example errors or alert
+### Modifying Table Model
 ```java
-import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
+private DefaultTableModel model = new DefaultTableModel();
+private String[] columnName = {COLUMNTITLE1,COLUMNTITLE2,COLUMNTITLE3,COLUMNTITLE4};
+
+
+
+public JAVACLASSCONSTRUCTOR(){
+     model.setColumnIdentifiers(columnName);
+}
+```
+Then double-click the table in design and choose `Customize Code`
+
+Select the second `default code` and remove everything and input `model`
+
+Should be looks like this:
+```java
+jTable1.setModel(model);
+```
+
+**To add content into the table, just use:**
+```java
+model.addRow(CONTENT); // The content should be in list format!
+```
+
+**To delete content from a table:**
+
+ - add this line to the java class file `private int row = -1;`
+ - Double-click the table in design and select `Events` -> `Mouse` -> `mouseReleased`
+ - insert this line: `row = jTable1.getSelectedRow();`
+ - To get value of the row: `String NAME = String.valueOf(model.getValueAt(row,COLUMNINDEX));`
+ - To remove a row: `model.removeRow(row);`
+
+**To update content from table:**
+ - Simply do: `model.setValueAt(NEWCONTENT,row,COLUMNINDEX)`
+
+
+**Note!!!**
+ - do if(row==-1) before executing button code and call `row = -1;` every time a button performed to avoid error
+---
+
+### Pop-up windows
+Import this: `import javax.swing.JOptionPane;`
+
+This is where you want to do pop-up notifications for example `Sum Ting Wong!`:
+```java
 JOptionpane.showMessageDialog(FRAME, TEXT);
+```
+
+This is where you want to do confirmation notifications for example `Are you sure you want to delete?`:
+```java
+JOptionpane.showConfirmDialog(FRAME, TEXT); //will return 0,1,2 (Yes,No,Cancel)
 ```
 ---
 
