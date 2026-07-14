@@ -4,6 +4,11 @@
  */
 package assignment;
 
+import java.awt.BorderLayout;
+import java.awt.Image;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+
 /**
  *
  * @author User
@@ -12,6 +17,10 @@ public class CounselorMainPanel extends javax.swing.JPanel {
     private boolean sbVisible = true;
     final Assignment frame;
     private counselorObject user;
+    public LoginPanel loginPanel;
+    public CRecomPanel recomPanel;
+    
+    
     /**
      * Creates new form CounselorMainPanel
      */
@@ -20,7 +29,16 @@ public class CounselorMainPanel extends javax.swing.JPanel {
         this.user = user;
         // create a method where u can read file and convert to object data
         initComponents();
-        jLabel1.setText("Welcome "+user.getAge());
+        jLabel1.setText("Welcome "+user.getName());
+        ImageIcon cmsIcon = new ImageIcon(getClass().getResource("/assignment/imgSrc/cms.png"));
+        Image cms = cmsIcon.getImage();
+        Image scaledCMS = cms.getScaledInstance(40, 50, Image.SCALE_SMOOTH);
+        ImageIcon scaledCMSIcon = new ImageIcon(scaledCMS);
+        JLabel iconLabel4 = new JLabel(scaledCMSIcon);
+        jPanel2.setLayout(new BorderLayout());
+        jPanel2.add(iconLabel4, BorderLayout.SOUTH);
+        jPanel2.revalidate();
+        jPanel2.repaint();
     }
 
     /**
@@ -32,152 +50,239 @@ public class CounselorMainPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        CMainPanel = new javax.swing.JPanel();
+        MainPanel = new javax.swing.JPanel();
+        ContentPanel = new javax.swing.JPanel();
+        SideBarBut = new javax.swing.JButton();
+        SideBarPanel = new javax.swing.JPanel();
+        InnerSideBarPanel = new javax.swing.JPanel();
         RecordBut = new javax.swing.JButton();
         AppointBut = new javax.swing.JButton();
         RosterBut = new javax.swing.JButton();
         RecomBut = new javax.swing.JButton();
-        jPanel5 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(26, 82, 28));
+        setForeground(new java.awt.Color(26, 82, 28));
         setMaximumSize(new java.awt.Dimension(1200, 800));
         setMinimumSize(new java.awt.Dimension(1200, 800));
         setPreferredSize(new java.awt.Dimension(1200, 800));
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(93, 158, 79));
         jLabel1.setText("Welcome");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(521, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(491, 491, 491))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(jLabel1)
-                .addContainerGap(25, Short.MAX_VALUE))
-        );
+        jButton1.setBackground(new java.awt.Color(26, 82, 28));
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(93, 158, 79));
+        jButton1.setText("Logout");
+        jButton1.addActionListener(this::jButton1ActionPerformed);
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder(null, java.awt.Color.black));
-        jPanel2.setAlignmentX(0.0F);
-        jPanel2.setAlignmentY(0.0F);
+        jPanel2.setOpaque(false);
 
-        jPanel4.setLayout(new java.awt.GridLayout(0, 1));
-
-        RecordBut.setText("Student Consultation Records");
-        RecordBut.setContentAreaFilled(false);
-        jPanel4.add(RecordBut);
-
-        AppointBut.setText("View Assigned Appoinments");
-        AppointBut.setAlignmentY(0.0F);
-        AppointBut.setContentAreaFilled(false);
-        jPanel4.add(AppointBut);
-
-        RosterBut.setText("View Personal Roster");
-        RosterBut.setContentAreaFilled(false);
-        jPanel4.add(RosterBut);
-
-        RecomBut.setText("Add consultation notes and recommendations");
-        RecomBut.setActionCommand("");
-        RecomBut.setAlignmentX(0.5F);
-        RecomBut.setContentAreaFilled(false);
-        jPanel4.add(RecomBut);
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(93, 158, 79));
+        jLabel2.setText("CMS");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(60, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 330, Short.MAX_VALUE))
-        );
-
-        jButton2.setText("<");
-        jButton2.setContentAreaFilled(false);
-        jButton2.addActionListener(this::jButton2ActionPerformed);
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(314, 314, 314)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(17, 17, 17)
+                .addComponent(jLabel2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        CMainPanel.setBackground(new java.awt.Color(255, 255, 255));
+        CMainPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder(null, java.awt.Color.black));
+        CMainPanel.setAlignmentX(0.0F);
+        CMainPanel.setAlignmentY(0.0F);
+        CMainPanel.setPreferredSize(new java.awt.Dimension(1200, 730));
+        CMainPanel.setLayout(new java.awt.BorderLayout());
+
+        MainPanel.setBackground(new java.awt.Color(255, 255, 255));
+        MainPanel.setPreferredSize(new java.awt.Dimension(850, 100));
+        MainPanel.setLayout(new java.awt.BorderLayout());
+
+        ContentPanel.setBackground(new java.awt.Color(102, 153, 0));
+        ContentPanel.setPreferredSize(new java.awt.Dimension(800, 0));
+        ContentPanel.setLayout(new java.awt.BorderLayout());
+        MainPanel.add(ContentPanel, java.awt.BorderLayout.CENTER);
+
+        SideBarBut.setBackground(new java.awt.Color(111, 148, 85));
+        SideBarBut.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        SideBarBut.setText("<");
+        SideBarBut.setPreferredSize(new java.awt.Dimension(50, 23));
+        SideBarBut.addActionListener(this::SideBarButActionPerformed);
+        MainPanel.add(SideBarBut, java.awt.BorderLayout.WEST);
+
+        CMainPanel.add(MainPanel, java.awt.BorderLayout.CENTER);
+
+        SideBarPanel.setBackground(new java.awt.Color(111, 148, 85));
+        SideBarPanel.setPreferredSize(new java.awt.Dimension(350, 100));
+        SideBarPanel.setLayout(new java.awt.BorderLayout());
+
+        InnerSideBarPanel.setBackground(new java.awt.Color(102, 153, 0));
+        InnerSideBarPanel.setPreferredSize(new java.awt.Dimension(100, 300));
+        InnerSideBarPanel.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                InnerSideBarPanelMouseDragged(evt);
+            }
+        });
+        InnerSideBarPanel.setLayout(new java.awt.GridLayout(0, 1));
+
+        RecordBut.setBackground(new java.awt.Color(111, 148, 85));
+        RecordBut.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        RecordBut.setText("Student Consultation Records");
+        RecordBut.addActionListener(this::RecordButActionPerformed);
+        InnerSideBarPanel.add(RecordBut);
+
+        AppointBut.setBackground(new java.awt.Color(111, 148, 85));
+        AppointBut.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        AppointBut.setText("View Assigned Appoinments");
+        AppointBut.setAlignmentY(0.0F);
+        AppointBut.addActionListener(this::AppointButActionPerformed);
+        InnerSideBarPanel.add(AppointBut);
+
+        RosterBut.setBackground(new java.awt.Color(111, 148, 85));
+        RosterBut.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        RosterBut.setText("View Personal Roster");
+        RosterBut.addActionListener(this::RosterButActionPerformed);
+        InnerSideBarPanel.add(RosterBut);
+
+        RecomBut.setBackground(new java.awt.Color(111, 148, 85));
+        RecomBut.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        RecomBut.setText("Add consultation notes and recommendations");
+        RecomBut.setActionCommand("");
+        RecomBut.setAlignmentX(0.5F);
+        RecomBut.addActionListener(this::RecomButActionPerformed);
+        InnerSideBarPanel.add(RecomBut);
+
+        SideBarPanel.add(InnerSideBarPanel, java.awt.BorderLayout.NORTH);
+
+        CMainPanel.add(SideBarPanel, java.awt.BorderLayout.WEST);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(CMainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(406, 406, 406)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(34, 34, 34))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 0, 0))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(CMainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    
+    private void butHighlight(javax.swing.JButton but){
+        RecomBut.setContentAreaFilled(false);
+        RosterBut.setContentAreaFilled(false); 
+        AppointBut.setContentAreaFilled(false);
+        RecordBut.setContentAreaFilled(false); 
+        
+        if(but.equals(RecomBut)){
+            RecomBut.setContentAreaFilled(true);
+        }
+        if(but.equals(RosterBut)){
+            RosterBut.setContentAreaFilled(true);
+        }
+        if(but.equals(AppointBut)){
+            AppointBut.setContentAreaFilled(true);
+        }
+        if(but.equals(RecordBut)){
+            RecordBut.setContentAreaFilled(true);
+        }
+    }
+    
+    private void SideBarButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SideBarButActionPerformed
         sbVisible = !sbVisible;
-        jPanel2.setVisible(sbVisible);
+        SideBarPanel.setVisible(sbVisible);
         if(sbVisible == true){
-            jButton2.setText("<");
+            SideBarPanel.setPreferredSize(new java.awt.Dimension(350,0));
+            SideBarBut.setText("<");
         }
         else{
-            jButton2.setText(">");
+            SideBarPanel.setPreferredSize(new java.awt.Dimension(0,0));
+            SideBarBut.setText(">");
         }
         revalidate();
         repaint();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_SideBarButActionPerformed
+
+    private void RecomButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RecomButActionPerformed
+        butHighlight(RecomBut);
+        recomPanel = new CRecomPanel();
+        frame.switchContent(recomPanel, ContentPanel);
+    }//GEN-LAST:event_RecomButActionPerformed
+
+    private void RosterButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RosterButActionPerformed
+        butHighlight(RosterBut);
+    }//GEN-LAST:event_RosterButActionPerformed
+
+    private void AppointButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AppointButActionPerformed
+        butHighlight(AppointBut);
+    }//GEN-LAST:event_AppointButActionPerformed
+
+    private void RecordButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RecordButActionPerformed
+        butHighlight(RecordBut);
+    }//GEN-LAST:event_RecordButActionPerformed
+
+    private void InnerSideBarPanelMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_InnerSideBarPanelMouseDragged
+
+    }//GEN-LAST:event_InnerSideBarPanelMouseDragged
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        loginPanel = new LoginPanel(frame);
+        frame.switchTo(loginPanel);        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AppointBut;
+    private javax.swing.JPanel CMainPanel;
+    private javax.swing.JPanel ContentPanel;
+    private javax.swing.JPanel InnerSideBarPanel;
+    private javax.swing.JPanel MainPanel;
     private javax.swing.JButton RecomBut;
     private javax.swing.JButton RecordBut;
     private javax.swing.JButton RosterBut;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton SideBarBut;
+    private javax.swing.JPanel SideBarPanel;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     // End of variables declaration//GEN-END:variables
 }
