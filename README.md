@@ -21,7 +21,11 @@ What I've done (Linkin Park reference):
  - **filterID(ID,FILENAME)** `Return a string line of user data based on id`
  - **functions that convert date, calendar and string to each other**
  - **removeData(ID, FILENAME)** `remove data (line) from file based on ID and filename.`
- - **checkDayClash(DATE)** `Checks if the date object provided clashes to other appointments, returns time that did not clash.` 
+ - **checkDayClash(DATE)** `Checks if the date object provided clashes to other appointments, returns time that did not clash.`
+
+Current bugs:
+ - able to create two or more same user in admin add acc
+ - some readFile line problem (read extra line that put in table)
 
 ---
 
