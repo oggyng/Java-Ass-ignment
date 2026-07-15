@@ -49,8 +49,35 @@ public class Functions {
         try(BufferedWriter bw = new BufferedWriter(new FileWriter(f,inputMode))){
             for(int i=0;i<inputData.size();i++){
                 bw.write(inputData.get(i));
+                bw.newLine();
             bw.close();
             }
+        }
+        catch(IOException e){
+            System.out.println("Sum Ting Wong!");
+        }
+        
+        System.out.println("Debug: File Updated Successfully!");
+    }
+    
+    public static void inputFile(String fileName, String inputData, String mode){
+        Boolean inputMode; 
+        
+        switch(mode){
+            case("append") -> inputMode = true;
+            case("write") -> inputMode = false;
+            default -> {inputMode = true; System.out.println("Debug: No mode assigned, automatically changed to append mode");}
+        }
+        
+        File f = new File(fileName);
+        if(!f.exists()){
+            System.out.println("Debug: File not found btw, a new file will be create");
+        }
+
+        try(BufferedWriter bw = new BufferedWriter(new FileWriter(f,inputMode))){
+            bw.write(inputData);
+            bw.newLine();
+            bw.close();
         }
         catch(IOException e){
             System.out.println("Sum Ting Wong!");
@@ -169,5 +196,79 @@ public class Functions {
             }
         }
         return timeSlot;
+    }
+    
+    public static ArrayList<Integer> ageRange(){
+        Calendar c = Calendar.getInstance();
+        ArrayList<Integer> range = new ArrayList<>();
+        int year = c.get(Calendar.YEAR);
+        int temp = year;
+        while(year > temp-80){
+            range.add(year);
+            year--;
+        }
+        return range;
+    }
+    
+    public static int checkDate(int year, String month){
+        int day;
+        if(year%4==0){
+            day = switch(month){
+                case "Jan","Mar","May","Jul","Aug","Oct","Dec" -> 31;
+                case "Apr","Jun","Sep","Nov" -> 30;
+                case "Feb" -> 29;   
+                default -> 31;
+            };
+        }
+        else{
+            day = switch(month){
+                case "Jan","Mar","May","Jul","Aug","Oct","Dec" -> 31;
+                case "Apr","Jun","Sep","Nov" -> 30;
+                case "Feb" -> 28;   
+                default -> 31;
+            };
+        }
+        return day;
+    }
+    
+    public static String[] DoBtoList(String dob){
+        String[] date = dob.split("-");
+        String month = switch(date[1]){
+            case "01" -> "Jan";
+            case "02" -> "Feb";
+            case "03" -> "Mar";
+            case "04" -> "Apr";
+            case "05" -> "May";
+            case "06" -> "Jun";
+            case "07" -> "Jul";
+            case "08" -> "Aug";
+            case "09" -> "Sep";
+            case "10" -> "Oct";
+            case "11" -> "Nov";
+            case "12" -> "Dec";
+            default -> null;
+        };
+        String[] rDate = {date[0],month,date[2]};
+        return rDate;
+    }
+    
+    public static String ListtoDoB(String[] dob){
+        String month = switch(dob[1]){
+            case "Jan" -> "01";
+            case "Feb" -> "02";
+            case "Mar" -> "03";
+            case "Apr" -> "04";
+            case "May" -> "05";
+            case "Jun" -> "06";
+            case "Jul" -> "07";
+            case "Aug" -> "08";
+            case "Sep" -> "09";
+            case "Oct" -> "10";
+            case "Nov" -> "11";
+            case "Dec" -> "12";
+            default -> null;
+        };
+        String rDate = dob[0]+"-"+month+"-"+dob[2];
+        return rDate;
     }
 }

@@ -38,9 +38,7 @@ public class Assignment extends JFrame{
     
     // this is where you should put every panel
     public LoginPanel loginPanel;
-    
-    
-    private final JPanel contentPanel;
+
 
     
 
@@ -53,7 +51,6 @@ public class Assignment extends JFrame{
         loginPanel = new LoginPanel(this);
         
         
-        contentPanel = new JPanel(new BorderLayout());
         
         switchTo(loginPanel);
         setVisible(true);
@@ -66,7 +63,7 @@ public class Assignment extends JFrame{
         repaint();
     }
     
-    public void switchContent(JPanel panel) {
+    public void switchContent(JPanel panel, JPanel contentPanel) {
         contentPanel.removeAll();
         contentPanel.add(panel, BorderLayout.CENTER);
         contentPanel.revalidate();
@@ -74,6 +71,10 @@ public class Assignment extends JFrame{
     }
 
     public static void main(String[] args) {
-        java.awt.EventQueue.invokeLater(() -> new Assignment());
+        java.awt.EventQueue.invokeLater(() -> {
+            WelcomePage wp = new WelcomePage();
+            wp.setVisible(true);
+        });
+        
     }
 }

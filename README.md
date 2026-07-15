@@ -8,7 +8,7 @@ Just an assignment to create a Counseling Management System with four roles (Adm
 So apparently the cheatsheet for AWT is only useful on exam but useless on assignment :(
 
 Currently in: 
-**Stuck, unable to continue until my question has resolved (this is so frustrating)**
+**Progressing**
 
 What I've done (Linkin Park reference):
  - **readFile(FILENAME)** `It reads file ofc`
@@ -19,8 +19,9 @@ What I've done (Linkin Park reference):
  - **switchTo(PANEL) and switchContent(PANEL)** `This is where you switch between interfaces`
  - **filterData(DATAARRAY,TARGET,INDEX)** `Filter data to ArrayList based on target and index column (input -1 for index if want to check all column)`
  - **filterID(ID,FILENAME)** `Return a string line of user data based on id`
- - **toDate(DATE)** `Convert string text to date object`
- - **
+ - **functions that convert date, calendar and string to each other**
+ - **removeData(ID, FILENAME)** `remove data (line) from file based on ID and filename.`
+ - **checkDayClash(DATE)** `Checks if the date object provided clashes to other appointments, returns time that did not clash.` 
 
 ---
 

@@ -21,7 +21,11 @@ public class LoginPanel extends javax.swing.JPanel {
     final String loginFile = "loginData.txt";
     final char pwChar;
     public CounselorMainPanel cMainPanel;
-    public counselorObject user;
+    public AdminMainPanel aMainPanel;
+//    public ReceptionistMainPanel rMainPanel;
+//    public StudentMainPanel sMainPanel;
+    public OCounselor cuser;
+    public OAdmin auser;
     
     
     
@@ -118,12 +122,17 @@ public class LoginPanel extends javax.swing.JPanel {
             if(name.equals(part[1]) && password.equals(part[2])){
                 switch(part[3]){
                     // Interfaces below (use switchTo)
-                    case "Admin" -> System.out.println("Admin");
+                    case "Admin" ->{
+                        String up = Functions.filterID(part[0],"userData.txt");
+                        auser = OAdmin.extractFile(up);
+                        aMainPanel = new AdminMainPanel(frame,auser);
+                        frame.switchTo(aMainPanel); 
+                    }
                     case "Receptionist" -> System.out.println("Admin");
                     case "Counselor"->{
                         String up = Functions.filterID(part[0],"userData.txt");
-                        user = counselorObject.extractFile(up);
-                        cMainPanel = new CounselorMainPanel(frame,user);
+                        cuser = OCounselor.extractFile(up);
+                        cMainPanel = new CounselorMainPanel(frame,cuser);
                         frame.switchTo(cMainPanel); 
                         
                         }

@@ -13,18 +13,18 @@ import javax.swing.JLabel;
  *
  * @author User
  */
-public class CounselorMainPanel extends javax.swing.JPanel {
+public class AdminMainPanel extends javax.swing.JPanel {
     private boolean sbVisible = true;
     final Assignment frame;
-    private OCounselor user;
+    private OAdmin user;
     public LoginPanel loginPanel;
-    public CRecomPanel recomPanel;
+    public AAccountPanel accountPanel;
     
     
     /**
      * Creates new form CounselorMainPanel
      */
-    public CounselorMainPanel(Assignment frame, OCounselor user) {
+    public AdminMainPanel(Assignment frame, OAdmin user) {
         this.frame = frame;
         this.user = user;
         // create a method where u can read file and convert to object data
@@ -66,10 +66,10 @@ public class CounselorMainPanel extends javax.swing.JPanel {
         SideBarBut = new javax.swing.JButton();
         SideBarPanel = new javax.swing.JPanel();
         InnerSideBarPanel = new javax.swing.JPanel();
-        RecordBut = new javax.swing.JButton();
+        AccountBut = new javax.swing.JButton();
+        StaffBut = new javax.swing.JButton();
         AppointBut = new javax.swing.JButton();
-        RosterBut = new javax.swing.JButton();
-        RecomBut = new javax.swing.JButton();
+        ReportBut = new javax.swing.JButton();
         TaskBar = new javax.swing.JPanel();
         GitHub = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -230,32 +230,32 @@ public class CounselorMainPanel extends javax.swing.JPanel {
         });
         InnerSideBarPanel.setLayout(new java.awt.GridLayout(0, 1));
 
-        RecordBut.setBackground(new java.awt.Color(111, 148, 85));
-        RecordBut.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        RecordBut.setText("Student Consultation Records");
-        RecordBut.addActionListener(this::RecordButActionPerformed);
-        InnerSideBarPanel.add(RecordBut);
+        AccountBut.setBackground(new java.awt.Color(111, 148, 85));
+        AccountBut.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        AccountBut.setText("Manage user accounts");
+        AccountBut.addActionListener(this::AccountButActionPerformed);
+        InnerSideBarPanel.add(AccountBut);
+
+        StaffBut.setBackground(new java.awt.Color(111, 148, 85));
+        StaffBut.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        StaffBut.setText("Manage staff roster and schedules");
+        StaffBut.setAlignmentY(0.0F);
+        StaffBut.addActionListener(this::StaffButActionPerformed);
+        InnerSideBarPanel.add(StaffBut);
 
         AppointBut.setBackground(new java.awt.Color(111, 148, 85));
         AppointBut.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        AppointBut.setText("View Assigned Appoinments");
-        AppointBut.setAlignmentY(0.0F);
+        AppointBut.setText("Monitor appointment statistics");
         AppointBut.addActionListener(this::AppointButActionPerformed);
         InnerSideBarPanel.add(AppointBut);
 
-        RosterBut.setBackground(new java.awt.Color(111, 148, 85));
-        RosterBut.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        RosterBut.setText("View Personal Roster");
-        RosterBut.addActionListener(this::RosterButActionPerformed);
-        InnerSideBarPanel.add(RosterBut);
-
-        RecomBut.setBackground(new java.awt.Color(111, 148, 85));
-        RecomBut.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        RecomBut.setText("Add consultation notes and recommendations");
-        RecomBut.setActionCommand("");
-        RecomBut.setAlignmentX(0.5F);
-        RecomBut.addActionListener(this::RecomButActionPerformed);
-        InnerSideBarPanel.add(RecomBut);
+        ReportBut.setBackground(new java.awt.Color(111, 148, 85));
+        ReportBut.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        ReportBut.setText("Generate reports");
+        ReportBut.setActionCommand("");
+        ReportBut.setAlignmentX(0.5F);
+        ReportBut.addActionListener(this::ReportButActionPerformed);
+        InnerSideBarPanel.add(ReportBut);
 
         SideBarPanel.add(InnerSideBarPanel, java.awt.BorderLayout.NORTH);
 
@@ -304,22 +304,22 @@ public class CounselorMainPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
     
     private void butHighlight(javax.swing.JButton but){
-        RecomBut.setContentAreaFilled(false);
-        RosterBut.setContentAreaFilled(false); 
-        AppointBut.setContentAreaFilled(false);
-        RecordBut.setContentAreaFilled(false); 
+        ReportBut.setContentAreaFilled(false);
+        AppointBut.setContentAreaFilled(false); 
+        StaffBut.setContentAreaFilled(false);
+        AccountBut.setContentAreaFilled(false); 
         
-        if(but.equals(RecomBut)){
-            RecomBut.setContentAreaFilled(true);
-        }
-        if(but.equals(RosterBut)){
-            RosterBut.setContentAreaFilled(true);
+        if(but.equals(ReportBut)){
+            ReportBut.setContentAreaFilled(true);
         }
         if(but.equals(AppointBut)){
             AppointBut.setContentAreaFilled(true);
         }
-        if(but.equals(RecordBut)){
-            RecordBut.setContentAreaFilled(true);
+        if(but.equals(StaffBut)){
+            StaffBut.setContentAreaFilled(true);
+        }
+        if(but.equals(AccountBut)){
+            AccountBut.setContentAreaFilled(true);
         }
     }
     
@@ -338,23 +338,24 @@ public class CounselorMainPanel extends javax.swing.JPanel {
         repaint();
     }//GEN-LAST:event_SideBarButActionPerformed
 
-    private void RecomButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RecomButActionPerformed
-        butHighlight(RecomBut);
-        recomPanel = new CRecomPanel();
-        frame.switchContent(recomPanel, ContentPanel);
-    }//GEN-LAST:event_RecomButActionPerformed
-
-    private void RosterButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RosterButActionPerformed
-        butHighlight(RosterBut);
-    }//GEN-LAST:event_RosterButActionPerformed
+    private void ReportButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReportButActionPerformed
+        butHighlight(ReportBut);
+        
+    }//GEN-LAST:event_ReportButActionPerformed
 
     private void AppointButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AppointButActionPerformed
         butHighlight(AppointBut);
     }//GEN-LAST:event_AppointButActionPerformed
 
-    private void RecordButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RecordButActionPerformed
-        butHighlight(RecordBut);
-    }//GEN-LAST:event_RecordButActionPerformed
+    private void StaffButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StaffButActionPerformed
+        butHighlight(StaffBut);
+    }//GEN-LAST:event_StaffButActionPerformed
+
+    private void AccountButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AccountButActionPerformed
+        butHighlight(AccountBut);
+        accountPanel = new AAccountPanel(frame);
+        frame.switchContent(accountPanel, ContentPanel);
+    }//GEN-LAST:event_AccountButActionPerformed
 
     private void InnerSideBarPanelMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_InnerSideBarPanelMouseDragged
 
@@ -375,6 +376,7 @@ public class CounselorMainPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton AccountBut;
     private javax.swing.JButton AppointBut;
     private javax.swing.JPanel CMainPanel;
     private javax.swing.JPanel Center;
@@ -386,12 +388,11 @@ public class CounselorMainPanel extends javax.swing.JPanel {
     private javax.swing.JLabel LogoText;
     private javax.swing.JButton Logout;
     private javax.swing.JPanel MainPanel;
-    private javax.swing.JButton RecomBut;
-    private javax.swing.JButton RecordBut;
+    private javax.swing.JButton ReportBut;
     private javax.swing.JPanel Right;
-    private javax.swing.JButton RosterBut;
     private javax.swing.JButton SideBarBut;
     private javax.swing.JPanel SideBarPanel;
+    private javax.swing.JButton StaffBut;
     private javax.swing.JPanel TaskBar;
     private javax.swing.JPanel TopNavBar;
     private javax.swing.JLabel Welcome;
