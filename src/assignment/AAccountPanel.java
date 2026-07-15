@@ -4,7 +4,11 @@
  */
 package assignment;
 
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import java.util.Date;
+import java.util.ArrayList;
+import java.util.Arrays;
 /**
  *
  * @author User
@@ -12,12 +16,27 @@ import javax.swing.table.DefaultTableModel;
 public class AAccountPanel extends javax.swing.JPanel {
     private DefaultTableModel model = new DefaultTableModel();
     private String[] columnName = {"UID","Name","Gender","BoD","Mail"};
+    public int year = 2026;
+    private int row = -1;
+    final Assignment frame;
     /**
      * Creates new form AAccountPanel
      */
-    public AAccountPanel() {
+    public AAccountPanel(Assignment frame) {
+        this.frame = frame;
         initComponents();
         model.setColumnIdentifiers(columnName);
+        for(int i=31;i>0;i--){
+            DayList.addItem(i);
+        }
+        for(int yr : Functions.ageRange()){
+            YearList.addItem(yr);
+        }
+        for(String line : Functions.readFile("userData.txt")){
+            String[] temp = line.split(",");
+            model.addRow(temp);
+        }
+        
         
     }
 
@@ -37,11 +56,11 @@ public class AAccountPanel extends javax.swing.JPanel {
         UpdateBut = new javax.swing.JButton();
         DeleteBut = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        NameField = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        MailField = new javax.swing.JTextField();
         GenderList = new javax.swing.JComboBox<>();
         DayList = new javax.swing.JComboBox<>();
         MonthList = new javax.swing.JComboBox<>();
@@ -59,11 +78,11 @@ public class AAccountPanel extends javax.swing.JPanel {
         Top.setLayout(TopLayout);
         TopLayout.setHorizontalGroup(
             TopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 1000, Short.MAX_VALUE)
         );
         TopLayout.setVerticalGroup(
             TopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 50, Short.MAX_VALUE)
         );
 
         add(Top, java.awt.BorderLayout.NORTH);
@@ -74,6 +93,7 @@ public class AAccountPanel extends javax.swing.JPanel {
         CreateBut.addActionListener(this::CreateButActionPerformed);
 
         ReadBut.setText("Read");
+        ReadBut.addActionListener(this::ReadButActionPerformed);
 
         UpdateBut.setText("Update");
 
@@ -89,12 +109,10 @@ public class AAccountPanel extends javax.swing.JPanel {
 
         GenderList.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female" }));
 
-        DayList.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
-
         MonthList.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" }));
         MonthList.addActionListener(this::MonthListActionPerformed);
 
-        YearList.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        YearList.addActionListener(this::YearListActionPerformed);
 
         javax.swing.GroupLayout LeftLayout = new javax.swing.GroupLayout(Left);
         Left.setLayout(LeftLayout);
@@ -122,8 +140,8 @@ public class AAccountPanel extends javax.swing.JPanel {
                         .addComponent(MonthList, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(YearList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jTextField4)
-                    .addComponent(jTextField1))
+                    .addComponent(MailField)
+                    .addComponent(NameField))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
         LeftLayout.setVerticalGroup(
@@ -131,7 +149,7 @@ public class AAccountPanel extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LeftLayout.createSequentialGroup()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(NameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -146,8 +164,8 @@ public class AAccountPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
+                .addComponent(MailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 199, Short.MAX_VALUE)
                 .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(CreateBut)
                     .addComponent(ReadBut))
@@ -166,11 +184,11 @@ public class AAccountPanel extends javax.swing.JPanel {
         Right.setLayout(RightLayout);
         RightLayout.setHorizontalGroup(
             RightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 50, Short.MAX_VALUE)
         );
         RightLayout.setVerticalGroup(
             RightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 496, Short.MAX_VALUE)
         );
 
         add(Right, java.awt.BorderLayout.EAST);
@@ -181,50 +199,117 @@ public class AAccountPanel extends javax.swing.JPanel {
         Bottom.setLayout(BottomLayout);
         BottomLayout.setHorizontalGroup(
             BottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 1000, Short.MAX_VALUE)
         );
         BottomLayout.setVerticalGroup(
             BottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 25, Short.MAX_VALUE)
         );
 
         add(Bottom, java.awt.BorderLayout.SOUTH);
 
         jTable1.setModel(model);
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jTable1MouseReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         add(jScrollPane1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     private void CreateButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateButActionPerformed
-        // TODO add your handling code here:
+        String name = NameField.getText().trim();
+        String gender = (String) GenderList.getSelectedItem();
+        String y = String.valueOf(YearList.getSelectedItem());
+        String m = (String) MonthList.getSelectedItem();
+        String d = String.format("%02d", DayList.getSelectedItem());
+        String[] tempDate = {y,m,d};
+        Date dob = Functions.StringtoDate(Functions.ListtoDoB(tempDate));
+        String mail = MailField.getText();
+        OAdmin newUser = new OAdmin(name,gender,dob,mail);
+        newUser.setId("Admin"); // Add feature that filer roles, and check box choose role to add or whatever idk
+        System.out.println(Functions.ListtoDoB(tempDate));
+        
+        String[] newData = {newUser.getId(),name,gender,Functions.ListtoDoB(tempDate),mail};
+        model.addRow(newData);
+        
+        String fileData = newUser.getId()+","+name+","+gender+","+Functions.ListtoDoB(tempDate)+","+mail;
+        Functions.inputFile("userData.txt", fileData, "append");
+        
     }//GEN-LAST:event_CreateButActionPerformed
 
     private void MonthListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MonthListActionPerformed
-        // TODO add your handling code here:
+        
+        String choice = (String) MonthList.getSelectedItem();
+        int dChoice = (int) DayList.getSelectedItem();
+        int day = Functions.checkDate(year,choice);
+        DayList.removeAllItems();
+        for(int i=day;i>0;i--){
+            DayList.addItem(i);
+        }
+        if(dChoice>day){
+            DayList.setSelectedItem(day);
+        }
     }//GEN-LAST:event_MonthListActionPerformed
+
+    private void YearListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_YearListActionPerformed
+        int choice = (int) YearList.getSelectedItem();
+        year = choice;
+        String mChoice = (String) MonthList.getSelectedItem();
+        int dChoice = (int) DayList.getSelectedItem();
+        int day = Functions.checkDate(year,mChoice);
+        DayList.removeAllItems();
+        for(int i=day;i>0;i--){
+            DayList.addItem(i);
+        }
+        if(dChoice>day){
+            DayList.setSelectedItem(day);
+        }
+    }//GEN-LAST:event_YearListActionPerformed
+
+    private void ReadButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReadButActionPerformed
+        if(row==-1){
+            JOptionPane.showMessageDialog(frame, "Sum Ting Wong!");
+        }
+        else{
+            NameField.setText(String.valueOf(model.getValueAt(row, 1)));
+            GenderList.setSelectedItem(String.valueOf(model.getValueAt(row, 2)));
+            String[] tempDate = Functions.DoBtoList(String.valueOf(model.getValueAt(row, 3)));
+            YearList.setSelectedItem(Integer.parseInt(tempDate[0]));
+            MonthList.setSelectedItem(tempDate[1]);
+            DayList.setSelectedItem(Integer.parseInt(tempDate[2]));
+            MailField.setText(String.valueOf(model.getValueAt(row, 4)));
+            
+        }
+    }//GEN-LAST:event_ReadButActionPerformed
+
+    private void jTable1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseReleased
+        row = jTable1.getSelectedRow();
+    }//GEN-LAST:event_jTable1MouseReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Bottom;
     private javax.swing.JButton CreateBut;
-    private javax.swing.JComboBox<String> DayList;
+    private javax.swing.JComboBox<Integer> DayList;
     private javax.swing.JButton DeleteBut;
     private javax.swing.JComboBox<String> GenderList;
     private javax.swing.JPanel Left;
+    private javax.swing.JTextField MailField;
     private javax.swing.JComboBox<String> MonthList;
+    private javax.swing.JTextField NameField;
     private javax.swing.JButton ReadBut;
     private javax.swing.JPanel Right;
     private javax.swing.JPanel Top;
     private javax.swing.JButton UpdateBut;
-    private javax.swing.JComboBox<String> YearList;
+    private javax.swing.JComboBox<Integer> YearList;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField4;
     // End of variables declaration//GEN-END:variables
 }

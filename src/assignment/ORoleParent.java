@@ -16,6 +16,13 @@ public abstract class ORoleParent {
     private String id, name, gender, email;
     private Date DoB;
     
+    public ORoleParent(String name, String gender, Date DoB, String email){
+        this.name = name;
+        this.gender = gender;
+        this.DoB = DoB;
+        this.email = email;
+    }
+    
     public ORoleParent(String id, String name, String gender, Date DoB, String email){
         this.id = id;
         this.name = name;
@@ -36,7 +43,7 @@ public abstract class ORoleParent {
         return now.get(Calendar.YEAR)-dob.get(Calendar.YEAR);
     }
 
-    public void setId(String id, String role){
+    public void setId(String role){
         String c;
         switch(role){
             case "Admin" -> c = "A";
@@ -88,6 +95,9 @@ public abstract class ORoleParent {
             this.email = null;
             return false;
         }
+    }
+    public String ObjecttoString(){
+        return(this.id+","+this.name+","+this.gender+","+this.DoB+","+this.email);
     }
 }
 

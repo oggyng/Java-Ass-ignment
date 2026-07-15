@@ -12,6 +12,9 @@ import java.util.Date;
  * @author User
  */
 public class OAdmin extends ORoleParent{
+    OAdmin(String name, String gender, Date DoB, String email){
+        super(name, gender, DoB, email);
+    }
     OAdmin(String id, String name, String gender, Date DoB, String email){
         super(id, name, gender, DoB, email);
     }
