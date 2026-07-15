@@ -16,7 +16,7 @@ import javax.swing.JLabel;
 public class CounselorMainPanel extends javax.swing.JPanel {
     private boolean sbVisible = true;
     final Assignment frame;
-    private counselorObject user;
+    private OCounselor user;
     public LoginPanel loginPanel;
     public CRecomPanel recomPanel;
     
@@ -24,21 +24,23 @@ public class CounselorMainPanel extends javax.swing.JPanel {
     /**
      * Creates new form CounselorMainPanel
      */
-    public CounselorMainPanel(Assignment frame, counselorObject user) {
+    public CounselorMainPanel(Assignment frame, OCounselor user) {
         this.frame = frame;
         this.user = user;
         // create a method where u can read file and convert to object data
         initComponents();
-        jLabel1.setText("Welcome "+user.getName());
+        Welcome.setText("Welcome "+user.getName());
+        
         ImageIcon cmsIcon = new ImageIcon(getClass().getResource("/assignment/imgSrc/cms.png"));
         Image cms = cmsIcon.getImage();
         Image scaledCMS = cms.getScaledInstance(40, 50, Image.SCALE_SMOOTH);
         ImageIcon scaledCMSIcon = new ImageIcon(scaledCMS);
         JLabel iconLabel4 = new JLabel(scaledCMSIcon);
-        jPanel2.setLayout(new BorderLayout());
-        jPanel2.add(iconLabel4, BorderLayout.SOUTH);
-        jPanel2.revalidate();
-        jPanel2.repaint();
+        Logo.setLayout(new BorderLayout());
+        Logo.add(iconLabel4, BorderLayout.SOUTH);
+        Logo.revalidate();
+        Logo.repaint();
+        
     }
 
     /**
@@ -50,10 +52,14 @@ public class CounselorMainPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        TopNavBar = new javax.swing.JPanel();
+        Left = new javax.swing.JPanel();
+        Logo = new javax.swing.JPanel();
+        LogoText = new javax.swing.JLabel();
+        Right = new javax.swing.JPanel();
+        Logout = new javax.swing.JButton();
+        Center = new javax.swing.JPanel();
+        Welcome = new javax.swing.JLabel();
         CMainPanel = new javax.swing.JPanel();
         MainPanel = new javax.swing.JPanel();
         ContentPanel = new javax.swing.JPanel();
@@ -64,45 +70,127 @@ public class CounselorMainPanel extends javax.swing.JPanel {
         AppointBut = new javax.swing.JButton();
         RosterBut = new javax.swing.JButton();
         RecomBut = new javax.swing.JButton();
+        TaskBar = new javax.swing.JPanel();
+        GitHub = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(26, 82, 28));
         setForeground(new java.awt.Color(26, 82, 28));
         setMaximumSize(new java.awt.Dimension(1200, 800));
         setMinimumSize(new java.awt.Dimension(1200, 800));
         setPreferredSize(new java.awt.Dimension(1200, 800));
+        setLayout(new java.awt.BorderLayout());
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(93, 158, 79));
-        jLabel1.setText("Welcome");
+        TopNavBar.setOpaque(false);
+        TopNavBar.setPreferredSize(new java.awt.Dimension(0, 65));
+        TopNavBar.setLayout(new java.awt.BorderLayout());
 
-        jButton1.setBackground(new java.awt.Color(26, 82, 28));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(93, 158, 79));
-        jButton1.setText("Logout");
-        jButton1.addActionListener(this::jButton1ActionPerformed);
+        Left.setOpaque(false);
+        Left.setPreferredSize(new java.awt.Dimension(120, 0));
 
-        jPanel2.setOpaque(false);
+        Logo.setOpaque(false);
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(93, 158, 79));
-        jLabel2.setText("CMS");
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(60, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addContainerGap())
+        javax.swing.GroupLayout LogoLayout = new javax.swing.GroupLayout(Logo);
+        Logo.setLayout(LogoLayout);
+        LogoLayout.setHorizontalGroup(
+            LogoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 52, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(jLabel2)
+        LogoLayout.setVerticalGroup(
+            LogoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 52, Short.MAX_VALUE)
+        );
+
+        LogoText.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        LogoText.setForeground(new java.awt.Color(93, 158, 79));
+        LogoText.setText("CMS");
+
+        javax.swing.GroupLayout LeftLayout = new javax.swing.GroupLayout(Left);
+        Left.setLayout(LeftLayout);
+        LeftLayout.setHorizontalGroup(
+            LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(LeftLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Logo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(LogoText, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+        LeftLayout.setVerticalGroup(
+            LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(LeftLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(LogoText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(LeftLayout.createSequentialGroup()
+                        .addComponent(Logo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 1, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+
+        TopNavBar.add(Left, java.awt.BorderLayout.WEST);
+
+        Right.setOpaque(false);
+        Right.setPreferredSize(new java.awt.Dimension(100, 0));
+
+        Logout.setBackground(new java.awt.Color(26, 82, 28));
+        Logout.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        Logout.setForeground(new java.awt.Color(93, 158, 79));
+        Logout.setText("Logout");
+        Logout.addActionListener(this::LogoutActionPerformed);
+
+        javax.swing.GroupLayout RightLayout = new javax.swing.GroupLayout(Right);
+        Right.setLayout(RightLayout);
+        RightLayout.setHorizontalGroup(
+            RightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+            .addGroup(RightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RightLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(Logout, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+        RightLayout.setVerticalGroup(
+            RightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 65, Short.MAX_VALUE)
+            .addGroup(RightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RightLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(Logout, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+
+        TopNavBar.add(Right, java.awt.BorderLayout.EAST);
+
+        Center.setOpaque(false);
+        Center.setPreferredSize(new java.awt.Dimension(100, 0));
+
+        Welcome.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        Welcome.setForeground(new java.awt.Color(93, 158, 79));
+        Welcome.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Welcome.setText("Welcome");
+        Welcome.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        javax.swing.GroupLayout CenterLayout = new javax.swing.GroupLayout(Center);
+        Center.setLayout(CenterLayout);
+        CenterLayout.setHorizontalGroup(
+            CenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(CenterLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Welcome, javax.swing.GroupLayout.DEFAULT_SIZE, 968, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        CenterLayout.setVerticalGroup(
+            CenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CenterLayout.createSequentialGroup()
+                .addContainerGap(16, Short.MAX_VALUE)
+                .addComponent(Welcome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(17, Short.MAX_VALUE))
+        );
+
+        TopNavBar.add(Center, java.awt.BorderLayout.CENTER);
+
+        add(TopNavBar, java.awt.BorderLayout.NORTH);
 
         CMainPanel.setBackground(new java.awt.Color(255, 255, 255));
         CMainPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder(null, java.awt.Color.black));
@@ -173,37 +261,46 @@ public class CounselorMainPanel extends javax.swing.JPanel {
 
         CMainPanel.add(SideBarPanel, java.awt.BorderLayout.WEST);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(CMainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(406, 406, 406)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(34, 34, 34))
+        add(CMainPanel, java.awt.BorderLayout.CENTER);
+
+        TaskBar.setBackground(new java.awt.Color(26, 82, 28));
+        TaskBar.setPreferredSize(new java.awt.Dimension(0, 50));
+
+        GitHub.setOpaque(false);
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assignment/imgSrc/github.png"))); // NOI18N
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jLabel2MouseReleased(evt);
+            }
+        });
+
+        javax.swing.GroupLayout GitHubLayout = new javax.swing.GroupLayout(GitHub);
+        GitHub.setLayout(GitHubLayout);
+        GitHubLayout.setHorizontalGroup(
+            GitHubLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(CMainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10))
+        GitHubLayout.setVerticalGroup(
+            GitHubLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+
+        javax.swing.GroupLayout TaskBarLayout = new javax.swing.GroupLayout(TaskBar);
+        TaskBar.setLayout(TaskBarLayout);
+        TaskBarLayout.setHorizontalGroup(
+            TaskBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TaskBarLayout.createSequentialGroup()
+                .addContainerGap(1144, Short.MAX_VALUE)
+                .addComponent(GitHub, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        TaskBarLayout.setVerticalGroup(
+            TaskBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(GitHub, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        add(TaskBar, java.awt.BorderLayout.SOUTH);
     }// </editor-fold>//GEN-END:initComponents
     
     private void butHighlight(javax.swing.JButton but){
@@ -263,26 +360,41 @@ public class CounselorMainPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_InnerSideBarPanelMouseDragged
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void LogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutActionPerformed
         loginPanel = new LoginPanel(frame);
         frame.switchTo(loginPanel);        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_LogoutActionPerformed
+
+    private void jLabel2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseReleased
+        try {
+            java.awt.Desktop.getDesktop().browse(new java.net.URI("https://github.com/oggyng/Java-Ass-ignment"));
+        } catch (Exception e) {
+            System.out.println("Cannot open: " + e.getMessage());
+        }
+    }//GEN-LAST:event_jLabel2MouseReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AppointBut;
     private javax.swing.JPanel CMainPanel;
+    private javax.swing.JPanel Center;
     private javax.swing.JPanel ContentPanel;
+    private javax.swing.JPanel GitHub;
     private javax.swing.JPanel InnerSideBarPanel;
+    private javax.swing.JPanel Left;
+    private javax.swing.JPanel Logo;
+    private javax.swing.JLabel LogoText;
+    private javax.swing.JButton Logout;
     private javax.swing.JPanel MainPanel;
     private javax.swing.JButton RecomBut;
     private javax.swing.JButton RecordBut;
+    private javax.swing.JPanel Right;
     private javax.swing.JButton RosterBut;
     private javax.swing.JButton SideBarBut;
     private javax.swing.JPanel SideBarPanel;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel TaskBar;
+    private javax.swing.JPanel TopNavBar;
+    private javax.swing.JLabel Welcome;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
 }

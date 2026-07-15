@@ -12,11 +12,11 @@ import java.util.Calendar;
  *
  * @author User
  */
-public abstract class roleObject {
+public abstract class ORoleParent {
     private String id, name, gender, email;
     private Date DoB;
     
-    public roleObject(String id, String name, String gender, Date DoB, String email){
+    public ORoleParent(String id, String name, String gender, Date DoB, String email){
         this.id = id;
         this.name = name;
         this.gender = gender;
