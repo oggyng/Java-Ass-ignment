@@ -11,7 +11,7 @@ package assignment;
 public class RAppointPanel extends javax.swing.JPanel {
 
     /**
-     * Creates new form RAppointPanel
+     * Creates new form ARecomPanel
      */
     public RAppointPanel() {
         initComponents();
@@ -26,19 +26,95 @@ public class RAppointPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+        Top = new javax.swing.JPanel();
+        Left = new javax.swing.JPanel();
+        Center = new javax.swing.JPanel();
+        Right = new javax.swing.JPanel();
+        Bottom = new javax.swing.JPanel();
+
+        setLayout(new java.awt.BorderLayout());
+
+        Top.setMinimumSize(new java.awt.Dimension(0, 25));
+        Top.setPreferredSize(new java.awt.Dimension(0, 25));
+
+        javax.swing.GroupLayout TopLayout = new javax.swing.GroupLayout(Top);
+        Top.setLayout(TopLayout);
+        TopLayout.setHorizontalGroup(
+            TopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+        TopLayout.setVerticalGroup(
+            TopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
+
+        add(Top, java.awt.BorderLayout.NORTH);
+
+        Left.setPreferredSize(new java.awt.Dimension(50, 0));
+
+        javax.swing.GroupLayout LeftLayout = new javax.swing.GroupLayout(Left);
+        Left.setLayout(LeftLayout);
+        LeftLayout.setHorizontalGroup(
+            LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        LeftLayout.setVerticalGroup(
+            LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        add(Left, java.awt.BorderLayout.WEST);
+
+        javax.swing.GroupLayout CenterLayout = new javax.swing.GroupLayout(Center);
+        Center.setLayout(CenterLayout);
+        CenterLayout.setHorizontalGroup(
+            CenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 848, Short.MAX_VALUE)
+        );
+        CenterLayout.setVerticalGroup(
+            CenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        add(Center, java.awt.BorderLayout.CENTER);
+
+        Right.setPreferredSize(new java.awt.Dimension(50, 0));
+
+        javax.swing.GroupLayout RightLayout = new javax.swing.GroupLayout(Right);
+        Right.setLayout(RightLayout);
+        RightLayout.setHorizontalGroup(
+            RightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 50, Short.MAX_VALUE)
+        );
+        RightLayout.setVerticalGroup(
+            RightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        add(Right, java.awt.BorderLayout.EAST);
+
+        Bottom.setPreferredSize(new java.awt.Dimension(0, 25));
+
+        javax.swing.GroupLayout BottomLayout = new javax.swing.GroupLayout(Bottom);
+        Bottom.setLayout(BottomLayout);
+        BottomLayout.setHorizontalGroup(
+            BottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 948, Short.MAX_VALUE)
+        );
+        BottomLayout.setVerticalGroup(
+            BottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 25, Short.MAX_VALUE)
+        );
+
+        add(Bottom, java.awt.BorderLayout.SOUTH);
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel Bottom;
+    private javax.swing.JPanel Center;
+    private javax.swing.JPanel Left;
+    private javax.swing.JPanel Right;
+    private javax.swing.JPanel Top;
     // End of variables declaration//GEN-END:variables
 }

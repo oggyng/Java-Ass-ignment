@@ -50,8 +50,8 @@ public class Functions {
             for(int i=0;i<inputData.size();i++){
                 bw.write(inputData.get(i));
                 bw.newLine();
-            bw.close();
             }
+            bw.close();
         }
         catch(IOException e){
             System.out.println("Sum Ting Wong!");
@@ -166,8 +166,7 @@ public class Functions {
     public static void removeData(String id, String fileName){
         ArrayList<String> tempList = new ArrayList<>();
         for(String lines : readFile(fileName)){
-            String[] p = lines.split(",");
-            if(id.equals(p[0])){
+            if(id.equals(lines.split(",")[0])){
                 continue;
             }
             tempList.add(lines);
@@ -184,7 +183,7 @@ public class Functions {
             if(!date.equals(DateTimetoDate(StringtoDateTime(p[3])))){
                 continue;
             }
-            if(!p[5].equals("Approved") || !p[5].equals("PendingAdd") || !p[5].equals("PendingRemove") || !p[5].equals("PendingUpdate")){
+            if(!p[5].equals("Approved") && !p[5].equals("PendingAdd") && !p[5].equals("PendingRemove") && !p[5].equals("PendingUpdate")){
                 continue;
             }
             Calendar tempStart = StringtoDateTime(p[3]); 
@@ -233,21 +232,8 @@ public class Functions {
     
     public static String[] DoBtoList(String dob){
         String[] date = dob.split("-");
-        String month = switch(date[1]){
-            case "01" -> "Jan";
-            case "02" -> "Feb";
-            case "03" -> "Mar";
-            case "04" -> "Apr";
-            case "05" -> "May";
-            case "06" -> "Jun";
-            case "07" -> "Jul";
-            case "08" -> "Aug";
-            case "09" -> "Sep";
-            case "10" -> "Oct";
-            case "11" -> "Nov";
-            case "12" -> "Dec";
-            default -> null;
-        };
+        String[] months = {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
+        String month = months[Integer.parseInt(date[1])-1];
         String[] rDate = {date[0],month,date[2]};
         return rDate;
     }

@@ -8,12 +8,12 @@ package assignment;
  *
  * @author User
  */
-public class SAppointPanel extends javax.swing.JPanel {
+public class AApointPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form ARecomPanel
      */
-    public SAppointPanel() {
+    public AApointPanel() {
         initComponents();
     }
 

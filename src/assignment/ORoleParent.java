@@ -97,7 +97,7 @@ public abstract class ORoleParent {
         }
     }
     public String ObjecttoString(){
-        return(this.id+","+this.name+","+this.gender+","+this.DoB+","+this.email);
+        return(this.id+","+this.name+","+this.gender+","+Functions.DatetoString(this.DoB)+","+this.email);
     }
 }
 
