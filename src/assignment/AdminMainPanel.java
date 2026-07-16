@@ -19,6 +19,7 @@ public class AdminMainPanel extends javax.swing.JPanel {
     private OAdmin user;
     public LoginPanel loginPanel;
     public AAccountPanel accountPanel;
+    public AStaffPanel staffPanel;
     
     
     /**
@@ -349,6 +350,8 @@ public class AdminMainPanel extends javax.swing.JPanel {
 
     private void StaffButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StaffButActionPerformed
         butHighlight(StaffBut);
+        staffPanel = new AStaffPanel(frame);
+        frame.switchContent(staffPanel, ContentPanel);
     }//GEN-LAST:event_StaffButActionPerformed
 
     private void AccountButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AccountButActionPerformed

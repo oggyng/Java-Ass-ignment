@@ -77,4 +77,8 @@ public class Assignment extends JFrame{
         });
         
     }
+    
+    public void showError(){
+        JOptionPane.showMessageDialog(this,"Sum Ting Wong");
+    }
 }
