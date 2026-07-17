@@ -20,6 +20,8 @@ public class AdminMainPanel extends javax.swing.JPanel {
     public LoginPanel loginPanel;
     public AAccountPanel accountPanel;
     public AStaffPanel staffPanel;
+    public AReportPanel reportPanel;
+    public AAppointPanel appPanel;
     
     
     /**
@@ -341,11 +343,15 @@ public class AdminMainPanel extends javax.swing.JPanel {
 
     private void ReportButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReportButActionPerformed
         butHighlight(ReportBut);
+        reportPanel = new AReportPanel(frame);
+        frame.switchContent(reportPanel, ContentPanel);
         
     }//GEN-LAST:event_ReportButActionPerformed
 
     private void AppointButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AppointButActionPerformed
         butHighlight(AppointBut);
+        appPanel = new AAppointPanel(frame);
+        frame.switchContent(appPanel, ContentPanel);
     }//GEN-LAST:event_AppointButActionPerformed
 
     private void StaffButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StaffButActionPerformed

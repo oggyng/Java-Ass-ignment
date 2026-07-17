@@ -9,6 +9,7 @@ import javax.swing.table.DefaultTableModel;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import javax.swing.table.TableRowSorter;
 /**
  *
@@ -19,6 +20,8 @@ public class AStaffPanel extends javax.swing.JPanel {
     private String[] columnName = {"AppointID", "CounselorUID", "StudentUID", "startDateTime", "endDateTime", "bookingType", "queueNumber", "status"};
     private int row = -1;
     final Assignment frame;
+    private Calendar fT = null;
+    private String fS = "All";
 
     /**
      * Creates new form AAccountPanel
@@ -48,6 +51,10 @@ public class AStaffPanel extends javax.swing.JPanel {
 
         Top = new javax.swing.JPanel();
         Left = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        StatusBox = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
+        TimeBox = new javax.swing.JComboBox<>();
         Right = new javax.swing.JPanel();
         Bottom = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -70,17 +77,43 @@ public class AStaffPanel extends javax.swing.JPanel {
 
         add(Top, java.awt.BorderLayout.NORTH);
 
-        Left.setPreferredSize(new java.awt.Dimension(50, 0));
+        Left.setPreferredSize(new java.awt.Dimension(200, 0));
+
+        jLabel1.setText("Filter status: ");
+
+        StatusBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All", "Confirmed", "Cancelled", "Done", "Pending" }));
+        StatusBox.addActionListener(this::StatusBoxActionPerformed);
+
+        jLabel2.setText("Filter Time:");
+
+        TimeBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All", "Today", "This week", "This month" }));
+        TimeBox.addActionListener(this::TimeBoxActionPerformed);
 
         javax.swing.GroupLayout LeftLayout = new javax.swing.GroupLayout(Left);
         Left.setLayout(LeftLayout);
         LeftLayout.setHorizontalGroup(
             LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 50, Short.MAX_VALUE)
+            .addGroup(LeftLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1)
+                    .addComponent(StatusBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(TimeBox, 0, 149, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         LeftLayout.setVerticalGroup(
             LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 496, Short.MAX_VALUE)
+            .addGroup(LeftLayout.createSequentialGroup()
+                .addGap(57, 57, 57)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(StatusBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(TimeBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(333, Short.MAX_VALUE))
         );
 
         add(Left, java.awt.BorderLayout.WEST);
@@ -128,8 +161,85 @@ public class AStaffPanel extends javax.swing.JPanel {
 
     private void jTable1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseReleased
         row = jTable1.getSelectedRow();
-        
     }//GEN-LAST:event_jTable1MouseReleased
+    
+    
+    private void showRow(){
+        model.setRowCount(0);
+        Calendar today = Calendar.getInstance();
+        today.set(Calendar.HOUR_OF_DAY,0);
+        today.set(Calendar.MINUTE,0);
+        today.set(Calendar.SECOND,0);
+        for(String line : Functions.readFile("appointment.txt")){
+            if(!line.isEmpty()){
+                
+                String[] temp = line.split(",");
+                Calendar now = Functions.StringtoDateTime(temp[4]);
+                if(fT!=null&&!fS.equals("All")){
+                    if(now.after(today)&&now.before(fT)&&temp[7].equals(fS)){
+                        model.addRow(temp);
+                    }
+                }
+                else if(fT==null&&fS.equals("All")){
+                    model.addRow(temp);
+                }
+                else if(fT!=null){
+                    if(now.after(today)&&now.before(fT)){
+                        model.addRow(temp);
+                    }
+                }
+                else if(!fS.equals("All")){
+                    if(temp[7].equals(fS)){
+                        model.addRow(temp);
+                    }
+                }
+            }
+        }
+    }
+    private void StatusBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StatusBoxActionPerformed
+        fS = (String) StatusBox.getSelectedItem();
+        showRow();
+    }//GEN-LAST:event_StatusBoxActionPerformed
+
+    private void TimeBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TimeBoxActionPerformed
+        int index = TimeBox.getSelectedIndex();
+        Calendar target = Calendar.getInstance();
+        switch(index){
+            case 0 -> {
+                target = null;
+                break;
+            }
+            case 1 -> {
+                target.set(Calendar.HOUR_OF_DAY, 23);
+                target.set(Calendar.MINUTE, 59);
+                target.set(Calendar.SECOND, 0);
+                break;
+            }
+            case 2 -> {
+                target.set(Calendar.HOUR_OF_DAY, 23);
+                target.set(Calendar.MINUTE, 59);
+                target.set(Calendar.SECOND, 0);
+                target.add(Calendar.WEEK_OF_YEAR,1);
+                break;
+            }
+            case 3 -> {
+                target.set(Calendar.HOUR_OF_DAY, 23);
+                target.set(Calendar.MINUTE, 59);
+                target.set(Calendar.SECOND, 0);
+                target.add(Calendar.MONTH,1);
+                break;
+            }
+            
+        }
+        if(target != null){
+            fT = (Calendar) target.clone();
+        }
+        else{
+            fT = null;
+        }
+        showRow();
+        
+    }//GEN-LAST:event_TimeBoxActionPerformed
     
     
     
@@ -137,7 +247,11 @@ public class AStaffPanel extends javax.swing.JPanel {
     private javax.swing.JPanel Bottom;
     private javax.swing.JPanel Left;
     private javax.swing.JPanel Right;
+    private javax.swing.JComboBox<String> StatusBox;
+    private javax.swing.JComboBox<String> TimeBox;
     private javax.swing.JPanel Top;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables

@@ -13,7 +13,7 @@ import java.util.Calendar;
  * @author User
  */
 public abstract class ORoleParent {
-    private String id, name, gender, email;
+    private String id, name, gender, email,password;
     private Date DoB;
     
     public ORoleParent(String name, String gender, Date DoB, String email){
@@ -98,6 +98,15 @@ public abstract class ORoleParent {
     }
     public String ObjecttoString(){
         return(this.id+","+this.name+","+this.gender+","+Functions.DatetoString(this.DoB)+","+this.email);
+    }
+    
+    public void initData(){
+        Functions.inputFile("loginData.txt",ObjecttoString(),"append");
+    }
+    
+    public void initLogin(String role){
+        String data = this.id + "," + this.name + "," + this.name + "123," + role;
+        Functions.inputFile("loginData.txt",data,"append");
     }
 }
 

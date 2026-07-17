@@ -50,6 +50,8 @@ public class Assignment extends JFrame{
         
         loginPanel = new LoginPanel(this);
         
+        Functions.updateAppointFile();
+        
         
         
         switchTo(loginPanel);

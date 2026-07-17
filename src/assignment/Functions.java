@@ -159,7 +159,7 @@ public class Functions {
     }
     
     public static Date DateTimetoDate(Calendar dateTime){
-        Date date = StringtoDate(DateTimetoString(dateTime).substring(0,9));
+        Date date = StringtoDate(DateTimetoString(dateTime).split(" ")[0]);
         return date;
     }
     
@@ -183,7 +183,7 @@ public class Functions {
             if(!date.equals(DateTimetoDate(StringtoDateTime(p[3])))){
                 continue;
             }
-            if(!p[5].equals("Approved") && !p[5].equals("PendingAdd") && !p[5].equals("PendingRemove") && !p[5].equals("PendingUpdate")){
+            if(!p[5].equals("Pending") && !p[5].equals("Confirmed")){
                 continue;
             }
             Calendar tempStart = StringtoDateTime(p[3]); 
@@ -256,5 +256,15 @@ public class Functions {
         };
         String rDate = dob[0]+"-"+month+"-"+dob[2];
         return rDate;
+    }
+    
+    public static void updateAppointFile(){
+        Calendar now = Calendar.getInstance();
+        for(String line : readFile("appointment.txt")){
+            String[] p = line.split(",");
+            if(now.after(StringtoDateTime(p[4]))&&p[7].equals("Confirmed")){
+                p[6] = "0";
+            } 
+        }
     }
 }

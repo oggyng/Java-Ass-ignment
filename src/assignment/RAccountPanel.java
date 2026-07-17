@@ -310,27 +310,7 @@ public class RAccountPanel extends javax.swing.JPanel {
             
         }
     }//GEN-LAST:event_UpdateButActionPerformed
-    
-    private void checkFilter(){
-        if(recepCheck){
-                for(String line : Functions.filterData(Functions.readFile("userData.txt"),"R",0)){
-                if(!line.isEmpty()){
-                    String[] temp = line.split(",");
-                    model.addRow(temp);
-                }
-            }
-        }
-        if(counCheck){
-            for(String line : Functions.filterData(Functions.readFile("userData.txt"),"C",0)){
-                if(!line.isEmpty()){
-                    String[] temp = line.split(",");
-                    model.addRow(temp);
-                }
-            }
-        }
-        
-        
-    }
+
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Bottom;

@@ -265,8 +265,9 @@ public class AAccountPanel extends javax.swing.JPanel {
 
         add(jScrollPane1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void CreateButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateButActionPerformed
+    
+    
+    private void create(){
         String name = NameField.getText().trim();
         String gender = (String) GenderList.getSelectedItem();
         String y = String.valueOf(YearList.getSelectedItem());
@@ -276,7 +277,14 @@ public class AAccountPanel extends javax.swing.JPanel {
         String tempDate = y+"-"+m+"-"+d;
         Date dob = Functions.StringtoDate(tempDate);
         String mail = MailField.getText();
-        OAdmin newUser = new OAdmin(name,gender,dob,mail);
+        ORoleParent newUser = null;
+        if(role.equals("Receptionist")){
+            newUser = new OReceptionist(name,gender,dob,mail);
+        }
+        else if(role.equals("Counselor")){
+            newUser = new OCounselor(name,gender,dob,mail);
+        }
+        if(newUser == null){return;}
         newUser.setId(role);
         if(newUser.getId()==null){
             frame.showError();
@@ -284,10 +292,11 @@ public class AAccountPanel extends javax.swing.JPanel {
         }
         String[] newData = {newUser.getId(),name,gender,tempDate,mail};
         model.addRow(newData);
-        
         String fileData = newUser.ObjecttoString();
         Functions.inputFile("userData.txt", fileData, "append");
-        
+    }
+    private void CreateButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateButActionPerformed
+        create();
     }//GEN-LAST:event_CreateButActionPerformed
 
     private void MonthListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MonthListActionPerformed
@@ -329,16 +338,19 @@ public class AAccountPanel extends javax.swing.JPanel {
         DayList.setSelectedItem(Integer.parseInt(tempDate[2]));
         MailField.setText(String.valueOf(model.getValueAt(row, 4)));
     }//GEN-LAST:event_jTable1MouseReleased
-
+    
+    private void remove(){
+        String tempId = String.valueOf(model.getValueAt(row,0));
+        Functions.removeData(tempId, "userData.txt");
+        model.removeRow(row);
+    }
     private void DeleteButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteButActionPerformed
         if(row==-1){
             JOptionPane.showMessageDialog(frame, "Sum Ting Wong!");
         }
         else{
             if(JOptionPane.showConfirmDialog(frame, "Confirm delete? (No backsies)")==0){
-                String tempId = String.valueOf(model.getValueAt(row,0));
-                Functions.removeData(tempId, "userData.txt");
-                model.removeRow(row);
+                remove();
             }
         }
     }//GEN-LAST:event_DeleteButActionPerformed
@@ -348,12 +360,13 @@ public class AAccountPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(frame, "Sum Ting Wong!");
         }
         else{
-            
+            remove();
+            create();
         }
     }//GEN-LAST:event_UpdateButActionPerformed
 
     private void RoleListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RoleListActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_RoleListActionPerformed
 
     private void CounBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CounBoxActionPerformed
