@@ -36,20 +36,12 @@ public class RAccountPanel extends javax.swing.JPanel {
         for(int yr : Functions.ageRange()){
             YearList.addItem(yr);
         }
-        for(String line : Functions.filterData(Functions.readFile("userData.txt"),"R",0)){
+        for(String line : Functions.filterData(Functions.readFile("userData.txt"),"S",0)){
             if(!line.isEmpty()){
                 String[] temp = line.split(",");
                 model.addRow(temp);
             }
-        }
-        for(String line : Functions.filterData(Functions.readFile("userData.txt"),"C",0)){
-            if(!line.isEmpty()){
-                String[] temp = line.split(",");
-                model.addRow(temp);
-            }
-        }
-        
-        
+        }     
     }
 
     /**
@@ -261,6 +253,9 @@ public class RAccountPanel extends javax.swing.JPanel {
         if(dChoice>day){
             DayList.setSelectedItem(day);
         }
+        else{
+            DayList.setSelectedItem(dChoice);
+        }
     }//GEN-LAST:event_MonthListActionPerformed
 
     private void YearListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_YearListActionPerformed
@@ -275,6 +270,9 @@ public class RAccountPanel extends javax.swing.JPanel {
         }
         if(dChoice>day){
             DayList.setSelectedItem(day);
+        }
+        else{
+            DayList.setSelectedItem(dChoice);
         }
     }//GEN-LAST:event_YearListActionPerformed
 

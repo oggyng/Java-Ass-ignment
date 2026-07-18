@@ -1,0 +1,8 @@
+Generated date: 2026-07-18 21:45
+Filtered period: Monthly
+-------------------------------------
+Total: 33
+Confirmed: 10
+Cancelled: 3
+Done: 16
+Pending: 4

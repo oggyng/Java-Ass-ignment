@@ -32,6 +32,7 @@ public class AAppointPanel extends javax.swing.JPanel {
         }
         Walkin.setText(Integer.toString(walkin));
         Online.setText(Integer.toString(online));
+        Total.setText(Integer.toString(total));
         Confirmed.setText(Integer.toString(confirm));
         Cancelled.setText(Integer.toString(cancel));
         Done.setText(Integer.toString(done));

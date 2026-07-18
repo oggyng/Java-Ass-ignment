@@ -9,6 +9,7 @@ import javax.swing.table.DefaultTableModel;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import javax.swing.table.TableRowSorter;
 /**
  *
@@ -17,7 +18,7 @@ import javax.swing.table.TableRowSorter;
 public class AAccountPanel extends javax.swing.JPanel {
     private DefaultTableModel model = new DefaultTableModel();
     private String[] columnName = {"UID","Name","Gender","BoD","Mail"};
-    public int year = 2026;
+    public int year = Calendar.getInstance().get(Calendar.YEAR);
     private int row = -1;
     final Assignment frame;
     private boolean recepCheck = true;
@@ -311,6 +312,9 @@ public class AAccountPanel extends javax.swing.JPanel {
         if(dChoice>day){
             DayList.setSelectedItem(day);
         }
+        else{
+            DayList.setSelectedItem(dChoice);
+        }
     }//GEN-LAST:event_MonthListActionPerformed
 
     private void YearListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_YearListActionPerformed
@@ -325,6 +329,9 @@ public class AAccountPanel extends javax.swing.JPanel {
         }
         if(dChoice>day){
             DayList.setSelectedItem(day);
+        }
+        else{
+            DayList.setSelectedItem(dChoice);
         }
     }//GEN-LAST:event_YearListActionPerformed
 

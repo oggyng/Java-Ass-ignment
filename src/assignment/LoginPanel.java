@@ -22,10 +22,12 @@ public class LoginPanel extends javax.swing.JPanel {
     final char pwChar;
     public CounselorMainPanel cMainPanel;
     public AdminMainPanel aMainPanel;
-//    public ReceptionistMainPanel rMainPanel;
-//    public StudentMainPanel sMainPanel;
+    public ReceptionistMainPanel rMainPanel;
+    public StudentMainPanel sMainPanel;
     public OCounselor cuser;
     public OAdmin auser;
+    public OReceptionist ruser;
+    public OStudent suser;
     
     
     
@@ -128,16 +130,28 @@ public class LoginPanel extends javax.swing.JPanel {
                         aMainPanel = new AdminMainPanel(frame,auser);
                         frame.switchTo(aMainPanel); 
                     }
-                    case "Receptionist" -> System.out.println("Admin");
-                    case "Counselor"->{
+                    case "Counselor" -> {
                         String up = Functions.filterID(part[0],"userData.txt");
                         cuser = OCounselor.extractFile(up);
                         cMainPanel = new CounselorMainPanel(frame,cuser);
                         frame.switchTo(cMainPanel); 
                         
                         }
+                    case "Receptionist"->{
+                        String up = Functions.filterID(part[0],"userData.txt");
+                        ruser = OReceptionist.extractFile(up);
+                        rMainPanel = new ReceptionistMainPanel(frame,ruser);
+                        frame.switchTo(rMainPanel); 
                         
-                    case "Student" -> System.out.println("Admin");
+                        }
+                        
+                    case "Student" -> {
+                        String up = Functions.filterID(part[0],"userData.txt");
+                        suser = OStudent.extractFile(up);
+                        sMainPanel = new StudentMainPanel(frame,suser);
+                        frame.switchTo(sMainPanel); 
+                        
+                        }
                 }
             }
         }

@@ -8,12 +8,12 @@
             <file>file:/C:/Java/School/Java-Ass-ignment/src/assignment/CounselorMainPanel.java</file>
             <file>file:/C:/Java/School/Java-Ass-ignment/src/assignment/AAccountPanel.java</file>
             <file>file:/C:/Java/School/Java-Ass-ignment/src/assignment/ORoleParent.java</file>
-            <file>file:/C:/Java/School/Java-Ass-ignment/src/assignment/RAccountPanel.java</file>
             <file>file:/C:/Java/School/Java-Ass-ignment/src/assignment/AStaffPanel.java</file>
             <file>file:/C:/Java/School/Java-Ass-ignment/src/assignment/AdminMainPanel.java</file>
             <file>file:/C:/Java/School/Java-Ass-ignment/src/assignment/AReportPanel.java</file>
             <file>file:/C:/Java/School/Java-Ass-ignment/src/assignment/AAppointPanel.java</file>
             <file>file:/C:/Java/School/Java-Ass-ignment/src/assignment/CRecomPanel.java</file>
+            <file>file:/C:/Java/School/Java-Ass-ignment/src/assignment/RAccountPanel.java</file>
             <file>file:/C:/Java/School/Java-Ass-ignment/src/assignment/RAppointPanel.java</file>
             <file>file:/C:/Java/School/Java-Ass-ignment/src/assignment/RAssignPanel.java</file>
             <file>file:/C:/Java/School/Java-Ass-ignment/src/assignment/RQueuePanel.java</file>
@@ -30,6 +30,8 @@
             <file>file:/C:/Java/School/Java-Ass-ignment/src/assignment/OCounselor.java</file>
             <file>file:/C:/Java/School/Java-Ass-ignment/src/assignment/OReceptionist.java</file>
             <file>file:/C:/Java/School/Java-Ass-ignment/src/assignment/OStudent.java</file>
+            <file>file:/C:/Java/School/Java-Ass-ignment/src/assignment/ReceptionistMainPanel.java</file>
+            <file>file:/C:/Java/School/Java-Ass-ignment/src/assignment/StudentMainPanel.java</file>
         </group>
     </open-files>
 </project-private>

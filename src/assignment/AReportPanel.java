@@ -4,6 +4,7 @@
  */
 package assignment;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
@@ -13,12 +14,35 @@ import java.util.Calendar;
 public class AReportPanel extends javax.swing.JPanel {
     final Assignment frame;
     private int total=0,confirm=0,cancel=0,done=0,pending=0;
+    private String filterPeriod;
+    private Calendar target = Calendar.getInstance();
+    private Calendar startTarget = Calendar.getInstance();
+    private Calendar endTarget = Calendar.getInstance();
+    public int thisYear = Calendar.getInstance().get(Calendar.YEAR);
+    public int thisDay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+    public int thisMonth = Calendar.getInstance().get(Calendar.MONTH);
+    public Calendar today = Calendar.getInstance();
     /**
      * Creates new form ARecomPanel
      */
     public AReportPanel(Assignment frame) {
         initComponents();
         this.frame = frame;
+        for(int i=31;i>0;i--){
+            DayList.addItem(i);
+        }
+        
+        for(int yr=thisYear;yr>=2024;yr--){
+            YearList.addItem(yr);
+        }
+        DayList.setSelectedItem(thisDay);
+        MonthList.setSelectedIndex(thisMonth);
+        YearList.setSelectedItem(thisYear);
+        target.set(Calendar.HOUR_OF_DAY, 0);
+        target.set(Calendar.MINUTE, 0);
+        target.set(Calendar.SECOND, 0);
+        
+
         
     }
 
@@ -34,9 +58,9 @@ public class AReportPanel extends javax.swing.JPanel {
         Top = new javax.swing.JPanel();
         Left = new javax.swing.JPanel();
         Center = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jButton2 = new javax.swing.JButton();
+        GenerateBut = new javax.swing.JButton();
+        FilterList = new javax.swing.JComboBox<>();
+        DownloadBut = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         date = new javax.swing.JLabel();
@@ -53,6 +77,12 @@ public class AReportPanel extends javax.swing.JPanel {
         Cancelled = new javax.swing.JLabel();
         Done = new javax.swing.JLabel();
         Pending = new javax.swing.JLabel();
+        DayList = new javax.swing.JComboBox<>();
+        MonthList = new javax.swing.JComboBox<>();
+        DayLabel = new javax.swing.JLabel();
+        MonthLabel = new javax.swing.JLabel();
+        YearLabel = new javax.swing.JLabel();
+        YearList = new javax.swing.JComboBox<>();
         Right = new javax.swing.JPanel();
         Bottom = new javax.swing.JPanel();
 
@@ -89,12 +119,14 @@ public class AReportPanel extends javax.swing.JPanel {
 
         add(Left, java.awt.BorderLayout.WEST);
 
-        jButton1.setText("Generate Report");
+        GenerateBut.setText("Generate Report");
+        GenerateBut.addActionListener(this::GenerateButActionPerformed);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Daily", "Weekly", "Monthly", "Yearly" }));
-        jComboBox1.addActionListener(this::jComboBox1ActionPerformed);
+        FilterList.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Daily", "Weekly", "Monthly", "Yearly" }));
+        FilterList.addActionListener(this::FilterListActionPerformed);
 
-        jButton2.setText("Download Report");
+        DownloadBut.setText("Download Report");
+        DownloadBut.addActionListener(this::DownloadButActionPerformed);
 
         jLabel1.setText("Generated date: ");
 
@@ -194,33 +226,74 @@ public class AReportPanel extends javax.swing.JPanel {
                 .addContainerGap(102, Short.MAX_VALUE))
         );
 
+        DayList.addActionListener(this::DayListActionPerformed);
+
+        MonthList.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" }));
+        MonthList.addActionListener(this::MonthListActionPerformed);
+
+        DayLabel.setText("Day:");
+
+        MonthLabel.setText("Month:");
+
+        YearLabel.setText("Year: ");
+
+        YearList.addActionListener(this::YearListActionPerformed);
+
         javax.swing.GroupLayout CenterLayout = new javax.swing.GroupLayout(Center);
         Center.setLayout(CenterLayout);
         CenterLayout.setHorizontalGroup(
             CenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(CenterLayout.createSequentialGroup()
-                .addGap(163, 163, 163)
+                .addGap(102, 102, 102)
                 .addGroup(CenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2)
                     .addGroup(CenterLayout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(369, Short.MAX_VALUE))
+                        .addGroup(CenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(DayList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(MonthList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(DayLabel)
+                            .addComponent(MonthLabel)
+                            .addComponent(YearLabel)
+                            .addComponent(YearList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 212, Short.MAX_VALUE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(146, 146, 146))
+                    .addGroup(CenterLayout.createSequentialGroup()
+                        .addGroup(CenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(FilterList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(CenterLayout.createSequentialGroup()
+                                .addComponent(GenerateBut)
+                                .addGap(18, 18, 18)
+                                .addComponent(DownloadBut)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         CenterLayout.setVerticalGroup(
             CenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(CenterLayout.createSequentialGroup()
-                .addGap(60, 60, 60)
+                .addGap(63, 63, 63)
+                .addComponent(FilterList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(CenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(CenterLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(45, 45, 45))
+                    .addGroup(CenterLayout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addComponent(DayLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(DayList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(MonthLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(MonthList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(YearLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(YearList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(CenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton2)
-                .addGap(78, 78, 78))
+                    .addComponent(GenerateBut)
+                    .addComponent(DownloadBut))
+                .addGap(49, 49, 49))
         );
 
         add(Center, java.awt.BorderLayout.CENTER);
@@ -256,38 +329,164 @@ public class AReportPanel extends javax.swing.JPanel {
         add(Bottom, java.awt.BorderLayout.SOUTH);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        int index = jComboBox1.getSelectedIndex();
-        Calendar today = Calendar.getInstance();
-        today.set(Calendar.HOUR_OF_DAY, 0);
-        today.set(Calendar.MINUTE, 0);
-        today.set(Calendar.SECOND, 0);
-        Calendar target = Calendar.getInstance();
-        target.set(Calendar.HOUR_OF_DAY, 23);
-        target.set(Calendar.MINUTE, 59);
-        target.set(Calendar.SECOND, 59);
+    private void FilterListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FilterListActionPerformed
+        int index = FilterList.getSelectedIndex();
         
         switch(index){
-            case 1 -> target.add(Calendar.DAY_OF_WEEK,1);
-            case 2 -> target.add(Calendar.WEEK_OF_MONTH,1);
-            case 3 -> target.add(Calendar.YEAR,1);
+            case 0 -> {
+                DayLabel.setVisible(true);
+                DayList.setVisible(true);
+                MonthLabel.setVisible(true);
+                MonthList.setVisible(true);
+                YearLabel.setVisible(true);
+                YearList.setVisible(true);
+            }
+            case 1 -> {
+                DayLabel.setVisible(true);
+                DayList.setVisible(true);
+                MonthLabel.setVisible(true);
+                MonthList.setVisible(true);
+                YearLabel.setVisible(true);
+                YearList.setVisible(true);
+            }
+            case 2 -> {
+                DayLabel.setVisible(false);
+                DayList.setVisible(false);
+                MonthLabel.setVisible(true);
+                MonthList.setVisible(true);
+                YearLabel.setVisible(true);
+                YearList.setVisible(true);
+            }
+            case 3 -> {
+                DayLabel.setVisible(false);
+                DayList.setVisible(false);
+                MonthLabel.setVisible(false);
+                MonthList.setVisible(false);
+                YearLabel.setVisible(true);
+                YearList.setVisible(true);
+            }
         }
+    }//GEN-LAST:event_FilterListActionPerformed
+
+    private void MonthListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MonthListActionPerformed
+        String choice = (String) MonthList.getSelectedItem();
+        int index = (int) MonthList.getSelectedIndex();
+        int dChoice = (int) DayList.getSelectedItem();
+        int day = Functions.checkDate(thisYear,choice);
+        DayList.removeAllItems();
+        for(int i=day;i>0;i--){
+            DayList.addItem(i);
+        }
+        if(dChoice>day){
+            DayList.setSelectedItem(day);
+        }
+        else{
+            DayList.setSelectedItem(dChoice);
+        }
+        target.set(Calendar.MONTH,index);
+    }//GEN-LAST:event_MonthListActionPerformed
+
+    private void DayListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DayListActionPerformed
+        if(DayList.getSelectedItem() == null) return;
+        int day = (int) DayList.getSelectedItem();
+        target.set(Calendar.DAY_OF_MONTH, day);
+    }//GEN-LAST:event_DayListActionPerformed
+
+    private void YearListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_YearListActionPerformed
+        int choice = (int) YearList.getSelectedItem();
+        thisYear = choice;
+        String mChoice = (String) MonthList.getSelectedItem();
+        int dChoice = (int) DayList.getSelectedItem();
+        int day = Functions.checkDate(thisYear,mChoice);
+        DayList.removeAllItems();
+        for(int i=day;i>0;i--){
+            DayList.addItem(i);
+        }
+        if(dChoice>day){
+            DayList.setSelectedItem(day);
+        }
+        else{
+            DayList.setSelectedItem(dChoice);
+        }
+        target.set(Calendar.YEAR, choice);
+    }//GEN-LAST:event_YearListActionPerformed
+
+    private void GenerateButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GenerateButActionPerformed
+        confirm =0;
+        cancel = 0;
+        done = 0;
+        pending = 0;
+        total = 0;
+        
+        int index = FilterList.getSelectedIndex();
+        startTarget = (Calendar) target.clone();
+        endTarget = (Calendar) startTarget.clone();
+        endTarget.set(Calendar.HOUR_OF_DAY, 23);
+        endTarget.set(Calendar.MINUTE, 59);
+        endTarget.set(Calendar.SECOND, 59);
+        date.setText(Functions.DateTimetoString(today));
+        
+        switch(index){
+            case 0 -> {
+                filterPeriod="Daily";
+            }
+            case 1 -> {
+                while(startTarget.get(Calendar.DAY_OF_WEEK)!=Calendar.SUNDAY){
+                    startTarget.add(Calendar.DAY_OF_MONTH,-1);
+                }
+                while(endTarget.get(Calendar.DAY_OF_WEEK)!=Calendar.SATURDAY){
+                    endTarget.add(Calendar.DAY_OF_MONTH,1);
+                }
+                filterPeriod="Weekly";
+            }
+            case 2 -> {
+                endTarget.add(Calendar.MONTH, 1);
+                startTarget.set(Calendar.DAY_OF_MONTH, 1);
+                endTarget.set(Calendar.DAY_OF_MONTH, 1);
+                endTarget.add(Calendar.DAY_OF_MONTH, -1);
+                filterPeriod="Monthly";
+            }
+            case 3 -> {
+                startTarget.set(Calendar.MONTH,0);
+                startTarget.set(Calendar.DAY_OF_MONTH, 1);
+                endTarget.set(Calendar.MONTH,11);
+                endTarget.set(Calendar.DAY_OF_MONTH, 31);
+                filterPeriod="Yearly";
+            }
+        }
+        period.setText(filterPeriod);
         for(String line: Functions.readFile("appointment.txt")){
             String[] p = line.split(",");
-            // TRY TO GET TODAY WEEK, ALSO DO IF STATEMENT OF DATE AFTER TODAY SMTH, ALSO CAN ADD DROP LIST TO CHOOSE DATE OF REPORT
-            switch(p[7]){
-                case "Confirmed" -> confirm += 1;
-                case "Cancelled" -> cancel += 1;
-                case "Done" -> done += 1;
-                case "Pending" -> pending += 1;
+            if(Functions.StringtoDateTime(p[3]).after(startTarget)&&Functions.StringtoDateTime(p[3]).before(endTarget)){
+                switch(p[7]){
+                    case "Confirmed" -> confirm += 1;
+                    case "Cancelled" -> cancel += 1;
+                    case "Done" -> done += 1;
+                    case "Pending" -> pending += 1;
+                }
+                total += 1;
             }
-            total += 1;
+            
         }
+        Total.setText(Integer.toString(total));
         Confirmed.setText(Integer.toString(confirm));
         Cancelled.setText(Integer.toString(cancel));
         Done.setText(Integer.toString(done));
         Pending.setText(Integer.toString(pending));
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_GenerateButActionPerformed
+
+    private void DownloadButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DownloadButActionPerformed
+        ArrayList<String> inputData = new ArrayList<>();
+        inputData.add("Generated date: "+Functions.DateTimetoString(today));
+        inputData.add("Filtered period: "+filterPeriod);
+        inputData.add("-------------------------------------");
+        inputData.add("Total: "+total);
+        inputData.add("Confirmed: "+confirm);
+        inputData.add("Cancelled: "+cancel);
+        inputData.add("Done: "+done);
+        inputData.add("Pending: "+pending);
+        Functions.inputFile("Report.txt", inputData, "write");
+    }//GEN-LAST:event_DownloadButActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -295,16 +494,22 @@ public class AReportPanel extends javax.swing.JPanel {
     private javax.swing.JLabel Cancelled;
     private javax.swing.JPanel Center;
     private javax.swing.JLabel Confirmed;
+    private javax.swing.JLabel DayLabel;
+    private javax.swing.JComboBox<Integer> DayList;
     private javax.swing.JLabel Done;
+    private javax.swing.JButton DownloadBut;
+    private javax.swing.JComboBox<String> FilterList;
+    private javax.swing.JButton GenerateBut;
     private javax.swing.JPanel Left;
+    private javax.swing.JLabel MonthLabel;
+    private javax.swing.JComboBox<String> MonthList;
     private javax.swing.JLabel Pending;
     private javax.swing.JPanel Right;
     private javax.swing.JPanel Top;
     private javax.swing.JLabel Total;
+    private javax.swing.JLabel YearLabel;
+    private javax.swing.JComboBox<Integer> YearList;
     private javax.swing.JLabel date;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
