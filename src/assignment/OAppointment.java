@@ -31,15 +31,15 @@ public class OAppointment {
     // ===== Constructors =====
     
     // Create object for student (online)
-    public OAppointment(String studentId,
+    public OAppointment(String studentId,String counselorId,
                         Calendar startTime, String status) {
         this.studentId = studentId;
         this.startTime = startTime;
         this.setEndTime(startTime);
         this.endTime = this.getEndTime();
         this.bookingType = "Online";
-        this.status = "Pending";
-        this.counselorId = null;
+        this.status = status;
+        this.counselorId = counselorId;
         this.queueNumber = 0;
     }
     

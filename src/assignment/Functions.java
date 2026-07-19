@@ -175,23 +175,27 @@ public class Functions {
     }
     
     public static ArrayList<String> checkDayClash(Date date, String counselorID){
-        final String[] time = {"10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00"};
+        final String[] time = {"10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00"};
         ArrayList<String> timeSlot = new ArrayList<>();
         timeSlot.addAll(Arrays.asList(time));
+        String targetDate  = DatetoString(date);
         for(String lines : readFile("appointment.txt")){
             String[] p = lines.split(",");
-            if(!date.equals(DateTimetoDate(StringtoDateTime(p[3])))){
+            String appointDate = p[3].split(" ")[0];
+            
+            if(!targetDate.equals(appointDate)){
                 continue;
             }
-            if(!p[5].equals("Pending") && !p[5].equals("Confirmed")){
+            if(p[7].equals("Done") || p[7].equals("Cancelled")){
                 continue;
             }
-            if(p[2].equals(counselorID)){
+            if(!p[1].equals(counselorID)){
                 continue;
             }
-            Calendar tempStart = StringtoDateTime(p[3]); 
             for(String t : time){
-                if(DatetoDateTime(date,t).equals(tempStart)){
+                String slotStr  = DatetoString(date) + " " + t;
+                String startStr = p[3];
+                if(slotStr.equals(startStr)){
                     timeSlot.remove(t);
                     break;
                 }
@@ -200,13 +204,15 @@ public class Functions {
         return timeSlot;
     }
     
+
+    
     public static ArrayList<String> checkDayClash(Date date){
         final String[] time = {"10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00"};
         ArrayList<String> timeSlot = new ArrayList<>();
         timeSlot.addAll(Arrays.asList(time));
         for(String lines : readFile("appointment.txt")){
             String[] p = lines.split(",");
-            if(!date.equals(DateTimetoDate(StringtoDateTime(p[3])))){
+            if(!date.equals(StringtoDate(p[3].split(" ")[0]))){
                 continue;
             }
             if(!p[5].equals("Pending") && !p[5].equals("Confirmed")){

@@ -17,18 +17,18 @@ public abstract class ORoleParent {
     private Date DoB;
     
     public ORoleParent(String name, String gender, Date DoB, String email){
-        this.name = name;
-        this.gender = gender;
-        this.DoB = DoB;
-        this.email = email;
+        setName(name);
+        setGender(gender);
+        setDoB(DoB);
+        setEmail(email);
     }
     
     public ORoleParent(String id, String name, String gender, Date DoB, String email){
         this.id = id;
-        this.name = name;
-        this.gender = gender;
-        this.DoB = DoB;
-        this.email = email;
+        setName(name);
+        setGender(gender);
+        setDoB(DoB);
+        setEmail(email);
     }
 
     public String getId(){return id;}
@@ -81,6 +81,10 @@ public abstract class ORoleParent {
             this.gender = null;
             return false;
         }
+    }
+    public boolean setDoB(Date DoB){
+        this.DoB = DoB;
+        return true;
     }
     public boolean setDoB(String DoB){
         this.DoB = Functions.StringtoDate(DoB);

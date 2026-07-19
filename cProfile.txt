@@ -1,0 +1,6 @@
+C001,1,1,1,1,1,Academic
+C002,1,0,1,0,1,Career
+C003,0,1,1,1,0,Personal
+C004,1,1,0,1,1,Social
+C005,1,0,1,1,0,Financial
+C006,0,1,1,0,1,Mental Health

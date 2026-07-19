@@ -4,23 +4,119 @@
  */
 package assignment;
 
+import java.util.Calendar;
+import java.util.Date;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
  * @author User
  */
 public class RAppointPanel extends javax.swing.JPanel {
+    public String counselorId,studentId;
     private DefaultTableModel model = new DefaultTableModel();
-    private String[] columnName = {"AppointmentId","CounselorID","StudentID","Start Time","End Time"};
+    private String[] columnName = {"AppointmentId","CounselorID","StudentID","Start Time","End Time","Booking Type","Status","Specialism"};
+    private final String[] months = {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
+    private final String[] times = {"10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00"};
     private int row = -1;
+    private String specialism = "Academic";
+    private final Calendar startDay = Calendar.getInstance();
+    private Calendar endDay = (Calendar) startDay.clone();
+    int sYear  = startDay.get(Calendar.YEAR);
+    int sMonth = startDay.get(Calendar.MONTH);
+    int sDay   = startDay.get(Calendar.DAY_OF_MONTH);
+    int eYear, eMonth,eDay;
+    private String time;
+    
     /**
      * Creates new form ARecomPanel
      */
     public RAppointPanel() {
         initComponents();
-    }
+        model.setColumnIdentifiers(columnName);
+        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(model);
+        jTable1.setRowSorter(sorter);
+        for(String line : Functions.readFile("appointment.txt")){
+            if(!line.isEmpty()){
+                String[] temp = {line.split(",")[0],line.split(",")[1],line.split(",")[2],line.split(",")[3],line.split(",")[4],line.split(",")[5],line.split(",")[7],line.split(",")[8]};
+                if(Functions.StringtoDateTime(line.split(",")[3]).after(startDay)){
+                    model.addRow(temp);
+                }
+            }
+        }
+        endDay.add(Calendar.MONTH, 6);
+        eYear    = endDay.get(Calendar.YEAR);
+        eMonth   = endDay.get(Calendar.MONTH);
+        eDay     = endDay.get(Calendar.DAY_OF_MONTH);
+        YearList.addItem(sYear);
+        if(eYear != sYear){
+            YearList.addItem(eYear);
+        }
+        YearList.setSelectedItem(sYear);
 
+        updateMonth();
+        MonthList.setSelectedItem(months[sMonth]);
+        updateDay();
+        DayList.setSelectedItem(sDay);
+        counselorBox.addItem("None");
+        for(String line:Functions.readFile("cProfile.txt")){
+            if(specialism.equals(line.split(",")[6])){
+                counselorBox.addItem(Functions.filterID(line.split(",")[0], "userData.txt").split(",")[1]);
+            }
+        }
+        for(String line:Functions.readFile("userData.txt")){
+            if(line.substring(0,1).equals("S")){
+                studentBox.addItem(line.split(",")[1]);
+            }
+        }
+        
+    }
+    
+    private void updateMonth(){
+        int yChoice = (int) YearList.getSelectedItem();
+        MonthList.removeAllItems();
+        if(yChoice == sYear && yChoice == eYear){
+            for(int m = sMonth; m <= eMonth; m++){
+                MonthList.addItem(months[m]);
+            }
+        }
+        else if(yChoice == sYear){
+            for(int m = sMonth; m <= 11; m++){
+                MonthList.addItem(months[m]);
+            }
+        }
+        else {
+            for(int m = 0; m <= eMonth; m++){
+                MonthList.addItem(months[m]);
+            }
+        }
+        
+    }
+    private void updateDay(){
+        if(MonthList.getSelectedItem()==null){
+            return;
+        }
+        String mChoice = (String) MonthList.getSelectedItem();
+        
+        DayList.removeAllItems();
+        if(mChoice.equals(months[sMonth])){
+            for(int d = Functions.checkDate(sYear, mChoice); d >= sDay; d--){
+                DayList.addItem(d);
+            }
+        }
+        else if(mChoice.equals(months[eMonth])){
+            for(int d = eDay; d >0; d--){
+                DayList.addItem(d);
+            }
+        }
+        else {
+            for(int d = Functions.checkDate(sYear, mChoice); d >0; d--){
+                DayList.addItem(d);
+            }
+        }
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -32,6 +128,35 @@ public class RAppointPanel extends javax.swing.JPanel {
 
         Top = new javax.swing.JPanel();
         Left = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        counselorBox = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
+        DayList = new javax.swing.JComboBox<>();
+        MonthList = new javax.swing.JComboBox<>();
+        YearList = new javax.swing.JComboBox<>();
+        jLabel3 = new javax.swing.JLabel();
+        t1 = new javax.swing.JToggleButton();
+        t2 = new javax.swing.JToggleButton();
+        t3 = new javax.swing.JToggleButton();
+        t4 = new javax.swing.JToggleButton();
+        t5 = new javax.swing.JToggleButton();
+        t6 = new javax.swing.JToggleButton();
+        t7 = new javax.swing.JToggleButton();
+        t8 = new javax.swing.JToggleButton();
+        t9 = new javax.swing.JToggleButton();
+        t10 = new javax.swing.JToggleButton();
+        jLabel4 = new javax.swing.JLabel();
+        statusFix = new javax.swing.JLabel();
+        statusLabel = new javax.swing.JLabel();
+        typeFix = new javax.swing.JLabel();
+        typeLabel = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        specialismBox = new javax.swing.JComboBox<>();
+        createBut = new javax.swing.JButton();
+        cancelBut = new javax.swing.JButton();
+        updateBut = new javax.swing.JButton();
+        conDateBut = new javax.swing.JButton();
+        studentBox = new javax.swing.JComboBox<>();
         Right = new javax.swing.JPanel();
         Bottom = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -57,15 +182,207 @@ public class RAppointPanel extends javax.swing.JPanel {
 
         Left.setPreferredSize(new java.awt.Dimension(250, 0));
 
+        jLabel1.setText("Select a counselor:");
+
+        counselorBox.addActionListener(this::counselorBoxActionPerformed);
+
+        jLabel2.setText("Select a date: ");
+
+        DayList.addActionListener(this::DayListActionPerformed);
+
+        MonthList.addActionListener(this::MonthListActionPerformed);
+
+        YearList.addActionListener(this::YearListActionPerformed);
+
+        jLabel3.setText("Select desire start time: ");
+
+        t1.setText("10:00");
+        t1.addActionListener(this::t1ActionPerformed);
+
+        t2.setText("11:00");
+        t2.addActionListener(this::t2ActionPerformed);
+
+        t3.setText("12:00");
+        t3.addActionListener(this::t3ActionPerformed);
+
+        t4.setText("13:00");
+        t4.addActionListener(this::t4ActionPerformed);
+
+        t5.setText("14:00");
+        t5.addActionListener(this::t5ActionPerformed);
+
+        t6.setText("15:00");
+        t6.addActionListener(this::t6ActionPerformed);
+
+        t7.setText("16:00");
+        t7.addActionListener(this::t7ActionPerformed);
+
+        t8.setText("17:00");
+        t8.addActionListener(this::t8ActionPerformed);
+
+        t9.setText("18:00");
+        t9.addActionListener(this::t9ActionPerformed);
+
+        t10.setText("19:00");
+        t10.addActionListener(this::t10ActionPerformed);
+
+        jLabel4.setText("Select a student: ");
+
+        statusFix.setText("Booking status: ");
+
+        statusLabel.setPreferredSize(new java.awt.Dimension(70, 16));
+
+        typeFix.setText("Booking Type: ");
+
+        typeLabel.setPreferredSize(new java.awt.Dimension(70, 16));
+
+        jLabel5.setText("Select a specialism: ");
+
+        specialismBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Academic", "Career", "Personal", "Social", "Financial", "Mental Health" }));
+        specialismBox.addActionListener(this::specialismBoxActionPerformed);
+
+        createBut.setText("Create");
+        createBut.addActionListener(this::createButActionPerformed);
+
+        cancelBut.setText("Cancel");
+        cancelBut.setActionCommand("Cancel");
+
+        updateBut.setText("Update");
+
+        conDateBut.setText("Search for available time");
+        conDateBut.addActionListener(this::conDateButActionPerformed);
+
+        studentBox.setToolTipText("");
+        studentBox.addActionListener(this::studentBoxActionPerformed);
+
         javax.swing.GroupLayout LeftLayout = new javax.swing.GroupLayout(Left);
         Left.setLayout(LeftLayout);
         LeftLayout.setHorizontalGroup(
             LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 250, Short.MAX_VALUE)
+            .addGroup(LeftLayout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(LeftLayout.createSequentialGroup()
+                            .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel4)
+                                .addGroup(LeftLayout.createSequentialGroup()
+                                    .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(statusFix)
+                                        .addComponent(typeFix))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(typeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(statusLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGap(15, 15, 15))
+                        .addComponent(studentBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel2)
+                        .addGroup(LeftLayout.createSequentialGroup()
+                            .addComponent(DayList, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(MonthList, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(YearList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel5)
+                        .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, LeftLayout.createSequentialGroup()
+                                .addComponent(cancelBut, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(updateBut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(LeftLayout.createSequentialGroup()
+                                .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, LeftLayout.createSequentialGroup()
+                                        .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(t5, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(t3, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(t6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(t4, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(LeftLayout.createSequentialGroup()
+                                        .addComponent(t1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(t2, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LeftLayout.createSequentialGroup()
+                                            .addComponent(t7, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(t8, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(LeftLayout.createSequentialGroup()
+                                            .addComponent(t9, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(t10, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(15, 15, 15)))
+                        .addComponent(createBut, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(conDateBut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(counselorBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(specialismBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         LeftLayout.setVerticalGroup(
             LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 529, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LeftLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(specialismBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(counselorBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(DayList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(MonthList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(YearList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(7, 7, 7)
+                .addComponent(conDateBut)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(t1)
+                    .addComponent(t2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(t3)
+                    .addComponent(t4))
+                .addGap(5, 5, 5)
+                .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(t6)
+                    .addComponent(t5, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(t7)
+                    .addComponent(t8))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(t9)
+                    .addComponent(t10))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(studentBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(statusFix)
+                    .addComponent(statusLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(typeFix)
+                    .addComponent(typeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(createBut)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cancelBut)
+                    .addComponent(updateBut))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
 
         add(Left, java.awt.BorderLayout.WEST);
@@ -80,12 +397,12 @@ public class RAppointPanel extends javax.swing.JPanel {
         );
         RightLayout.setVerticalGroup(
             RightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 529, Short.MAX_VALUE)
+            .addGap(0, 559, Short.MAX_VALUE)
         );
 
         add(Right, java.awt.BorderLayout.EAST);
 
-        Bottom.setPreferredSize(new java.awt.Dimension(0, 50));
+        Bottom.setPreferredSize(new java.awt.Dimension(0, 20));
 
         javax.swing.GroupLayout BottomLayout = new javax.swing.GroupLayout(Bottom);
         Bottom.setLayout(BottomLayout);
@@ -95,34 +412,235 @@ public class RAppointPanel extends javax.swing.JPanel {
         );
         BottomLayout.setVerticalGroup(
             BottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 50, Short.MAX_VALUE)
+            .addGap(0, 20, Short.MAX_VALUE)
         );
 
         add(Bottom, java.awt.BorderLayout.SOUTH);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+        jTable1.setModel(model
+        );
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jTable1MouseReleased(evt);
             }
-        ));
+        });
         jScrollPane1.setViewportView(jTable1);
 
         add(jScrollPane1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void t3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t3ActionPerformed
+        toggleButton(t3);// TODO add your handling code here:
+    }//GEN-LAST:event_t3ActionPerformed
+
+    private void counselorBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_counselorBoxActionPerformed
+        if(counselorBox.getSelectedItem()==null){
+            return;
+        }
+        String choice = (String) counselorBox.getSelectedItem();
+        if(choice.equals("None")){
+            counselorId=null;
+        }
+        else{
+            counselorId = Functions.filterData(Functions.readFile("userData.txt"), choice, 1).get(0).split(",")[0];
+        }
+    }//GEN-LAST:event_counselorBoxActionPerformed
+
+    private void specialismBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_specialismBoxActionPerformed
+        specialism = (String) specialismBox.getSelectedItem();
+        counselorBox.removeAllItems();
+        counselorBox.addItem("None");
+        for(String line:Functions.readFile("cProfile.txt")){
+            if(specialism.equals(line.split(",")[6])){
+                counselorBox.addItem(Functions.filterID(line.split(",")[0], "userData.txt").split(",")[1]);
+            }
+        }
+        counselorBox.setSelectedItem("None");
+    }//GEN-LAST:event_specialismBoxActionPerformed
+    private void toggleButton(javax.swing.JToggleButton tb){
+        javax.swing.JToggleButton[] butList = {t1,t2,t3,t4,t5,t6,t7,t8,t9,t10};
+        int count =0;
+        for(javax.swing.JToggleButton t : butList){
+            if(t.equals(tb)){
+                t.setSelected(true);
+                time = times[count];
+                continue;
+            }
+            t.setSelected(false);
+            count++;
+        }
+    }
+    private void DayListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DayListActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_DayListActionPerformed
+
+    private void YearListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_YearListActionPerformed
+        updateMonth();
+    }//GEN-LAST:event_YearListActionPerformed
+
+    private void MonthListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MonthListActionPerformed
+        updateDay();
+    }//GEN-LAST:event_MonthListActionPerformed
+
+    private void t1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t1ActionPerformed
+        toggleButton(t1);
+    }//GEN-LAST:event_t1ActionPerformed
+
+    private void t2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t2ActionPerformed
+        toggleButton(t2);// TODO add your handling code here:
+    }//GEN-LAST:event_t2ActionPerformed
+
+    private void t4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t4ActionPerformed
+        toggleButton(t4);// TODO add your handling code here:
+    }//GEN-LAST:event_t4ActionPerformed
+
+    private void t5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t5ActionPerformed
+        toggleButton(t5);// TODO add your handling code here:
+    }//GEN-LAST:event_t5ActionPerformed
+
+    private void t6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t6ActionPerformed
+        toggleButton(t6);// TODO add your handling code here:
+    }//GEN-LAST:event_t6ActionPerformed
+
+    private void t7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t7ActionPerformed
+        toggleButton(t7);// TODO add your handling code here:
+    }//GEN-LAST:event_t7ActionPerformed
+
+    private void t8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t8ActionPerformed
+        toggleButton(t8);// TODO add your handling code here:
+    }//GEN-LAST:event_t8ActionPerformed
+
+    private void t9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t9ActionPerformed
+        toggleButton(t9);// TODO add your handling code here:
+    }//GEN-LAST:event_t9ActionPerformed
+
+    private void t10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t10ActionPerformed
+        toggleButton(t10);// TODO add your handling code here:
+    }//GEN-LAST:event_t10ActionPerformed
+    
+    
+    
+    private void conDateButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_conDateButActionPerformed
+        String d = String.format("%02d", (int) DayList.getSelectedItem());
+        String m = (String) MonthList.getSelectedItem();
+        String y = String.valueOf((int) YearList.getSelectedItem());
+        String[] tempDate = {y,m,d};
+        String date = Functions.ListtoDoB(tempDate);
+        Date dChoice = Functions.StringtoDate(date);
+        t1.setVisible(false);
+        t2.setVisible(false);
+        t3.setVisible(false);
+        t4.setVisible(false);
+        t5.setVisible(false);
+        t6.setVisible(false);
+        t7.setVisible(false);
+        t8.setVisible(false);
+        t9.setVisible(false);
+        t10.setVisible(false);
+        System.out.println(Functions.checkDayClash(dChoice, counselorId));
+        for(String i: Functions.checkDayClash(dChoice, counselorId)){
+            switch(i){
+                case "10:00" -> t1.setVisible(true);
+                case "11:00" -> t2.setVisible(true);
+                case "12:00" -> t3.setVisible(true);
+                case "13:00" -> t4.setVisible(true);
+                case "14:00" -> t5.setVisible(true);
+                case "15:00" -> t6.setVisible(true);
+                case "16:00" -> t7.setVisible(true);
+                case "17:00" -> t8.setVisible(true);
+                case "18:00" -> t9.setVisible(true);
+                case "19:00" -> t10.setVisible(true);
+            }
+        }
+    }//GEN-LAST:event_conDateButActionPerformed
+
+    private void studentBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentBoxActionPerformed
+         if(studentBox.getSelectedItem()==null){
+            return;
+        }
+        String choice = (String) studentBox.getSelectedItem();
+        if(choice.equals("None")){
+            studentId=null;
+        }
+        else{
+            studentId = Functions.filterData(Functions.readFile("userData.txt"), choice, 1).get(0).split(",")[0];
+        }
+    }//GEN-LAST:event_studentBoxActionPerformed
+
+    private void jTable1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseReleased
+        row = jTable1.getSelectedRow();
+        specialismBox.setSelectedItem(String.valueOf(model.getValueAt(row, 7)));
+        if(String.valueOf(model.getValueAt(row, 1)).equals("null")){
+            counselorBox.setSelectedItem("None");
+        }
+        else{
+            counselorBox.setSelectedItem(Functions.filterID(String.valueOf(model.getValueAt(row, 1)),"userData.txt").split(",")[1]);
+        }
+        
+        
+        studentBox.setSelectedItem(Functions.filterID(String.valueOf(model.getValueAt(row, 2)),"userData.txt").split(",")[1]);
+        String[] tempDate = Functions.DoBtoList(String.valueOf(model.getValueAt(row, 3)).split(" ")[0]);
+        YearList.setSelectedItem(Integer.valueOf(tempDate[0]));
+        MonthList.setSelectedItem(tempDate[1]);
+        DayList.setSelectedItem(Integer.valueOf(tempDate[2]));
+        String time = String.valueOf(model.getValueAt(row, 3)).split(" ")[1];
+        switch(time){
+            case "10:00" -> toggleButton(t1);
+            case "11:00" -> toggleButton(t2);
+            case "12:00" -> toggleButton(t3);
+            case "13:00" -> toggleButton(t4);
+            case "14:00" -> toggleButton(t5);
+            case "15:00" -> toggleButton(t6);
+            case "16:00" -> toggleButton(t7);
+            case "17:00" -> toggleButton(t8);
+            case "18:00" -> toggleButton(t9);
+            case "19:00" -> toggleButton(t10);
+        }
+        statusLabel.setText(String.valueOf(model.getValueAt(row, 6)));
+        typeLabel.setText(String.valueOf(model.getValueAt(row, 5)));
+
+    }//GEN-LAST:event_jTable1MouseReleased
+
+    private void createButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createButActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_createButActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Bottom;
+    private javax.swing.JComboBox<Integer> DayList;
     private javax.swing.JPanel Left;
+    private javax.swing.JComboBox<String> MonthList;
     private javax.swing.JPanel Right;
     private javax.swing.JPanel Top;
+    private javax.swing.JComboBox<Integer> YearList;
+    private javax.swing.JButton cancelBut;
+    private javax.swing.JButton conDateBut;
+    private javax.swing.JComboBox<String> counselorBox;
+    private javax.swing.JButton createBut;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JComboBox<String> specialismBox;
+    private javax.swing.JLabel statusFix;
+    private javax.swing.JLabel statusLabel;
+    private javax.swing.JComboBox<String> studentBox;
+    private javax.swing.JToggleButton t1;
+    private javax.swing.JToggleButton t10;
+    private javax.swing.JToggleButton t2;
+    private javax.swing.JToggleButton t3;
+    private javax.swing.JToggleButton t4;
+    private javax.swing.JToggleButton t5;
+    private javax.swing.JToggleButton t6;
+    private javax.swing.JToggleButton t7;
+    private javax.swing.JToggleButton t8;
+    private javax.swing.JToggleButton t9;
+    private javax.swing.JLabel typeFix;
+    private javax.swing.JLabel typeLabel;
+    private javax.swing.JButton updateBut;
     // End of variables declaration//GEN-END:variables
 }
