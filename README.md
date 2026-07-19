@@ -1,67 +1,139 @@
-﻿# Java Assignment
+# Java Assignment
 
 ---
 
-## Introductions
-Just an assignment to create a Counseling Management System with four roles (Admin, Counselor, Receptionist. Students)
+## Introduction
+A Counselling Management System with four roles: **Admin**, **Counselor**, **Receptionist**, **Student**.
 
 So apparently the cheatsheet for AWT is only useful on exam but useless on assignment :(
 
-Currently in: 
-**Progressing**
+Currently in:
+**Progressing + Suffering**
 
-What I've done (Linkin Park reference):
- - **readFile(FILENAME)** `It reads file ofc`
- - **inputFile(FILENAME,MODE)** `It overwrites file for MODE=false, append data to file for MODE=true`
- - **Login Interface** `Very cool, it can show or hide password, and so selft destruct when password is incorrect for three times`
- - **Counselor Interface 30%** `Just each panels button, not yet added header and their respective interface swapping`
- - **roleObject class** `Still configuring, need time to settle that, if no problem that will most likely be every role's property class`
- - **switchTo(PANEL) and switchContent(PANEL)** `This is where you switch between interfaces`
- - **filterData(DATAARRAY,TARGET,INDEX)** `Filter data to ArrayList based on target and index column (input -1 for index if want to check all column)`
- - **filterID(ID,FILENAME)** `Return a string line of user data based on id`
- - **functions that convert date, calendar and string to each other**
- - **removeData(ID, FILENAME)** `remove data (line) from file based on ID and filename.`
- - **checkDayClash(DATE)** `Checks if the date object provided clashes to other appointments, returns time that did not clash.`
+---
 
-Current bugs:
- - able to create two or more same user in admin add acc
- - some readFile line problem (read extra line that put in table)
+## Progress
+
+### ✅ Done
+- **Login Interface** — show/hide password, self-destruct after 3 failed attempts, role-based routing
+- **Welcome Page** — intro screen before login
+- **switchTo(PANEL) / switchContent(PANEL)** — screen navigation system
+- **All Main Panels**
+- **Object for Roles** — Admin, Receptionist, Counselor, Student, Appointment
+- **Admin — Manage Accounts (AAccountPanel)** — Create, Read, Update, Delete for Counselor/Receptionist accounts
+- **Admin — Reports (AReportPanel)** — appointment statistics with Daily/Weekly/Monthly/Yearly filter
+- **Admin — Staff Roster (AStaffPanel)** — view and manage counselor roster and specialisation
+- **Admin — Appointment Statistics (AAppointPanel)**
+- **Receptionist — Accounts (RAccountPanel)** — manage student accounts
+
+### 🔄 In Progress
+- **Receptionist — Appointments (RAppointPanel) 80%** — create Walk-in and Online appointments, specialism filter, counselor availability check, date range (2 months from today)
+- **Receptionist — Assign Counselor (RAssignPanel)**
+- **Receptionist — Queue (RQueuePanel)**
+
+### ⬜ Not Started
+- All **Counselor** panels (CAppointPanel, CRecomPanel, CRecordPanel, CRosterPanel)
+- All **Student** panels (SAppointPanel, SHistoryPanel, SProfilePanel, SQueuePanel)
 
 ---
 
 ## Assignment Rules
 
- - Every **Load from file** or **Save to file** should end up returning in `ArrayList` form.
- - Imported APIs:
-   ```java
-   import java.awt.*; // Awt interface stuff
-   import java.awt.event.*; // Awt interface stuff
-   import java.io.*; // User input (I think won't use it
-   import java.util.ArrayList; // Array List
-   import java.util.Data; // Date
-   import java.swing.*; // Swing interfaces
-   ```
- - Layout size: 1200x800 (set in each main panel properties)
- - Each page (interface) should be in individual java class file (JPanel form), easier to switch
- - When a new user created, the system will automatically adds 1 to the max id and it will be the user id for the new user. Deleted user will remains the id and other new user will not replace the old id.
- - However when an appointment needs to be updated (such as changing date or time), they will use the same appointment id, but adding or deleting appointment will be same as use.
- - Every appointment should takes only 1 hr, and appointment should not exist before 10am and after 8pm (10hrs).
- - Self-destruct (available)
- - For cheat sheets, words in **CAPSLOCK** are just placeholders — insert ur own values. Do not copy them directly.
+- Every **Load from file** or **Save to file** should end up returning in `ArrayList` form.
+- Imported APIs:
+  ```java
+  import java.awt.*;          // AWT interface stuff
+  import java.awt.event.*;    // AWT event handling
+  import java.io.*;           // File I/O
+  import java.util.ArrayList; // ArrayList
+  import java.util.Date;      // Date
+  import javax.swing.*;       // Swing interfaces
+  ```
+- Layout size: **1200x800** (set in each main panel properties)
+- Each page (interface) should be in individual Java class file (JPanel Form) — easier to switch
+- When a new user is created, the system automatically adds 1 to the max ID. Deleted users keep their ID — new users will not reuse old IDs.
+- When an appointment is updated (date/time change), it keeps the same appointment ID. Adding or deleting follows the same ID rule.
+- Every appointment takes exactly **1 hour**. Appointments cannot be before **10:00** or after **20:00** (10 time slots).
+- Self-destruct after 3 failed login attempts ✅
+- For cheat sheets, words in **CAPSLOCK** are placeholders — insert your own values, do not copy them directly.
 
 ---
 
 ## Files
- - **loginData** : `UID, username, password, roles`
- - **userData** : `UID, username, gender, DOB, email`
- - **appointment** : `AppointID, UID(Counselor), UID(Student), startDateTime, endDateTime, status(Approved, Declined, PendingAdd, PendingDelete, PendingUpdate, Done)`
+
+| File | Format |
+|---|---|
+| `loginData.txt` | `UID, username, password, role` |
+| `userData.txt` | `UID, name, gender, DoB, email` |
+| `appointment.txt` | `BookingID, CounselorID, StudentID, startDateTime, endDateTime, bookingType, queueNumber, status, specialism` |
+| `cProfile.txt` | `RosterID, CounselorID, Monday, Tuesday, Wednesday, Thursday, Friday, Specialisation` |
+| `note.txt` | `NoteID, AppointmentID, CounselorID, StudentID, notes, recommendations` |
+
+### Appointment Status Values
+| Status | Meaning |
+|---|---|
+| `Pending` | Student booked online, awaiting receptionist approval |
+| `Confirmed` | Receptionist confirmed / Walk-in created |
+| `Cancelled` | Cancelled by anyone |
+| `Done` | Completed appointment |
+
+### Appointment Business Rules
+- Walk-in appointments only exist on **today's date** — no future walk-ins
+- Walk-in appointments get a **queue number** (daily reset, starts from 1)
+- Online bookings have queue number **0** (no queue)
+- Cancelled walk-ins have queue number **0**
+- Student online bookings have `null` counselorID and status `Pending` until assigned
+- Working hours: **10:00 – 20:00** daily
+
+---
+
+## Object Classes
+
+| Class | Extends | Purpose |
+|---|---|---|
+| `ORoleParent` | — (abstract) | Base class for all roles. Common fields: id, name, gender, DoB, email |
+| `OAdmin` | `ORoleParent` | Admin role object |
+| `OCounselor` | `ORoleParent` | Counselor role object |
+| `OReceptionist` | `ORoleParent` | Receptionist role object |
+| `OStudent` | `ORoleParent` | Student role object |
+| `OAppointment` | — | Appointment object. Fields: bookingId, counselorId, studentId, startTime, endTime, bookingType, queueNumber, status |
+
+---
+
+## Functions Reference
+
+| Method | What it does |
+|---|---|
+| `readFile(FILENAME)` | Reads file, returns `ArrayList<String>`. Skips blank lines. |
+| `inputFile(FILENAME, DATA, MODE)` | `"write"` = overwrite file, `"append"` = add to end |
+| `filterData(DATA, TARGET, INDEX)` | Filter ArrayList by target value at column index. Use `-1` to check all columns. |
+| `filterID(ID, FILENAME)` | Returns the full line from file matching the given ID |
+| `removeData(ID, FILENAME)` | Removes line from file by ID |
+| `checkDayClash(DATE, COUNSELORID)` | Returns available time slots for a counselor on a given date |
+| `checkDate(YEAR, MONTH)` | Returns number of days in a given month/year (handles leap year) |
+| `StringtoDate(STRING)` | `"yyyy-MM-dd"` → `Date` |
+| `StringtoDateTime(STRING)` | `"yyyy-MM-dd HH:mm"` → `Calendar` |
+| `DatetoString(DATE)` | `Date` → `"yyyy-MM-dd"` |
+| `DateTimetoString(CALENDAR)` | `Calendar` → `"yyyy-MM-dd HH:mm"` |
+| `DatetoDateTime(DATE, TIME)` | Combines `Date` + time string → `Calendar` |
+| `DateTimetoDate(CALENDAR)` | `Calendar` → `Date` (strips time) |
+| `DoBtoList(DOB)` | `"yyyy-MM-dd"` → `String[]` {year, month, day} for picker population |
+| `ListtoDoB(ARRAY)` | `String[]` {year, month, day} → `"yyyy-MM-dd"` |
+| `ageRange()` | Returns `ArrayList<Integer>` of years from current year back 80 years |
+| `updateAppointFile()` | Updates appointment statuses (marks past confirmed appointments as Done) |
 
 ---
 
 ## Tips for the Assignment
 
-- Double click components while designing the panel can directly leads to the action listener for the component
-- You can put panels inside panel, therefore features like sidebars or header footer are able to make easily
+- Double click components while designing the panel to directly access the action listener
+- You can put panels inside panels — useful for sidebars, headers, footers
+- Use `loading = true` before `removeAllItems()` on a combobox to prevent action listeners from firing during population
+- Always populate DayList before YearList in the constructor to avoid NullPointerException chain reactions
+- Use `MonthList.getSelectedIndex() + 1` instead of parsing the month name string for cleaner date building
+- Use `String.valueOf()` instead of casting `(String)` on combobox items that contain integers (DayList, YearList)
+- `model.setRowCount(0)` to clear all rows from a table without removing columns
+- `jTable1.convertRowIndexToModel(visualRow)` — always convert row index after adding TableRowSorter
 - Headache now imma continue to think tmr...
 
 ---
@@ -79,8 +151,41 @@ ArrayList<DATATYPE> ARRAYNAME = new ArrayList<>();
 | `ARRAYNAME.add(DATA)` | Append data to the end of the list |
 | `ARRAYNAME.size()` | Get the number of items in the list |
 | `ARRAYNAME.remove(INDEX)` | Remove data at the given index |
-| `ARRAYNAME.contains(DATA)` | Check if the list has DATA — returns in **boolean** form |
+| `ARRAYNAME.contains(DATA)` | Check if the list has DATA — returns **boolean** |
 | `ARRAYNAME.set(INDEX, DATA)` | Replace data at the given index |
+
+---
+
+## Calendar Cheatsheet
+
+```java
+Calendar cal = Calendar.getInstance(); // current date and time
+
+// get parts
+cal.get(Calendar.YEAR)
+cal.get(Calendar.MONTH)          // 0-based! January = 0, December = 11
+cal.get(Calendar.DAY_OF_MONTH)
+cal.get(Calendar.HOUR_OF_DAY)
+cal.get(Calendar.MINUTE)
+cal.get(Calendar.DAY_OF_WEEK)    // Sunday=1, Monday=2 ... Saturday=7
+
+// add / subtract
+cal.add(Calendar.DAY_OF_MONTH, 7);    // +7 days
+cal.add(Calendar.MONTH, 2);           // +2 months
+cal.add(Calendar.HOUR_OF_DAY, -1);    // -1 hour
+
+// clone before modifying
+Calendar copy = (Calendar) cal.clone();
+copy.add(Calendar.HOUR_OF_DAY, 1);    // original unchanged
+
+// set specific time
+cal.set(Calendar.HOUR_OF_DAY, 23);
+cal.set(Calendar.MINUTE, 59);
+cal.set(Calendar.SECOND, 0);
+
+// get last day of month
+cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+```
 
 ---
 
@@ -93,66 +198,99 @@ ArrayList<DATATYPE> ARRAYNAME = new ArrayList<>();
 import javax.swing.table.DefaultTableModel;
 
 private DefaultTableModel model = new DefaultTableModel();
-private String[] columnName = {COLUMNTITLE1,COLUMNTITLE2,COLUMNTITLE3,COLUMNTITLE4};
-
-
+private String[] columnName = {COLUMNTITLE1, COLUMNTITLE2, COLUMNTITLE3, COLUMNTITLE4};
 
 public JAVACLASSCONSTRUCTOR(){
-     model.setColumnIdentifiers(columnName);
+    model.setColumnIdentifiers(columnName);
 }
 ```
 Then double-click the table in design and choose `Customize Code`
 
 Select the second `default code` and remove everything and input `model`
 
-Should be looks like this:
+Should look like this:
 ```java
 jTable1.setModel(model);
 ```
 
-**To add content into the table, just use:**
+**To add content into the table:**
 ```java
-model.addRow(CONTENT); // The content should be in list format!
+model.addRow(CONTENT); // content should be in array/list format
 ```
 
 **To delete content from a table:**
-
- - add this line to the java class file `private int row = -1;`
- - Double-click the table in design and select `Events` -> `Mouse` -> `mouseReleased`
- - insert this line: `row = jTable1.getSelectedRow();`
- - To get value of the row: `String NAME = String.valueOf(model.getValueAt(row,COLUMNINDEX));`
- - To remove a row: `model.removeRow(row);`
+- Add `private int row = -1;` to the class
+- Double-click the table in design → `Events` → `Mouse` → `mouseReleased`
+- Insert: `row = jTable1.convertRowIndexToModel(jTable1.getSelectedRow());`
+- Get value of the row: `String NAME = String.valueOf(model.getValueAt(row, COLUMNINDEX));`
+- Remove a row: `model.removeRow(row);`
 
 **To update content from table:**
- - Simply do: `model.setValueAt(NEWCONTENT,row,COLUMNINDEX)`
+```java
+model.setValueAt(NEWCONTENT, row, COLUMNINDEX);
+```
 
+**To clear all rows:**
+```java
+model.setRowCount(0);
+```
+
+**To enable column sorting:**
+```java
+TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(model);
+jTable1.setRowSorter(sorter);
+// always use convertRowIndexToModel when reading selected row after this
+```
 
 **Note!!!**
- - do if(row==-1) before executing button code and call `row = -1;` every time a button performed to avoid error
+- Always do `if(row == -1) return;` before executing button code
+- Reset with `row = -1;` after every button action to avoid stale index errors
+
 ---
 
-### Pop-up windows
-Import this: `import javax.swing.JOptionPane;`
+### ComboBox (JComboBox)
 
-This is where you want to do pop-up notifications for example `Sum Ting Wong!`:
 ```java
-JOptionpane.showMessageDialog(FRAME, TEXT);
+// add items
+comboBox.addItem(VALUE);
+comboBox.removeAllItems();
+
+// read selected
+String s   = (String)  comboBox.getSelectedItem();  // if String items
+int    i   = (int)     comboBox.getSelectedItem();   // if Integer items
+String str = String.valueOf(comboBox.getSelectedItem()); // safe for any type
+
+// set selected
+comboBox.setSelectedIndex(0);
+comboBox.setSelectedItem("VALUE");
+
+// count items
+comboBox.getItemCount();
 ```
 
-This is where you want to do confirmation notifications for example `Are you sure you want to delete?`:
-```java
-JOptionpane.showConfirmDialog(FRAME, TEXT); //will return 0,1,2 (Yes,No,Cancel)
-```
 ---
 
-### Close windows
-So there will be three types of method to close your window, each with different functions
+### Pop-up Windows
 ```java
-FRAME.dispose(); // Close the window, but the system will still run if there are other frame running in the background
-FRAME.setVisible(false); // Make the window invisible, but still running in the background
-System.exit(0); // Close the whole system (why don't just do Alt-F4)
+import javax.swing.JOptionPane;
 
+JOptionPane.showMessageDialog(FRAME, TEXT);                          // info message
+JOptionPane.showMessageDialog(FRAME, TEXT, TITLE, JOptionPane.ERROR_MESSAGE); // error
+JOptionPane.showConfirmDialog(FRAME, TEXT);                          // returns 0=Yes, 1=No, 2=Cancel
 ```
+
+---
+
+### Close Windows
+```java
+FRAME.dispose();           // close window, system keeps running
+FRAME.setVisible(false);   // hide window, still running in background
+System.exit(0);            // close entire system
+```
+
+---
+
+### Layouts
 
 > `HGAP` = Horizontal gap, `VGAP` = Vertical gap
 
@@ -187,7 +325,6 @@ add(new Button("Cancel"));
 
 <img width="428" height="442" alt="image" src="https://github.com/user-attachments/assets/12fc1101-3e56-47d7-9f8a-ec3547105a9f" />
 
-
 ---
 
 ### BorderLayout
@@ -213,7 +350,9 @@ add(COMPONENT, BorderLayout.REGION);
 | `BorderLayout.SOUTH` | Bottom |
 | `BorderLayout.WEST` | Left |
 | `BorderLayout.EAST` | Right |
-| `BorderLayout.CENTER` | Middle |
+| `BorderLayout.CENTER` | Middle (fills all remaining space) |
+
+**Note:** CENTER always fills all leftover space. When WEST panel is hidden, set its preferred size to `(0,0)` instead of `setVisible(false)` — BorderLayout reserves space even for invisible components.
 
 **Example:**
 ```java
@@ -234,7 +373,7 @@ Divides the window into equal-sized cells arranged in rows and columns.
 setLayout(new GridLayout(ROWS, COLS, HGAP, VGAP));
 ```
 
-Components fill in automatically left to right, top to bottom.
+Components fill in automatically left to right, top to bottom. Use `0` for rows or cols to auto-expand.
 
 Add components:
 ```java
