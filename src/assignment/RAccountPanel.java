@@ -236,8 +236,8 @@ public class RAccountPanel extends javax.swing.JPanel {
         String[] newData = {newUser.getId(),name,gender,tempDate,mail};
         model.addRow(newData);
         
-        String fileData = newUser.ObjecttoString();
-        Functions.inputFile("userData.txt", fileData, "append");
+        newUser.initData();
+        newUser.initLogin("Student");
         
     }//GEN-LAST:event_CreateButActionPerformed
 
@@ -296,6 +296,7 @@ public class RAccountPanel extends javax.swing.JPanel {
                 String tempId = String.valueOf(model.getValueAt(row,0));
                 Functions.removeData(tempId, "userData.txt");
                 model.removeRow(row);
+                row =-1;
             }
         }
     }//GEN-LAST:event_DeleteButActionPerformed
@@ -305,6 +306,41 @@ public class RAccountPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(frame, "Sum Ting Wong!");
         }
         else{
+            if(JOptionPane.showConfirmDialog(frame, "Are you sure you want to make changes?")==0){
+                String rId = String.valueOf(model.getValueAt(row,0));
+                String rName = String.valueOf(model.getValueAt(row,1));
+                String rGender = String.valueOf(model.getValueAt(row,2));
+                String tempRDoB = String.valueOf(model.getValueAt(row,3));
+                String rMail = String.valueOf(model.getValueAt(row,4));
+                Date rDoB = Functions.StringtoDate(tempRDoB);
+                OStudent updateUser = new OStudent(rId,rName,rGender,rDoB,rMail);
+
+                String name = NameField.getText().trim();
+                String gender = (String) GenderList.getSelectedItem();
+                String y = String.valueOf(YearList.getSelectedItem());
+                String m = String.format("%02d",MonthList.getSelectedIndex()+1);
+                String d = String.format("%02d", DayList.getSelectedItem());
+                String tempDoB = y+"-"+m+"-"+d;
+                Date dob = Functions.StringtoDate(tempDoB);
+                String mail = MailField.getText();
+
+                updateUser.setName(name);
+                updateUser.setGender(gender);
+                updateUser.setDoB(dob);
+                updateUser.setEmail(mail);
+                if(updateUser.getId()==null){
+                    frame.showError();
+                    return;
+                }
+                String[] newData = {updateUser.getId(),name,gender,tempDoB,mail};
+                model.addRow(newData);
+
+                Functions.removeData(updateUser.getId(), "loginData.txt");
+                Functions.removeData(updateUser.getId(), "userData.txt");
+                updateUser.initData();
+                updateUser.initLogin("Student");
+                row=-1;
+            }
             
         }
     }//GEN-LAST:event_UpdateButActionPerformed

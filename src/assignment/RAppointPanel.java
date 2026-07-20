@@ -6,6 +6,7 @@ package assignment;
 
 import java.util.Calendar;
 import java.util.Date;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -14,6 +15,7 @@ import javax.swing.table.TableRowSorter;
  * @author User
  */
 public class RAppointPanel extends javax.swing.JPanel {
+    public Assignment frame;
     public String counselorId,studentId;
     private DefaultTableModel model = new DefaultTableModel();
     private String[] columnName = {"AppointmentId","CounselorID","StudentID","Start Time","End Time","Booking Type","Status","Specialism"};
@@ -32,7 +34,8 @@ public class RAppointPanel extends javax.swing.JPanel {
     /**
      * Creates new form ARecomPanel
      */
-    public RAppointPanel() {
+    public RAppointPanel(Assignment frame) {
+        this.frame = frame;
         initComponents();
         model.setColumnIdentifiers(columnName);
         TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(model);
@@ -245,9 +248,10 @@ public class RAppointPanel extends javax.swing.JPanel {
         createBut.addActionListener(this::createButActionPerformed);
 
         cancelBut.setText("Cancel");
-        cancelBut.setActionCommand("Cancel");
+        cancelBut.addActionListener(this::cancelButActionPerformed);
 
         updateBut.setText("Update");
+        updateBut.addActionListener(this::updateButActionPerformed);
 
         conDateBut.setText("Search for available time");
         conDateBut.addActionListener(this::conDateButActionPerformed);
@@ -276,50 +280,55 @@ public class RAppointPanel extends javax.swing.JPanel {
                                         .addComponent(statusLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGap(15, 15, 15))
                         .addComponent(studentBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel2)
+                    .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(LeftLayout.createSequentialGroup()
-                            .addComponent(DayList, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cancelBut, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(MonthList, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(YearList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jLabel5)
-                        .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, LeftLayout.createSequentialGroup()
-                                .addComponent(cancelBut, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(updateBut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(LeftLayout.createSequentialGroup()
-                                .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, LeftLayout.createSequentialGroup()
-                                        .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(t5, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(t3, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(t6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(t4, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(LeftLayout.createSequentialGroup()
-                                        .addComponent(t1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(t2, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LeftLayout.createSequentialGroup()
-                                            .addComponent(t7, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(t8, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(LeftLayout.createSequentialGroup()
-                                            .addComponent(t9, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(t10, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGap(15, 15, 15)))
-                        .addComponent(createBut, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(updateBut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LeftLayout.createSequentialGroup()
+                            .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(LeftLayout.createSequentialGroup()
+                                    .addGap(0, 0, Short.MAX_VALUE)
+                                    .addComponent(t6, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(LeftLayout.createSequentialGroup()
+                                    .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(t3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(t1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(t2, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(t4, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGap(21, 21, 21))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LeftLayout.createSequentialGroup()
+                            .addGap(0, 0, Short.MAX_VALUE)
+                            .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(LeftLayout.createSequentialGroup()
+                                    .addComponent(t9, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(t10, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(LeftLayout.createSequentialGroup()
+                                    .addComponent(t7, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(t8, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGap(21, 21, 21))
                         .addComponent(conDateBut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(counselorBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(specialismBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(specialismBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(LeftLayout.createSequentialGroup()
+                            .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel2)
+                                .addGroup(LeftLayout.createSequentialGroup()
+                                    .addComponent(DayList, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(MonthList, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(YearList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabel5)
+                                .addComponent(jLabel1)
+                                .addComponent(t5, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(createBut, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(0, 0, Short.MAX_VALUE))))
                 .addContainerGap(17, Short.MAX_VALUE))
         );
         LeftLayout.setVerticalGroup(
@@ -537,7 +546,6 @@ public class RAppointPanel extends javax.swing.JPanel {
         t8.setVisible(false);
         t9.setVisible(false);
         t10.setVisible(false);
-        System.out.println(Functions.checkDayClash(dChoice, counselorId));
         for(String i: Functions.checkDayClash(dChoice, counselorId)){
             switch(i){
                 case "10:00" -> t1.setVisible(true);
@@ -583,8 +591,8 @@ public class RAppointPanel extends javax.swing.JPanel {
         YearList.setSelectedItem(Integer.valueOf(tempDate[0]));
         MonthList.setSelectedItem(tempDate[1]);
         DayList.setSelectedItem(Integer.valueOf(tempDate[2]));
-        String time = String.valueOf(model.getValueAt(row, 3)).split(" ")[1];
-        switch(time){
+        String t = String.valueOf(model.getValueAt(row, 3)).split(" ")[1];
+        switch(t){
             case "10:00" -> toggleButton(t1);
             case "11:00" -> toggleButton(t2);
             case "12:00" -> toggleButton(t3);
@@ -602,8 +610,109 @@ public class RAppointPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jTable1MouseReleased
 
     private void createButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createButActionPerformed
-        // TODO add your handling code here:
+        String sp = (String) specialismBox.getSelectedItem();
+        String cName = (String) counselorBox.getSelectedItem();
+        String y = String.valueOf(YearList.getSelectedItem());
+        String m = String.format("%02d",MonthList.getSelectedIndex()+1);
+        String d = String.format("%02d", DayList.getSelectedItem());
+        String t = time; 
+        String tempSDate = y+"-"+m+"-"+d+" "+t;
+        String sName = (String) studentBox.getSelectedItem();
+        String status,cId;
+        if(!cName.equals("None")){
+            status = "Confirmed";
+            cId = Functions.filterData(Functions.readFile("userData.txt"), cName, 1).get(0).split(",")[0];
+        }
+        else{
+            status = "Pending";
+            cId = "null";
+        }
+        String sId = Functions.filterData(Functions.readFile("userData.txt"), sName, 1).get(0).split(",")[0];
+            
+        
+        OAppointment newApp = new OAppointment(sId,cId,Functions.StringtoDateTime(tempSDate),status,sp);
+        if(newApp.getAppointmentId()==null){
+            frame.showError();
+            return;
+        }
+        String data = newApp.toFileString();
+        String[] temp = {newApp.getAppointmentId(),cId,sId,tempSDate,Functions.DateTimetoString(newApp.getEndTime()),status,newApp.getBookingType(),sp};
+        model.addRow(temp);
+        
+        newApp.initAppoint();
     }//GEN-LAST:event_createButActionPerformed
+
+    private void cancelButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButActionPerformed
+        if(row==-1){
+            JOptionPane.showMessageDialog(frame, "Sum Ting Wong!");
+        }
+        else{
+            if(JOptionPane.showConfirmDialog(frame, "Confirm delete? (No backsies)")==0){
+                String tempId = String.valueOf(model.getValueAt(row,0));
+                Functions.removeData(tempId, "userData.txt");
+                model.removeRow(row);
+            }
+        }
+    }//GEN-LAST:event_cancelButActionPerformed
+
+    private void updateButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButActionPerformed
+        if(row==-1){
+            JOptionPane.showMessageDialog(frame, "Sum Ting Wong!");
+        }
+        else{
+            if(JOptionPane.showConfirmDialog(frame, "Are you sure you want to make changes?")==0){
+                String rAId = String.valueOf(model.getValueAt(row,0));
+                String rCId = String.valueOf(model.getValueAt(row,1));
+                String rSId = String.valueOf(model.getValueAt(row,2));
+                Calendar rSTime = Functions.StringtoDateTime(String.valueOf(model.getValueAt(row,3)));
+                Calendar rETime = Functions.StringtoDateTime(String.valueOf(model.getValueAt(row,4)));
+                String rType = String.valueOf(model.getValueAt(row,5));
+                String rStatus = String.valueOf(model.getValueAt(row,6));
+                String rSpecial = String.valueOf(model.getValueAt(row,7));
+                
+                OAppointment updateApp = new OAppointment(rAId,rCId,rSId,rSTime,rETime,rType,rStatus,rSpecial);
+                
+                String CId = Functions.filterData(Functions.readFile("userData.txt"), (String)counselorBox.getSelectedItem(), 1).get(0).split(",")[0];
+                String SId = Functions.filterData(Functions.readFile("userData.txt"), (String)studentBox.getSelectedItem(), 1).get(0).split(",")[0];
+                String y = String.valueOf(YearList.getSelectedItem());
+                String m = (String) MonthList.getSelectedItem();
+                String d = String.format("%02d", DayList.getSelectedItem());
+                String t = time;
+                String[] ymd = {y,m,d};
+                String tempDate = Functions.ListtoDoB(ymd);
+                String tempSDate = tempDate+" "+t;
+                System.out.println(tempSDate);
+                Calendar sDate = Functions.StringtoDateTime(tempSDate);
+                String special = (String) specialismBox.getSelectedItem();
+                
+                
+                updateApp.setCounselorId(CId);
+                updateApp.setStudentId(SId);
+                updateApp.setStartTime(sDate);
+                updateApp.setEndTime(sDate);
+                updateApp.setSpecialism(special);
+                if(updateApp.getAppointmentId()==null){
+                    frame.showError();
+                    return;
+                }
+                
+                String[] newData = updateApp.toRowString().split(",");
+                model.setValueAt(newData[0],row,0);
+                model.setValueAt(newData[1],row,1);
+                model.setValueAt(newData[2],row,2);
+                model.setValueAt(newData[3],row,3);
+                model.setValueAt(newData[4],row,4);
+                model.setValueAt(newData[5],row,5);
+                model.setValueAt(newData[6],row,6);
+                model.setValueAt(newData[7],row,7);
+
+                Functions.removeData(updateApp.getAppointmentId(), "appointment.txt");
+                updateApp.initAppoint();
+                row=-1;
+            }
+            
+        }
+    }//GEN-LAST:event_updateButActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.Calendar;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.List;
 
 public class Functions {
     public static ArrayList<String> readFile(String fileName){
@@ -292,11 +293,18 @@ public class Functions {
     
     public static void updateAppointFile(){
         Calendar now = Calendar.getInstance();
+        ArrayList<String> tempData = new ArrayList<>();
         for(String line : readFile("appointment.txt")){
+            if(line.isEmpty()){
+                continue;
+            }
             String[] p = line.split(",");
             if(now.after(StringtoDateTime(p[4]))&&p[7].equals("Confirmed")){
                 p[6] = "0";
+                p[7] = "Done";
             } 
+            tempData.add(String.join(",", p));
         }
+        inputFile("appointment.txt",tempData,"write");
     }
 }

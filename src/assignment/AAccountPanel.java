@@ -293,8 +293,8 @@ public class AAccountPanel extends javax.swing.JPanel {
         }
         String[] newData = {newUser.getId(),name,gender,tempDate,mail};
         model.addRow(newData);
-        String fileData = newUser.ObjecttoString();
-        Functions.inputFile("userData.txt", fileData, "append");
+        newUser.initData();
+        newUser.initLogin(role);
     }
     private void CreateButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateButActionPerformed
         create();
@@ -350,6 +350,7 @@ public class AAccountPanel extends javax.swing.JPanel {
         String tempId = String.valueOf(model.getValueAt(row,0));
         Functions.removeData(tempId, "userData.txt");
         model.removeRow(row);
+        row=-1;
     }
     private void DeleteButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteButActionPerformed
         if(row==-1){
