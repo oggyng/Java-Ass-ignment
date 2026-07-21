@@ -108,6 +108,7 @@ public class Functions {
         return returnData;
     }
     
+    
     public static String filterID(String id, String fileName){
         for(String line : readFile(fileName)){
             String[] p = line.split(",");
@@ -307,4 +308,6 @@ public class Functions {
         }
         inputFile("appointment.txt",tempData,"write");
     }
+    
+    
 }

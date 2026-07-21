@@ -4,17 +4,33 @@
  */
 package assignment;
 
+import javax.swing.table.DefaultTableModel;
+import java.util.ArrayList;
 /**
  *
  * @author User
  */
 public class RAssignPanel extends javax.swing.JPanel {
-
+    private DefaultTableModel model = new DefaultTableModel();
+    private String[] columnName = {"AppointmentId","CounselorID","StudentID","Start Time","End Time","Specialism"};
+    private ArrayList<OAppointment> appointmentList = new ArrayList<>();
+    private int row =-1;
+    private final Assignment frame;
     /**
      * Creates new form ARecomPanel
      */
-    public RAssignPanel() {
+    public RAssignPanel(Assignment frame) {
         initComponents();
+        this.frame = frame;
+        model.setColumnIdentifiers(columnName);
+        for(String line : Functions.readFile("appointment.txt")){
+            if(line.split(",")[1].equals("null")){
+                String[] p = line.split(",");
+                String[] data = {p[0],p[1],p[2],p[3],p[4],p[8]};
+                appointmentList.add(OAppointment.fromFileString(line));
+                model.addRow(data);
+            }
+        }
     }
 
     /**
@@ -28,9 +44,15 @@ public class RAssignPanel extends javax.swing.JPanel {
 
         Top = new javax.swing.JPanel();
         Left = new javax.swing.JPanel();
-        Center = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        counselorBox = new javax.swing.JComboBox<>();
+        assignBut = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        specialismLb = new javax.swing.JLabel();
         Right = new javax.swing.JPanel();
         Bottom = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -41,42 +63,58 @@ public class RAssignPanel extends javax.swing.JPanel {
         Top.setLayout(TopLayout);
         TopLayout.setHorizontalGroup(
             TopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 1024, Short.MAX_VALUE)
         );
         TopLayout.setVerticalGroup(
             TopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 25, Short.MAX_VALUE)
         );
 
         add(Top, java.awt.BorderLayout.NORTH);
 
-        Left.setPreferredSize(new java.awt.Dimension(50, 0));
+        Left.setPreferredSize(new java.awt.Dimension(300, 0));
+
+        jLabel1.setText("Assign Counselor:");
+
+        assignBut.setText("Assign");
+        assignBut.addActionListener(this::assignButActionPerformed);
+
+        jLabel2.setText("Chosen counselling type: ");
+
+        specialismLb.setPreferredSize(new java.awt.Dimension(100, 16));
 
         javax.swing.GroupLayout LeftLayout = new javax.swing.GroupLayout(Left);
         Left.setLayout(LeftLayout);
         LeftLayout.setHorizontalGroup(
             LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(LeftLayout.createSequentialGroup()
+                .addGap(48, 48, 48)
+                .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel1)
+                        .addComponent(counselorBox, 0, 142, Short.MAX_VALUE)
+                        .addComponent(assignBut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(specialismLb, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(110, Short.MAX_VALUE))
         );
         LeftLayout.setVerticalGroup(
             LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(LeftLayout.createSequentialGroup()
+                .addGap(143, 143, 143)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(specialismLb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(counselorBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(assignBut)
+                .addContainerGap(323, Short.MAX_VALUE))
         );
 
         add(Left, java.awt.BorderLayout.WEST);
-
-        javax.swing.GroupLayout CenterLayout = new javax.swing.GroupLayout(Center);
-        Center.setLayout(CenterLayout);
-        CenterLayout.setHorizontalGroup(
-            CenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 848, Short.MAX_VALUE)
-        );
-        CenterLayout.setVerticalGroup(
-            CenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        add(Center, java.awt.BorderLayout.CENTER);
 
         Right.setPreferredSize(new java.awt.Dimension(50, 0));
 
@@ -88,7 +126,7 @@ public class RAssignPanel extends javax.swing.JPanel {
         );
         RightLayout.setVerticalGroup(
             RightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 595, Short.MAX_VALUE)
         );
 
         add(Right, java.awt.BorderLayout.EAST);
@@ -99,7 +137,7 @@ public class RAssignPanel extends javax.swing.JPanel {
         Bottom.setLayout(BottomLayout);
         BottomLayout.setHorizontalGroup(
             BottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 948, Short.MAX_VALUE)
+            .addGap(0, 1024, Short.MAX_VALUE)
         );
         BottomLayout.setVerticalGroup(
             BottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -107,14 +145,56 @@ public class RAssignPanel extends javax.swing.JPanel {
         );
 
         add(Bottom, java.awt.BorderLayout.SOUTH);
+
+        jTable1.setModel(model
+        );
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jTable1MouseReleased(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+
+        add(jScrollPane1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTable1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseReleased
+        row = jTable1.convertRowIndexToModel(jTable1.getSelectedRow());
+        counselorBox.removeAllItems();
+        specialismLb.setText(String.valueOf(model.getValueAt(row, 5)));
+        for(String line:Functions.readFile("cProfile.txt")){
+            if(line.split(",")[6].equals(String.valueOf(model.getValueAt(row, 5)))){
+                counselorBox.addItem(Functions.filterID(line.split(",")[0], "userData.txt").split(",")[1]);
+            }
+        }
+    }//GEN-LAST:event_jTable1MouseReleased
+
+    private void assignButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assignButActionPerformed
+        if(row==-1||counselorBox.getSelectedItem()==null){
+            frame.showError();
+            return;
+        }
+        String cName = (String) counselorBox.getSelectedItem();
+        String CId = Functions.filterData(Functions.readFile("userData.txt"), cName, 1).get(0).split(",")[0];
+        appointmentList.get(row).setCounselorId(CId);
+        appointmentList.get(row).setStatus("Confirmed");
+        model.setValueAt(CId, row, 1);
+        Functions.removeData(appointmentList.get(row).getAppointmentId(), "appointment.txt");
+        appointmentList.get(row).initAppoint();
+    }//GEN-LAST:event_assignButActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Bottom;
-    private javax.swing.JPanel Center;
     private javax.swing.JPanel Left;
     private javax.swing.JPanel Right;
     private javax.swing.JPanel Top;
+    private javax.swing.JButton assignBut;
+    private javax.swing.JComboBox<String> counselorBox;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JLabel specialismLb;
     // End of variables declaration//GEN-END:variables
 }

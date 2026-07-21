@@ -350,7 +350,7 @@ public class ReceptionistMainPanel extends javax.swing.JPanel {
 
     private void AssignButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AssignButActionPerformed
         butHighlight(AssignBut);
-        assignPanel = new RAssignPanel();
+        assignPanel = new RAssignPanel(frame);
         frame.switchContent(assignPanel, ContentPanel);
     }//GEN-LAST:event_AssignButActionPerformed
 

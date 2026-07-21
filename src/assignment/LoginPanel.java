@@ -60,6 +60,8 @@ public class LoginPanel extends javax.swing.JPanel {
 
         jLabel1.setText("Username: ");
 
+        jTextField1.setFont(new java.awt.Font("Trebuchet MS", 2, 12)); // NOI18N
+
         jLabel2.setText("Password: ");
 
         jButton1.setText("Sign In");
@@ -107,7 +109,7 @@ public class LoginPanel extends javax.swing.JPanel {
                 .addComponent(jLabel3)
                 .addGap(3, 3, 3)
                 .addComponent(jButton1)
-                .addContainerGap(382, Short.MAX_VALUE))
+                .addContainerGap(383, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

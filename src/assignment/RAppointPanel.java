@@ -158,8 +158,11 @@ public class RAppointPanel extends javax.swing.JPanel {
         createBut = new javax.swing.JButton();
         cancelBut = new javax.swing.JButton();
         updateBut = new javax.swing.JButton();
-        conDateBut = new javax.swing.JButton();
         studentBox = new javax.swing.JComboBox<>();
+        deselectRowBut = new javax.swing.JButton();
+        specialismLb = new javax.swing.JLabel();
+        counselorLb = new javax.swing.JLabel();
+        studentLb = new javax.swing.JLabel();
         Right = new javax.swing.JPanel();
         Bottom = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -185,11 +188,11 @@ public class RAppointPanel extends javax.swing.JPanel {
 
         Left.setPreferredSize(new java.awt.Dimension(250, 0));
 
-        jLabel1.setText("Select a counselor:");
+        jLabel1.setText("Counselor:");
 
         counselorBox.addActionListener(this::counselorBoxActionPerformed);
 
-        jLabel2.setText("Select a date: ");
+        jLabel2.setText("Date: ");
 
         DayList.addActionListener(this::DayListActionPerformed);
 
@@ -197,7 +200,7 @@ public class RAppointPanel extends javax.swing.JPanel {
 
         YearList.addActionListener(this::YearListActionPerformed);
 
-        jLabel3.setText("Select desire start time: ");
+        jLabel3.setText("Time: ");
 
         t1.setText("10:00");
         t1.addActionListener(this::t1ActionPerformed);
@@ -229,7 +232,7 @@ public class RAppointPanel extends javax.swing.JPanel {
         t10.setText("19:00");
         t10.addActionListener(this::t10ActionPerformed);
 
-        jLabel4.setText("Select a student: ");
+        jLabel4.setText("Student: ");
 
         statusFix.setText("Booking status: ");
 
@@ -239,7 +242,7 @@ public class RAppointPanel extends javax.swing.JPanel {
 
         typeLabel.setPreferredSize(new java.awt.Dimension(70, 16));
 
-        jLabel5.setText("Select a specialism: ");
+        jLabel5.setText("Counselling type: ");
 
         specialismBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Academic", "Career", "Personal", "Social", "Financial", "Mental Health" }));
         specialismBox.addActionListener(this::specialismBoxActionPerformed);
@@ -253,105 +256,124 @@ public class RAppointPanel extends javax.swing.JPanel {
         updateBut.setText("Update");
         updateBut.addActionListener(this::updateButActionPerformed);
 
-        conDateBut.setText("Search for available time");
-        conDateBut.addActionListener(this::conDateButActionPerformed);
-
         studentBox.setToolTipText("");
         studentBox.addActionListener(this::studentBoxActionPerformed);
+
+        deselectRowBut.setText("Deselect Row");
+        deselectRowBut.addActionListener(this::deselectRowButActionPerformed);
+
+        specialismLb.setPreferredSize(new java.awt.Dimension(100, 16));
+
+        counselorLb.setPreferredSize(new java.awt.Dimension(150, 16));
+
+        studentLb.setPreferredSize(new java.awt.Dimension(133, 16));
 
         javax.swing.GroupLayout LeftLayout = new javax.swing.GroupLayout(Left);
         Left.setLayout(LeftLayout);
         LeftLayout.setHorizontalGroup(
             LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(LeftLayout.createSequentialGroup()
-                .addGap(32, 32, 32)
+                .addGap(31, 31, 31)
                 .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(LeftLayout.createSequentialGroup()
-                            .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel4)
-                                .addGroup(LeftLayout.createSequentialGroup()
-                                    .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(statusFix)
-                                        .addComponent(typeFix))
-                                    .addGap(18, 18, 18)
-                                    .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(typeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(statusLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGap(15, 15, 15))
-                        .addComponent(studentBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(LeftLayout.createSequentialGroup()
-                            .addComponent(cancelBut, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(updateBut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LeftLayout.createSequentialGroup()
-                            .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(LeftLayout.createSequentialGroup()
-                                    .addGap(0, 0, Short.MAX_VALUE)
-                                    .addComponent(t6, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(LeftLayout.createSequentialGroup()
-                                    .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(t3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(t1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(t2, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(t4, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGap(21, 21, 21))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LeftLayout.createSequentialGroup()
-                            .addGap(0, 0, Short.MAX_VALUE)
-                            .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(LeftLayout.createSequentialGroup()
-                                    .addComponent(t9, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(t10, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(LeftLayout.createSequentialGroup()
-                                    .addComponent(t7, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(t8, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGap(21, 21, 21))
-                        .addComponent(conDateBut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(counselorBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(specialismBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(LeftLayout.createSequentialGroup()
-                            .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel2)
-                                .addGroup(LeftLayout.createSequentialGroup()
-                                    .addComponent(DayList, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(MonthList, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(YearList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(LeftLayout.createSequentialGroup()
+                        .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LeftLayout.createSequentialGroup()
+                                .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LeftLayout.createSequentialGroup()
+                                        .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(t3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(t1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(t2, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
+                                            .addComponent(t4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LeftLayout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(t7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(t9, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(t10, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
+                                            .addComponent(t8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(t6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addGroup(LeftLayout.createSequentialGroup()
+                                        .addComponent(t5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGap(96, 96, 96)))
+                                .addGap(21, 21, 21))
+                            .addGroup(LeftLayout.createSequentialGroup()
+                                .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addGroup(LeftLayout.createSequentialGroup()
+                                            .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(statusFix)
+                                                .addComponent(typeFix))
+                                            .addGap(18, 18, 18)
+                                            .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(typeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(statusLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGap(15, 15, 15))
+                                        .addComponent(studentBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(LeftLayout.createSequentialGroup()
+                                            .addComponent(jLabel4)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(studentLb, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addComponent(jLabel2)
+                                    .addGroup(LeftLayout.createSequentialGroup()
+                                        .addComponent(DayList, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(MonthList, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(YearList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(LeftLayout.createSequentialGroup()
+                                        .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(createBut, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+                                            .addComponent(cancelBut, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(updateBut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(deselectRowBut, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE))))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(12, 12, 12))
+                    .addGroup(LeftLayout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(LeftLayout.createSequentialGroup()
                                 .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(specialismLb, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(specialismBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(counselorBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(LeftLayout.createSequentialGroup()
                                 .addComponent(jLabel1)
-                                .addComponent(t5, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(createBut, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(0, 0, Short.MAX_VALUE))))
-                .addContainerGap(17, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(counselorLb, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addContainerGap())))
         );
         LeftLayout.setVerticalGroup(
             LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LeftLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel5)
+                .addGap(24, 24, 24)
+                .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(specialismLb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(specialismBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1)
+                .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(counselorLb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(counselorBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(DayList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(MonthList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(YearList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(7, 7, 7)
-                .addComponent(conDateBut)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -374,7 +396,9 @@ public class RAppointPanel extends javax.swing.JPanel {
                     .addComponent(t9)
                     .addComponent(t10))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel4)
+                .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(studentLb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(studentBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -386,7 +410,9 @@ public class RAppointPanel extends javax.swing.JPanel {
                     .addComponent(typeFix)
                     .addComponent(typeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(createBut)
+                .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(createBut)
+                    .addComponent(deselectRowBut))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelBut)
@@ -480,15 +506,17 @@ public class RAppointPanel extends javax.swing.JPanel {
         }
     }
     private void DayListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DayListActionPerformed
-        // TODO add your handling code here:
+        showTime();
     }//GEN-LAST:event_DayListActionPerformed
 
     private void YearListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_YearListActionPerformed
         updateMonth();
+        showTime();
     }//GEN-LAST:event_YearListActionPerformed
 
     private void MonthListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MonthListActionPerformed
         updateDay();
+        showTime();
     }//GEN-LAST:event_MonthListActionPerformed
 
     private void t1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t1ActionPerformed
@@ -527,9 +555,10 @@ public class RAppointPanel extends javax.swing.JPanel {
         toggleButton(t10);// TODO add your handling code here:
     }//GEN-LAST:event_t10ActionPerformed
     
-    
-    
-    private void conDateButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_conDateButActionPerformed
+    private void showTime(){
+        if(DayList.getSelectedItem()==null||MonthList.getSelectedItem()==null||YearList.getSelectedItem()==null){
+            return;
+        }
         String d = String.format("%02d", (int) DayList.getSelectedItem());
         String m = (String) MonthList.getSelectedItem();
         String y = String.valueOf((int) YearList.getSelectedItem());
@@ -560,8 +589,8 @@ public class RAppointPanel extends javax.swing.JPanel {
                 case "19:00" -> t10.setVisible(true);
             }
         }
-    }//GEN-LAST:event_conDateButActionPerformed
-
+    }
+    
     private void studentBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentBoxActionPerformed
          if(studentBox.getSelectedItem()==null){
             return;
@@ -577,16 +606,22 @@ public class RAppointPanel extends javax.swing.JPanel {
 
     private void jTable1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseReleased
         row = jTable1.getSelectedRow();
-        specialismBox.setSelectedItem(String.valueOf(model.getValueAt(row, 7)));
+        counselorBox.setVisible(false);
+        specialismBox.setVisible(false);
+        studentBox.setVisible(false);
+        counselorLb.setVisible(true);
+        specialismLb.setVisible(true);
+        studentLb.setVisible(true);
+        specialismLb.setText(String.valueOf(model.getValueAt(row, 7)));
         if(String.valueOf(model.getValueAt(row, 1)).equals("null")){
-            counselorBox.setSelectedItem("None");
+            counselorLb.setText("None");
         }
         else{
-            counselorBox.setSelectedItem(Functions.filterID(String.valueOf(model.getValueAt(row, 1)),"userData.txt").split(",")[1]);
+            counselorLb.setText(Functions.filterID(String.valueOf(model.getValueAt(row, 1)),"userData.txt").split(",")[1]);
         }
         
         
-        studentBox.setSelectedItem(Functions.filterID(String.valueOf(model.getValueAt(row, 2)),"userData.txt").split(",")[1]);
+        studentLb.setText(Functions.filterID(String.valueOf(model.getValueAt(row, 2)),"userData.txt").split(",")[1]);
         String[] tempDate = Functions.DoBtoList(String.valueOf(model.getValueAt(row, 3)).split(" ")[0]);
         YearList.setSelectedItem(Integer.valueOf(tempDate[0]));
         MonthList.setSelectedItem(tempDate[1]);
@@ -610,6 +645,9 @@ public class RAppointPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jTable1MouseReleased
 
     private void createButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createButActionPerformed
+        if(row!=-1){
+            JOptionPane.showMessageDialog(frame,"Please deselect row before creating new appointment!");
+        }
         String sp = (String) specialismBox.getSelectedItem();
         String cName = (String) counselorBox.getSelectedItem();
         String y = String.valueOf(YearList.getSelectedItem());
@@ -672,8 +710,8 @@ public class RAppointPanel extends javax.swing.JPanel {
                 
                 OAppointment updateApp = new OAppointment(rAId,rCId,rSId,rSTime,rETime,rType,rStatus,rSpecial);
                 
-                String CId = Functions.filterData(Functions.readFile("userData.txt"), (String)counselorBox.getSelectedItem(), 1).get(0).split(",")[0];
-                String SId = Functions.filterData(Functions.readFile("userData.txt"), (String)studentBox.getSelectedItem(), 1).get(0).split(",")[0];
+                String CId = Functions.filterData(Functions.readFile("userData.txt"), (String)counselorLb.getText(), 1).get(0).split(",")[0];
+                String SId = Functions.filterData(Functions.readFile("userData.txt"), (String)studentLb.getText(), 1).get(0).split(",")[0];
                 String y = String.valueOf(YearList.getSelectedItem());
                 String m = (String) MonthList.getSelectedItem();
                 String d = String.format("%02d", DayList.getSelectedItem());
@@ -683,7 +721,7 @@ public class RAppointPanel extends javax.swing.JPanel {
                 String tempSDate = tempDate+" "+t;
                 System.out.println(tempSDate);
                 Calendar sDate = Functions.StringtoDateTime(tempSDate);
-                String special = (String) specialismBox.getSelectedItem();
+                String special = specialismLb.getText();
                 
                 
                 updateApp.setCounselorId(CId);
@@ -710,9 +748,19 @@ public class RAppointPanel extends javax.swing.JPanel {
                 updateApp.initAppoint();
                 row=-1;
             }
-            
         }
     }//GEN-LAST:event_updateButActionPerformed
+
+    private void deselectRowButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deselectRowButActionPerformed
+        row = -1;
+        jTable1.clearSelection();
+        counselorBox.setVisible(true);
+        specialismBox.setVisible(true);
+        studentBox.setVisible(true);
+        counselorLb.setVisible(false);
+        specialismLb.setVisible(false);
+        studentLb.setVisible(false);
+    }//GEN-LAST:event_deselectRowButActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -724,9 +772,10 @@ public class RAppointPanel extends javax.swing.JPanel {
     private javax.swing.JPanel Top;
     private javax.swing.JComboBox<Integer> YearList;
     private javax.swing.JButton cancelBut;
-    private javax.swing.JButton conDateBut;
     private javax.swing.JComboBox<String> counselorBox;
+    private javax.swing.JLabel counselorLb;
     private javax.swing.JButton createBut;
+    private javax.swing.JButton deselectRowBut;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -735,9 +784,11 @@ public class RAppointPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JComboBox<String> specialismBox;
+    private javax.swing.JLabel specialismLb;
     private javax.swing.JLabel statusFix;
     private javax.swing.JLabel statusLabel;
     private javax.swing.JComboBox<String> studentBox;
+    private javax.swing.JLabel studentLb;
     private javax.swing.JToggleButton t1;
     private javax.swing.JToggleButton t10;
     private javax.swing.JToggleButton t2;

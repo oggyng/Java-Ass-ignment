@@ -31,6 +31,21 @@ public class OAppointment {
 
     // ===== Constructors =====
     
+    // For only walk-ins
+    public OAppointment(String studentId,String counselorId,
+                        Calendar startTime, String status,String specialism) {
+        this.studentId = studentId;
+        this.startTime = startTime;
+        this.setEndTime(startTime);
+        this.endTime = this.getEndTime();
+        this.bookingType = "Online";
+        this.status = status;
+        this.counselorId = counselorId;
+        this.queueNumber = 0;
+        this.specialism = specialism;
+        this.setAppointmentId();
+    }
+    
     // Create object for student (online)
     public OAppointment(String studentId,String counselorId,
                         Calendar startTime, String status,String specialism) {
@@ -142,7 +157,7 @@ public class OAppointment {
         }
     }
     
-    // Only for Walk In
+    // Only for Walk In (make it able to detect counselor available time and show only available counselors, probably return in counselor string?)
     public void setQueueNumber(){
         Date today = new Date();
         Calendar now = Calendar.getInstance();
