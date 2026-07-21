@@ -8,7 +8,7 @@ A Counselling Management System with four roles: **Admin**, **Counselor**, **Rec
 So apparently the cheatsheet for AWT is only useful on exam but useless on assignment :(
 
 Currently in:
-**Progressing + Suffering**
+**Progressing + Suffering = creating a bunch of trash code (we called it 屎山代码)**
 
 ---
 
@@ -35,6 +35,8 @@ Currently in:
 - All **Counselor** panels (CAppointPanel, CRecomPanel, CRecordPanel, CRosterPanel)
 - All **Student** panels (SAppointPanel, SHistoryPanel, SProfilePanel, SQueuePanel)
 
+### Things you might need to look up to:
+- Functions.filterData, probably change it or add another to equals instead of containing same target because names might contains other name in the name (will ignore if lazy).
 ---
 
 ## Assignment Rules
