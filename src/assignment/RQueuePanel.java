@@ -4,17 +4,21 @@
  */
 package assignment;
 
+import javax.swing.table.DefaultTableModel;
+// so walkin table data will show every walk in user, and when a counselor is chosen iyt will show today's walkin user and their queue number
 /**
  *
  * @author User
  */
 public class RQueuePanel extends javax.swing.JPanel {
-
+    private DefaultTableModel model = new DefaultTableModel();
+    private String[] columnName = {"AppointmentId","CounselorID","StudentID","Start Time","End Time","Queue Number","Specialism"};
     /**
      * Creates new form ARecomPanel
      */
     public RQueuePanel() {
         initComponents();
+        model.setColumnIdentifiers(columnName);
     }
 
     /**
@@ -28,9 +32,10 @@ public class RQueuePanel extends javax.swing.JPanel {
 
         Top = new javax.swing.JPanel();
         Left = new javax.swing.JPanel();
-        Center = new javax.swing.JPanel();
         Right = new javax.swing.JPanel();
         Bottom = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -41,42 +46,29 @@ public class RQueuePanel extends javax.swing.JPanel {
         Top.setLayout(TopLayout);
         TopLayout.setHorizontalGroup(
             TopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 798, Short.MAX_VALUE)
         );
         TopLayout.setVerticalGroup(
             TopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 25, Short.MAX_VALUE)
         );
 
         add(Top, java.awt.BorderLayout.NORTH);
 
-        Left.setPreferredSize(new java.awt.Dimension(50, 0));
+        Left.setPreferredSize(new java.awt.Dimension(250, 0));
 
         javax.swing.GroupLayout LeftLayout = new javax.swing.GroupLayout(Left);
         Left.setLayout(LeftLayout);
         LeftLayout.setHorizontalGroup(
             LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 250, Short.MAX_VALUE)
         );
         LeftLayout.setVerticalGroup(
             LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 441, Short.MAX_VALUE)
         );
 
         add(Left, java.awt.BorderLayout.WEST);
-
-        javax.swing.GroupLayout CenterLayout = new javax.swing.GroupLayout(Center);
-        Center.setLayout(CenterLayout);
-        CenterLayout.setHorizontalGroup(
-            CenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 848, Short.MAX_VALUE)
-        );
-        CenterLayout.setVerticalGroup(
-            CenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        add(Center, java.awt.BorderLayout.CENTER);
 
         Right.setPreferredSize(new java.awt.Dimension(50, 0));
 
@@ -88,7 +80,7 @@ public class RQueuePanel extends javax.swing.JPanel {
         );
         RightLayout.setVerticalGroup(
             RightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 441, Short.MAX_VALUE)
         );
 
         add(Right, java.awt.BorderLayout.EAST);
@@ -99,7 +91,7 @@ public class RQueuePanel extends javax.swing.JPanel {
         Bottom.setLayout(BottomLayout);
         BottomLayout.setHorizontalGroup(
             BottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 948, Short.MAX_VALUE)
+            .addGap(0, 798, Short.MAX_VALUE)
         );
         BottomLayout.setVerticalGroup(
             BottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -107,14 +99,30 @@ public class RQueuePanel extends javax.swing.JPanel {
         );
 
         add(Bottom, java.awt.BorderLayout.SOUTH);
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        add(jScrollPane1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Bottom;
-    private javax.swing.JPanel Center;
     private javax.swing.JPanel Left;
     private javax.swing.JPanel Right;
     private javax.swing.JPanel Top;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

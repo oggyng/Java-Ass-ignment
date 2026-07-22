@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JOptionPane;
 /**
  * Appointment class - represents a counselling appointment/booking.
  * This is the CORE class for the Receptionist module:
@@ -47,15 +48,13 @@ public class OAppointment {
     }
     
     // Create object for student (online)
-    public OAppointment(String studentId,String counselorId,
-                        Calendar startTime, String status,String specialism) {
+    public OAppointment(String studentId, String specialism) {
         this.studentId = studentId;
-        this.startTime = startTime;
-        this.setEndTime(startTime);
-        this.endTime = this.getEndTime();
-        this.bookingType = "Online";
-        this.status = status;
-        this.counselorId = counselorId;
+        this.startTime = null;
+        this.endTime = null;
+        this.bookingType = "WalkIn";
+        this.status = null;
+        this.counselorId = null;
         this.queueNumber = 0;
         this.specialism = specialism;
         this.setAppointmentId();
@@ -158,11 +157,10 @@ public class OAppointment {
     }
     
     // Only for Walk In (make it able to detect counselor available time and show only available counselors, probably return in counselor string?)
-    public void setQueueNumber(){
+    public Boolean setQueueNumber(String counselorId){
         Date today = new Date();
         Calendar now = Calendar.getInstance();
-        Boolean booked = false;
-        for(String i : Functions.checkDayClash(today)){
+        for(String i : Functions.checkDayClash(today,counselorId)){
             if(Functions.DatetoDateTime(today, i).before(now)){
                 continue;
             }
@@ -177,13 +175,10 @@ public class OAppointment {
             this.queueNumber = max+1;
             this.startTime = Functions.StringtoDateTime(Functions.DatetoString(today)+" "+i);
             this.setEndTime(this.startTime);
-            booked = true;
             this.status = "Confirmed";
-            break;
+            return true;
         }
-        if(!booked){
-            this.status = "Cancelled";
-        }
+        return false;
     }
     
     public void setSpecialism(String specialism){

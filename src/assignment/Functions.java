@@ -208,28 +208,7 @@ public class Functions {
     
 
     
-    public static ArrayList<String> checkDayClash(Date date){
-        final String[] time = {"10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00"};
-        ArrayList<String> timeSlot = new ArrayList<>();
-        timeSlot.addAll(Arrays.asList(time));
-        for(String lines : readFile("appointment.txt")){
-            String[] p = lines.split(",");
-            if(!date.equals(StringtoDate(p[3].split(" ")[0]))){
-                continue;
-            }
-            if(!p[5].equals("Pending") && !p[5].equals("Confirmed")){
-                continue;
-            }
-            Calendar tempStart = StringtoDateTime(p[3]); 
-            for(String t : time){
-                if(DatetoDateTime(date,t).equals(tempStart)){
-                    timeSlot.remove(t);
-                    break;
-                }
-            }
-        }
-        return timeSlot;
-    }
+
     
     public static ArrayList<Integer> ageRange(){
         Calendar c = Calendar.getInstance();
