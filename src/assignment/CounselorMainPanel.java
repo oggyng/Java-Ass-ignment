@@ -19,6 +19,9 @@ public class CounselorMainPanel extends javax.swing.JPanel {
     private OCounselor user;
     public LoginPanel loginPanel;
     public CRecomPanel recomPanel;
+    public CAppointPanel appPanel;
+    public CRecordPanel recordPanel;
+    public CRosterPanel rostPanel;
     
     
     /**
@@ -66,9 +69,9 @@ public class CounselorMainPanel extends javax.swing.JPanel {
         SideBarBut = new javax.swing.JButton();
         SideBarPanel = new javax.swing.JPanel();
         InnerSideBarPanel = new javax.swing.JPanel();
-        RecordBut = new javax.swing.JButton();
-        AppointBut = new javax.swing.JButton();
         RosterBut = new javax.swing.JButton();
+        AppointBut = new javax.swing.JButton();
+        RecordBut = new javax.swing.JButton();
         RecomBut = new javax.swing.JButton();
         TaskBar = new javax.swing.JPanel();
         GitHub = new javax.swing.JPanel();
@@ -230,11 +233,11 @@ public class CounselorMainPanel extends javax.swing.JPanel {
         });
         InnerSideBarPanel.setLayout(new java.awt.GridLayout(0, 1));
 
-        RecordBut.setBackground(new java.awt.Color(111, 148, 85));
-        RecordBut.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        RecordBut.setText("Student Consultation Records");
-        RecordBut.addActionListener(this::RecordButActionPerformed);
-        InnerSideBarPanel.add(RecordBut);
+        RosterBut.setBackground(new java.awt.Color(111, 148, 85));
+        RosterBut.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        RosterBut.setText("View Personal Roster");
+        RosterBut.addActionListener(this::RosterButActionPerformed);
+        InnerSideBarPanel.add(RosterBut);
 
         AppointBut.setBackground(new java.awt.Color(111, 148, 85));
         AppointBut.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -243,11 +246,11 @@ public class CounselorMainPanel extends javax.swing.JPanel {
         AppointBut.addActionListener(this::AppointButActionPerformed);
         InnerSideBarPanel.add(AppointBut);
 
-        RosterBut.setBackground(new java.awt.Color(111, 148, 85));
-        RosterBut.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        RosterBut.setText("View Personal Roster");
-        RosterBut.addActionListener(this::RosterButActionPerformed);
-        InnerSideBarPanel.add(RosterBut);
+        RecordBut.setBackground(new java.awt.Color(111, 148, 85));
+        RecordBut.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        RecordBut.setText("Student Consultation Records");
+        RecordBut.addActionListener(this::RecordButActionPerformed);
+        InnerSideBarPanel.add(RecordBut);
 
         RecomBut.setBackground(new java.awt.Color(111, 148, 85));
         RecomBut.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -346,14 +349,20 @@ public class CounselorMainPanel extends javax.swing.JPanel {
 
     private void RosterButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RosterButActionPerformed
         butHighlight(RosterBut);
+        rostPanel = new CRosterPanel(user);
+        frame.switchContent(rostPanel, ContentPanel);
     }//GEN-LAST:event_RosterButActionPerformed
 
     private void AppointButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AppointButActionPerformed
         butHighlight(AppointBut);
+        appPanel = new CAppointPanel();
+        frame.switchContent(appPanel, ContentPanel);
     }//GEN-LAST:event_AppointButActionPerformed
 
     private void RecordButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RecordButActionPerformed
         butHighlight(RecordBut);
+        recordPanel = new CRecordPanel();
+        frame.switchContent(recordPanel, ContentPanel);
     }//GEN-LAST:event_RecordButActionPerformed
 
     private void InnerSideBarPanelMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_InnerSideBarPanelMouseDragged

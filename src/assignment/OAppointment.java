@@ -32,7 +32,7 @@ public class OAppointment {
 
     // ===== Constructors =====
     
-    // For only walk-ins
+    // Online
     public OAppointment(String studentId,String counselorId,
                         Calendar startTime, String status,String specialism) {
         this.studentId = studentId;
@@ -47,7 +47,7 @@ public class OAppointment {
         this.setAppointmentId();
     }
     
-    // Create object for student (online)
+    // WalkIn
     public OAppointment(String studentId, String specialism) {
         this.studentId = studentId;
         this.startTime = null;
@@ -57,7 +57,6 @@ public class OAppointment {
         this.counselorId = null;
         this.queueNumber = 0;
         this.specialism = specialism;
-        this.setAppointmentId();
     }
     
     // for update
@@ -159,6 +158,7 @@ public class OAppointment {
     // Only for Walk In (make it able to detect counselor available time and show only available counselors, probably return in counselor string?)
     public Boolean setQueueNumber(String counselorId){
         Date today = new Date();
+        String SToday = Functions.DatetoString(today); 
         Calendar now = Calendar.getInstance();
         for(String i : Functions.checkDayClash(today,counselorId)){
             if(Functions.DatetoDateTime(today, i).before(now)){
@@ -168,10 +168,11 @@ public class OAppointment {
             setEndTime(getStartTime());
             int max = 0;
             for(String line : Functions.readFile("appointment.txt")){
-                if((max<Integer.parseInt(line.split(",")[6])) && (Functions.StringtoDate(line.split(",")[3].split(" ")[0]).equals(today))){
+                if((max<Integer.parseInt(line.split(",")[6])) && (line.split(",")[3].split(" ")[0].equals(SToday))){
                     max = Integer.parseInt(line.split(",")[6]);
                 }
             }
+            this.counselorId = counselorId;
             this.queueNumber = max+1;
             this.startTime = Functions.StringtoDateTime(Functions.DatetoString(today)+" "+i);
             this.setEndTime(this.startTime);
@@ -187,7 +188,10 @@ public class OAppointment {
     
     // set date and stuff
     
-
+    public String toQueueString(){
+        return appointmentId + "," + counselorId + "," + studentId + ","
+                + Functions.DateTimetoString(startTime) + "," + Functions.DateTimetoString(endTime) + "," + queueNumber + "," + specialism;
+    }
 
     public String toFileString() {
         return appointmentId + "," + counselorId + "," + studentId + ","

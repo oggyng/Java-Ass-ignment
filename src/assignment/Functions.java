@@ -119,6 +119,16 @@ public class Functions {
         return null;
     }
     
+    public static String filterName(String name, String fileName){
+        for(String line : readFile(fileName)){
+            String[] p = line.split(",");
+            if(p[1].equals(name)){
+                return line;
+            }
+        }
+        return null;
+    }
+    
     public static Date StringtoDate(String date){
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date tempDate;
@@ -178,6 +188,7 @@ public class Functions {
     
     public static ArrayList<String> checkDayClash(Date date, String counselorID){
         final String[] time = {"10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00"};
+        Calendar today = Calendar.getInstance();
         ArrayList<String> timeSlot = new ArrayList<>();
         timeSlot.addAll(Arrays.asList(time));
         String targetDate  = DatetoString(date);
@@ -197,9 +208,8 @@ public class Functions {
             for(String t : time){
                 String slotStr  = DatetoString(date) + " " + t;
                 String startStr = p[3];
-                if(slotStr.equals(startStr)){
+                if(slotStr.equals(startStr)||today.after(StringtoDateTime(slotStr))){
                     timeSlot.remove(t);
-                    break;
                 }
             }
         }
