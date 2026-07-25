@@ -4,17 +4,40 @@
  */
 package assignment;
 
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+import java.util.Calendar;
+        
+
 /**
  *
  * @author User
  */
 public class CRosterPanel extends javax.swing.JPanel {
-
+    private DefaultTableModel model = new DefaultTableModel();
+    private String[] columnName = {"AppointID", "Counselor Name", "Student Name", "Date","Time"};
+    private int row = -1;
+    private OCounselor user;
+    private Calendar today = Calendar.getInstance();
     /**
      * Creates new form ARecomPanel
      */
-    public CRosterPanel() {
+    public CRosterPanel(OCounselor user) {
         initComponents();
+        this.user = user;
+        model.setColumnIdentifiers(columnName);
+        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(model);
+        jTable1.setRowSorter(sorter); 
+        for(String line : Functions.readFile("appointment.txt")){
+            if(!line.isEmpty()){
+                Calendar pTime = Functions.StringtoDateTime(line.split(",")[3]);
+                if(line.split(",")[1].equals(user.getId())&&pTime.after(today)){
+                    String[] p = line.split(",");
+                    String[] temp = {p[0],Functions.filterID(p[1], "userData.txt").split(",")[1],Functions.filterID(p[2], "userData.txt").split(",")[1],p[3].split(" ")[0],p[3].split(" ")[1]+"-"+p[4].split(" ")[1]};
+                    model.addRow(temp);
+                }
+            }
+        }
     }
 
     /**
@@ -26,57 +49,60 @@ public class CRosterPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
         Top = new javax.swing.JPanel();
         Left = new javax.swing.JPanel();
-        Center = new javax.swing.JPanel();
         Right = new javax.swing.JPanel();
         Bottom = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable2);
 
         setLayout(new java.awt.BorderLayout());
 
         Top.setMinimumSize(new java.awt.Dimension(0, 25));
-        Top.setPreferredSize(new java.awt.Dimension(0, 25));
+        Top.setPreferredSize(new java.awt.Dimension(0, 75));
 
         javax.swing.GroupLayout TopLayout = new javax.swing.GroupLayout(Top);
         Top.setLayout(TopLayout);
         TopLayout.setHorizontalGroup(
             TopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 1103, Short.MAX_VALUE)
         );
         TopLayout.setVerticalGroup(
             TopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 75, Short.MAX_VALUE)
         );
 
         add(Top, java.awt.BorderLayout.NORTH);
 
-        Left.setPreferredSize(new java.awt.Dimension(50, 0));
+        Left.setPreferredSize(new java.awt.Dimension(300, 0));
 
         javax.swing.GroupLayout LeftLayout = new javax.swing.GroupLayout(Left);
         Left.setLayout(LeftLayout);
         LeftLayout.setHorizontalGroup(
             LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 300, Short.MAX_VALUE)
         );
         LeftLayout.setVerticalGroup(
             LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 523, Short.MAX_VALUE)
         );
 
         add(Left, java.awt.BorderLayout.WEST);
-
-        javax.swing.GroupLayout CenterLayout = new javax.swing.GroupLayout(Center);
-        Center.setLayout(CenterLayout);
-        CenterLayout.setHorizontalGroup(
-            CenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 848, Short.MAX_VALUE)
-        );
-        CenterLayout.setVerticalGroup(
-            CenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        add(Center, java.awt.BorderLayout.CENTER);
 
         Right.setPreferredSize(new java.awt.Dimension(50, 0));
 
@@ -88,33 +114,41 @@ public class CRosterPanel extends javax.swing.JPanel {
         );
         RightLayout.setVerticalGroup(
             RightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 523, Short.MAX_VALUE)
         );
 
         add(Right, java.awt.BorderLayout.EAST);
 
-        Bottom.setPreferredSize(new java.awt.Dimension(0, 25));
+        Bottom.setPreferredSize(new java.awt.Dimension(0, 75));
 
         javax.swing.GroupLayout BottomLayout = new javax.swing.GroupLayout(Bottom);
         Bottom.setLayout(BottomLayout);
         BottomLayout.setHorizontalGroup(
             BottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 948, Short.MAX_VALUE)
+            .addGap(0, 1103, Short.MAX_VALUE)
         );
         BottomLayout.setVerticalGroup(
             BottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 25, Short.MAX_VALUE)
+            .addGap(0, 75, Short.MAX_VALUE)
         );
 
         add(Bottom, java.awt.BorderLayout.SOUTH);
+
+        jTable1.setModel(model);
+        jScrollPane1.setViewportView(jTable1);
+
+        add(jScrollPane1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Bottom;
-    private javax.swing.JPanel Center;
     private javax.swing.JPanel Left;
     private javax.swing.JPanel Right;
     private javax.swing.JPanel Top;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
     // End of variables declaration//GEN-END:variables
 }

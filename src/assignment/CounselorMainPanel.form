@@ -355,7 +355,7 @@
                 <Property name="rows" type="int" value="0"/>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JButton" name="RecordBut">
+                <Component class="javax.swing.JButton" name="RosterBut">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="55" green="94" red="6f" type="rgb"/>
@@ -363,10 +363,10 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Segoe UI" size="14" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Student Consultation Records"/>
+                    <Property name="text" type="java.lang.String" value="View Personal Roster"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RecordButActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RosterButActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="AppointBut">
@@ -384,7 +384,7 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AppointButActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JButton" name="RosterBut">
+                <Component class="javax.swing.JButton" name="RecordBut">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="55" green="94" red="6f" type="rgb"/>
@@ -392,10 +392,10 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Segoe UI" size="14" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="View Personal Roster"/>
+                    <Property name="text" type="java.lang.String" value="Student Consultation Records"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RosterButActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RecordButActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="RecomBut">
