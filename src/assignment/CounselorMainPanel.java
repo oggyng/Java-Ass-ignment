@@ -8,6 +8,8 @@ import java.awt.BorderLayout;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 
 /**
  *
@@ -22,6 +24,7 @@ public class CounselorMainPanel extends javax.swing.JPanel {
     public CAppointPanel appPanel;
     public CRecordPanel recordPanel;
     public CRosterPanel rostPanel;
+    public UpdatePanel upPanel;
     
     
     /**
@@ -33,6 +36,10 @@ public class CounselorMainPanel extends javax.swing.JPanel {
         // create a method where u can read file and convert to object data
         initComponents();
         Welcome.setText("Welcome "+user.getName());
+        
+        ImageIcon dark = new ImageIcon(getClass().getResource("/assignment/imgSrc/dark.png"));
+        dark.setDescription("dark");
+        jLabel1.setIcon(dark);
         
         ImageIcon cmsIcon = new ImageIcon(getClass().getResource("/assignment/imgSrc/cms.png"));
         Image cms = cmsIcon.getImage();
@@ -73,17 +80,20 @@ public class CounselorMainPanel extends javax.swing.JPanel {
         AppointBut = new javax.swing.JButton();
         RecordBut = new javax.swing.JButton();
         RecomBut = new javax.swing.JButton();
+        upBut = new javax.swing.JButton();
         TaskBar = new javax.swing.JPanel();
         GitHub = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(26, 82, 28));
+        setBackground(new java.awt.Color(51, 102, 0));
         setForeground(new java.awt.Color(26, 82, 28));
         setMaximumSize(new java.awt.Dimension(1200, 800));
         setMinimumSize(new java.awt.Dimension(1200, 800));
         setPreferredSize(new java.awt.Dimension(1200, 800));
         setLayout(new java.awt.BorderLayout());
 
+        TopNavBar.setBackground(new java.awt.Color(102, 153, 0));
         TopNavBar.setOpaque(false);
         TopNavBar.setPreferredSize(new java.awt.Dimension(0, 65));
         TopNavBar.setLayout(new java.awt.BorderLayout());
@@ -104,7 +114,7 @@ public class CounselorMainPanel extends javax.swing.JPanel {
             .addGap(0, 52, Short.MAX_VALUE)
         );
 
-        LogoText.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        LogoText.setFont(new java.awt.Font("Bell MT", 1, 18)); // NOI18N
         LogoText.setForeground(new java.awt.Color(93, 158, 79));
         LogoText.setText("CMS");
 
@@ -136,9 +146,8 @@ public class CounselorMainPanel extends javax.swing.JPanel {
         Right.setOpaque(false);
         Right.setPreferredSize(new java.awt.Dimension(100, 0));
 
-        Logout.setBackground(new java.awt.Color(26, 82, 28));
-        Logout.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        Logout.setForeground(new java.awt.Color(93, 158, 79));
+        Logout.setBackground(new java.awt.Color(0, 153, 51));
+        Logout.setFont(new java.awt.Font("Bell MT", 0, 18)); // NOI18N
         Logout.setText("Logout");
         Logout.addActionListener(this::LogoutActionPerformed);
 
@@ -168,7 +177,7 @@ public class CounselorMainPanel extends javax.swing.JPanel {
         Center.setOpaque(false);
         Center.setPreferredSize(new java.awt.Dimension(100, 0));
 
-        Welcome.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        Welcome.setFont(new java.awt.Font("Bell MT", 1, 36)); // NOI18N
         Welcome.setForeground(new java.awt.Color(93, 158, 79));
         Welcome.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Welcome.setText("Welcome");
@@ -186,16 +195,15 @@ public class CounselorMainPanel extends javax.swing.JPanel {
         CenterLayout.setVerticalGroup(
             CenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CenterLayout.createSequentialGroup()
-                .addContainerGap(16, Short.MAX_VALUE)
+                .addContainerGap(12, Short.MAX_VALUE)
                 .addComponent(Welcome)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         TopNavBar.add(Center, java.awt.BorderLayout.CENTER);
 
         add(TopNavBar, java.awt.BorderLayout.NORTH);
 
-        CMainPanel.setBackground(new java.awt.Color(255, 255, 255));
         CMainPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder(null, java.awt.Color.black));
         CMainPanel.setAlignmentX(0.0F);
         CMainPanel.setAlignmentY(0.0F);
@@ -203,10 +211,11 @@ public class CounselorMainPanel extends javax.swing.JPanel {
         CMainPanel.setLayout(new java.awt.BorderLayout());
 
         MainPanel.setBackground(new java.awt.Color(255, 255, 255));
+        MainPanel.setOpaque(false);
         MainPanel.setPreferredSize(new java.awt.Dimension(850, 100));
         MainPanel.setLayout(new java.awt.BorderLayout());
 
-        ContentPanel.setBackground(new java.awt.Color(102, 153, 0));
+        ContentPanel.setOpaque(false);
         ContentPanel.setPreferredSize(new java.awt.Dimension(800, 0));
         ContentPanel.setLayout(new java.awt.BorderLayout());
         MainPanel.add(ContentPanel, java.awt.BorderLayout.CENTER);
@@ -234,31 +243,37 @@ public class CounselorMainPanel extends javax.swing.JPanel {
         InnerSideBarPanel.setLayout(new java.awt.GridLayout(0, 1));
 
         RosterBut.setBackground(new java.awt.Color(111, 148, 85));
-        RosterBut.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        RosterBut.setFont(new java.awt.Font("Bell MT", 1, 18)); // NOI18N
         RosterBut.setText("View Personal Roster");
         RosterBut.addActionListener(this::RosterButActionPerformed);
         InnerSideBarPanel.add(RosterBut);
 
         AppointBut.setBackground(new java.awt.Color(111, 148, 85));
-        AppointBut.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        AppointBut.setFont(new java.awt.Font("Bell MT", 1, 18)); // NOI18N
         AppointBut.setText("View Assigned Appoinments");
         AppointBut.setAlignmentY(0.0F);
         AppointBut.addActionListener(this::AppointButActionPerformed);
         InnerSideBarPanel.add(AppointBut);
 
         RecordBut.setBackground(new java.awt.Color(111, 148, 85));
-        RecordBut.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        RecordBut.setFont(new java.awt.Font("Bell MT", 1, 18)); // NOI18N
         RecordBut.setText("Student Consultation Records");
         RecordBut.addActionListener(this::RecordButActionPerformed);
         InnerSideBarPanel.add(RecordBut);
 
         RecomBut.setBackground(new java.awt.Color(111, 148, 85));
-        RecomBut.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        RecomBut.setFont(new java.awt.Font("Bell MT", 1, 14)); // NOI18N
         RecomBut.setText("Add consultation notes and recommendations");
         RecomBut.setActionCommand("");
         RecomBut.setAlignmentX(0.5F);
         RecomBut.addActionListener(this::RecomButActionPerformed);
         InnerSideBarPanel.add(RecomBut);
+
+        upBut.setBackground(new java.awt.Color(111, 148, 85));
+        upBut.setFont(new java.awt.Font("Bell MT", 1, 18)); // NOI18N
+        upBut.setText("Update Profile");
+        upBut.addActionListener(this::upButActionPerformed);
+        InnerSideBarPanel.add(upBut);
 
         SideBarPanel.add(InnerSideBarPanel, java.awt.BorderLayout.NORTH);
 
@@ -266,7 +281,7 @@ public class CounselorMainPanel extends javax.swing.JPanel {
 
         add(CMainPanel, java.awt.BorderLayout.CENTER);
 
-        TaskBar.setBackground(new java.awt.Color(26, 82, 28));
+        TaskBar.setOpaque(false);
         TaskBar.setPreferredSize(new java.awt.Dimension(0, 50));
 
         GitHub.setOpaque(false);
@@ -289,18 +304,32 @@ public class CounselorMainPanel extends javax.swing.JPanel {
             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assignment/imgSrc/dark.png"))); // NOI18N
+        jLabel1.setPreferredSize(new java.awt.Dimension(38, 38));
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jLabel1MouseReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout TaskBarLayout = new javax.swing.GroupLayout(TaskBar);
         TaskBar.setLayout(TaskBarLayout);
         TaskBarLayout.setHorizontalGroup(
             TaskBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TaskBarLayout.createSequentialGroup()
-                .addContainerGap(1144, Short.MAX_VALUE)
+                .addGap(19, 19, 19)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1087, Short.MAX_VALUE)
                 .addComponent(GitHub, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         TaskBarLayout.setVerticalGroup(
             TaskBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(GitHub, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TaskBarLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         add(TaskBar, java.awt.BorderLayout.SOUTH);
@@ -311,6 +340,7 @@ public class CounselorMainPanel extends javax.swing.JPanel {
         RosterBut.setContentAreaFilled(false); 
         AppointBut.setContentAreaFilled(false);
         RecordBut.setContentAreaFilled(false); 
+        upBut.setContentAreaFilled(false); 
         
         if(but.equals(RecomBut)){
             RecomBut.setContentAreaFilled(true);
@@ -323,6 +353,9 @@ public class CounselorMainPanel extends javax.swing.JPanel {
         }
         if(but.equals(RecordBut)){
             RecordBut.setContentAreaFilled(true);
+        }
+        if(but.equals(upBut)){
+            upBut.setContentAreaFilled(true);
         }
     }
     
@@ -382,6 +415,32 @@ public class CounselorMainPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jLabel2MouseReleased
 
+    private void jLabel1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseReleased
+        try {
+            String current = ((ImageIcon) jLabel1.getIcon()).getDescription();
+            if(current.equals("light")) {
+                UIManager.setLookAndFeel("com.formdev.flatlaf.FlatDarkLaf");
+                ImageIcon dark = new ImageIcon(getClass().getResource("/assignment/imgSrc/dark.png"));
+                dark.setDescription("dark");
+                jLabel1.setIcon(dark);
+            } else {
+                UIManager.setLookAndFeel("com.formdev.flatlaf.FlatLightLaf");
+                ImageIcon light = new ImageIcon(getClass().getResource("/assignment/imgSrc/light.png"));
+                light.setDescription("light");
+                jLabel1.setIcon(light);
+            }
+            SwingUtilities.updateComponentTreeUI(frame);
+        } catch(Exception e) {
+            System.out.println("eror");
+        }
+    }//GEN-LAST:event_jLabel1MouseReleased
+
+    private void upButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_upButActionPerformed
+        butHighlight(upBut);
+        upPanel = new UpdatePanel(frame,user);
+        frame.switchContent(upPanel, ContentPanel);
+    }//GEN-LAST:event_upButActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AppointBut;
@@ -404,6 +463,8 @@ public class CounselorMainPanel extends javax.swing.JPanel {
     private javax.swing.JPanel TaskBar;
     private javax.swing.JPanel TopNavBar;
     private javax.swing.JLabel Welcome;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton upBut;
     // End of variables declaration//GEN-END:variables
 }

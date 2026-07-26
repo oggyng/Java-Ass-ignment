@@ -104,7 +104,7 @@ public class AdminMainPanel extends javax.swing.JPanel {
             .addGap(0, 52, Short.MAX_VALUE)
         );
 
-        LogoText.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        LogoText.setFont(new java.awt.Font("Bell MT", 1, 18)); // NOI18N
         LogoText.setForeground(new java.awt.Color(93, 158, 79));
         LogoText.setText("CMS");
 
@@ -136,8 +136,8 @@ public class AdminMainPanel extends javax.swing.JPanel {
         Right.setOpaque(false);
         Right.setPreferredSize(new java.awt.Dimension(100, 0));
 
-        Logout.setBackground(new java.awt.Color(26, 82, 28));
-        Logout.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        Logout.setBackground(new java.awt.Color(0, 153, 51));
+        Logout.setFont(new java.awt.Font("Bell MT", 1, 18)); // NOI18N
         Logout.setForeground(new java.awt.Color(93, 158, 79));
         Logout.setText("Logout");
         Logout.addActionListener(this::LogoutActionPerformed);
@@ -150,7 +150,7 @@ public class AdminMainPanel extends javax.swing.JPanel {
             .addGroup(RightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RightLayout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(Logout, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
+                    .addComponent(Logout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addContainerGap()))
         );
         RightLayout.setVerticalGroup(
@@ -168,7 +168,7 @@ public class AdminMainPanel extends javax.swing.JPanel {
         Center.setOpaque(false);
         Center.setPreferredSize(new java.awt.Dimension(100, 0));
 
-        Welcome.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        Welcome.setFont(new java.awt.Font("Bell MT", 1, 36)); // NOI18N
         Welcome.setForeground(new java.awt.Color(93, 158, 79));
         Welcome.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Welcome.setText("Welcome");
@@ -186,9 +186,9 @@ public class AdminMainPanel extends javax.swing.JPanel {
         CenterLayout.setVerticalGroup(
             CenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CenterLayout.createSequentialGroup()
-                .addContainerGap(16, Short.MAX_VALUE)
+                .addContainerGap(12, Short.MAX_VALUE)
                 .addComponent(Welcome)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         TopNavBar.add(Center, java.awt.BorderLayout.CENTER);

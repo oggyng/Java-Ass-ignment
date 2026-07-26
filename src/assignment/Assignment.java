@@ -45,6 +45,7 @@ public class Assignment extends JFrame{
     public Assignment() {
         setTitle("Login");
         setSize(1200, 800);
+        setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout(10, 10));
         
@@ -73,6 +74,16 @@ public class Assignment extends JFrame{
     }
 
     public static void main(String[] args) {
+        try {
+            UIManager.setLookAndFeel("com.formdev.flatlaf.FlatDarkLaf");
+            UIManager.put("Button.arc", 20);
+            UIManager.put("Component.arc", 10);
+            UIManager.put("TextComponent.arc", 10);
+            UIManager.put("defaultFont", new Font("Bell MT", Font.BOLD, 14));
+            UIManager.put("Component.focusColor", new Color(70, 130, 180));
+        } catch(Exception e) {
+
+        }
         java.awt.EventQueue.invokeLater(() -> {
             WelcomePage wp = new WelcomePage();
             wp.setVisible(true);
