@@ -25,14 +25,18 @@ Currently in:
 - **Admin — Staff Roster (AStaffPanel)** — view and manage counselor roster and specialisation
 - **Admin — Appointment Statistics (AAppointPanel)**
 - **Receptionist — Accounts (RAccountPanel)** — manage student accounts
-
-### 🔄 In Progress
-- **Receptionist — Appointments (RAppointPanel) 80%** — create Walk-in and Online appointments, specialism filter, counselor availability check, date range (2 months from today)
+- **Receptionist — Appointments (RAppointPanel)**
 - **Receptionist — Assign Counselor (RAssignPanel)**
 - **Receptionist — Queue (RQueuePanel)**
+- **Added light mode and dark mode**
+- **Added FlatLaf for better UI**
+
+### 🔄 In Progress
+- **Counselor** panels (CAppointPanel, CRecomPanel, CRecordPanel, CRosterPanel)
+- **Update bug for creating appointment does not check counselor availability** - can be done in checkDayClash
+- **Update CMainPanel to all other Main Panels**
 
 ### ⬜ Not Started
-- All **Counselor** panels (CAppointPanel, CRecomPanel, CRecordPanel, CRosterPanel)
 - All **Student** panels (SAppointPanel, SHistoryPanel, SProfilePanel, SQueuePanel)
 
 ### Things you might need to look up to:
