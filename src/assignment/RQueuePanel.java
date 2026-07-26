@@ -6,6 +6,7 @@ package assignment;
 
 import java.util.Calendar;
 import javax.swing.table.DefaultTableModel;
+import java.util.ArrayList;
 // so walkin table data will show every walk in user, and when a counselor is chosen iyt will show today's walkin user and their queue number
 /**
  *
@@ -34,11 +35,10 @@ public class RQueuePanel extends javax.swing.JPanel {
             }
         }
         
-        // WHYYYYYYYY BUGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG
-//        for(String lines: Functions.filterData(Functions.readFile("userData.txt"),"S",0)){
-//                studentBox.addItem(lines.split(",")[1]);
-//            }
-//        }
+        for(String lines: Functions.filterData(Functions.readFile("userData.txt"),"S",0)){
+            studentBox.addItem(lines.split(",")[1]);
+            
+        }
     }
 
     /**
@@ -58,6 +58,7 @@ public class RQueuePanel extends javax.swing.JPanel {
         specialismBox = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         studentBox = new javax.swing.JComboBox<>();
+        jButton1 = new javax.swing.JButton();
         Right = new javax.swing.JPanel();
         Bottom = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -96,6 +97,9 @@ public class RQueuePanel extends javax.swing.JPanel {
 
         studentBox.addActionListener(this::studentBoxActionPerformed);
 
+        jButton1.setText("Get queue number");
+        jButton1.addActionListener(this::jButton1ActionPerformed);
+
         javax.swing.GroupLayout LeftLayout = new javax.swing.GroupLayout(Left);
         Left.setLayout(LeftLayout);
         LeftLayout.setHorizontalGroup(
@@ -108,7 +112,8 @@ public class RQueuePanel extends javax.swing.JPanel {
                     .addComponent(jLabel1)
                     .addComponent(counselorBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(specialismBox, 0, 136, Short.MAX_VALUE)
-                    .addComponent(studentBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(studentBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(70, Short.MAX_VALUE))
         );
         LeftLayout.setVerticalGroup(
@@ -126,7 +131,9 @@ public class RQueuePanel extends javax.swing.JPanel {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(studentBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(214, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addContainerGap(173, Short.MAX_VALUE))
         );
 
         add(Left, java.awt.BorderLayout.WEST);
@@ -192,6 +199,9 @@ public class RQueuePanel extends javax.swing.JPanel {
         counselorBox.removeAllItems();
         for(String line:Functions.readFile("cProfile.txt")){
             if(line.split(",")[6].equals(choice)){
+                if(Functions.checkDayClash(Functions.DateTimetoDate(sToday), line.split(",")[0]).isEmpty()){
+                    continue;
+                }
                 counselorBox.addItem(Functions.filterID(line.split(",")[0], "userData.txt").split(",")[1]);
             }
         }
@@ -203,8 +213,15 @@ public class RQueuePanel extends javax.swing.JPanel {
             return;
         }
         String choice = (String) studentBox.getSelectedItem();
-        // pAUSUHUDWAIDBWIHBAIUWFIABFWIUBAIFBUIAFGBIUGBFUIG
     }//GEN-LAST:event_studentBoxActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        OAppointment newWalker = new OAppointment(Functions.filterData(Functions.readFile("userdata.txt"),(String)studentBox.getSelectedItem(), 1).get(0).split(",")[0],(String)specialismBox.getSelectedItem());
+        newWalker.setQueueNumber(Functions.filterName((String)counselorBox.getSelectedItem(), "userData.txt").split(",")[0]);
+        newWalker.setAppointmentId();
+        model.addRow(newWalker.toQueueString().split(","));
+        Functions.inputFile("appointment.txt", newWalker.toFileString(), "append");
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -213,6 +230,7 @@ public class RQueuePanel extends javax.swing.JPanel {
     private javax.swing.JPanel Right;
     private javax.swing.JPanel Top;
     private javax.swing.JComboBox<String> counselorBox;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

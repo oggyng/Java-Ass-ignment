@@ -290,6 +290,52 @@ FRAME.setVisible(false);   // hide window, still running in background
 System.exit(0);            // close entire system
 ```
 
+# CheatSheets for exam:
+
+---
+
+## IO Streams aka File Handling
+
+```java
+import java.io.*;  // import IO method like FileReader Writer, BufferedReaader Writer
+```
+
+### File Reading
+```java
+try{
+  FileReader fr = new FileReader(FILENAME);
+  BufferedReader br = new BufferedReader(fr);
+
+  String line = null;  // initialize line to null
+  while((line = br.readLine())!=null){   // this is a must because br.readLine() cannot be called multiple times because it will skip to the next line before taking any action
+    // do something to line
+    System.out.println(line);
+
+    br.close();  // close bufferedReader (MUST)
+    fr.close();  // close fileReader (MUST)
+}
+catch(IOException){
+}
+```
+
+### File Writing
+```java
+try{
+  FileWriter fw = new FileWriter(FILENAME);
+  BufferedWriter bw = new BufferedWriter(fw);
+
+    // do something to file
+    bw.write("BLABLABLA);   // write into file
+    bw.nextLine();  // skip to next line
+
+    bw.close();  // close bufferedWriter (MUST)
+    fw.close();  // close fileWriter (MUST)
+}
+catch(IOException){
+}
+```
+
+
 ---
 
 ### Layouts
