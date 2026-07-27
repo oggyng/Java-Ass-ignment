@@ -8,6 +8,8 @@ import java.awt.BorderLayout;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 
 /**
  *
@@ -18,10 +20,11 @@ public class AdminMainPanel extends javax.swing.JPanel {
     final Assignment frame;
     private OAdmin user;
     public LoginPanel loginPanel;
-    public AAccountPanel accountPanel;
+    public AAccountPanel accPanel;
     public AStaffPanel staffPanel;
-    public AReportPanel reportPanel;
     public AAppointPanel appPanel;
+    public AReportPanel reportPanel;
+    public UpdatePanel upPanel;
     
     
     /**
@@ -33,6 +36,10 @@ public class AdminMainPanel extends javax.swing.JPanel {
         // create a method where u can read file and convert to object data
         initComponents();
         Welcome.setText("Welcome "+user.getName());
+        
+        ImageIcon dark = new ImageIcon(getClass().getResource("/assignment/imgSrc/dark.png"));
+        dark.setDescription("dark");
+        jLabel1.setIcon(dark);
         
         ImageIcon cmsIcon = new ImageIcon(getClass().getResource("/assignment/imgSrc/cms.png"));
         Image cms = cmsIcon.getImage();
@@ -69,21 +76,26 @@ public class AdminMainPanel extends javax.swing.JPanel {
         SideBarBut = new javax.swing.JButton();
         SideBarPanel = new javax.swing.JPanel();
         InnerSideBarPanel = new javax.swing.JPanel();
-        AccountBut = new javax.swing.JButton();
+        AccBut = new javax.swing.JButton();
         StaffBut = new javax.swing.JButton();
-        AppointBut = new javax.swing.JButton();
+        AppBut = new javax.swing.JButton();
         ReportBut = new javax.swing.JButton();
+        upBut = new javax.swing.JButton();
         TaskBar = new javax.swing.JPanel();
         GitHub = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(26, 82, 28));
+        setBackground(new java.awt.Color(51, 102, 0));
         setForeground(new java.awt.Color(26, 82, 28));
         setMaximumSize(new java.awt.Dimension(1200, 800));
         setMinimumSize(new java.awt.Dimension(1200, 800));
         setPreferredSize(new java.awt.Dimension(1200, 800));
         setLayout(new java.awt.BorderLayout());
 
+        TopNavBar.setBackground(new java.awt.Color(102, 153, 0));
+        TopNavBar.setAlignmentX(0.0F);
+        TopNavBar.setAlignmentY(0.0F);
         TopNavBar.setOpaque(false);
         TopNavBar.setPreferredSize(new java.awt.Dimension(0, 65));
         TopNavBar.setLayout(new java.awt.BorderLayout());
@@ -137,8 +149,7 @@ public class AdminMainPanel extends javax.swing.JPanel {
         Right.setPreferredSize(new java.awt.Dimension(100, 0));
 
         Logout.setBackground(new java.awt.Color(0, 153, 51));
-        Logout.setFont(new java.awt.Font("Bell MT", 1, 18)); // NOI18N
-        Logout.setForeground(new java.awt.Color(93, 158, 79));
+        Logout.setFont(new java.awt.Font("Bell MT", 0, 18)); // NOI18N
         Logout.setText("Logout");
         Logout.addActionListener(this::LogoutActionPerformed);
 
@@ -150,7 +161,7 @@ public class AdminMainPanel extends javax.swing.JPanel {
             .addGroup(RightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RightLayout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(Logout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Logout, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
                     .addContainerGap()))
         );
         RightLayout.setVerticalGroup(
@@ -195,7 +206,6 @@ public class AdminMainPanel extends javax.swing.JPanel {
 
         add(TopNavBar, java.awt.BorderLayout.NORTH);
 
-        CMainPanel.setBackground(new java.awt.Color(255, 255, 255));
         CMainPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder(null, java.awt.Color.black));
         CMainPanel.setAlignmentX(0.0F);
         CMainPanel.setAlignmentY(0.0F);
@@ -203,10 +213,13 @@ public class AdminMainPanel extends javax.swing.JPanel {
         CMainPanel.setLayout(new java.awt.BorderLayout());
 
         MainPanel.setBackground(new java.awt.Color(255, 255, 255));
+        MainPanel.setAlignmentX(0.0F);
+        MainPanel.setAlignmentY(0.0F);
+        MainPanel.setOpaque(false);
         MainPanel.setPreferredSize(new java.awt.Dimension(850, 100));
         MainPanel.setLayout(new java.awt.BorderLayout());
 
-        ContentPanel.setBackground(new java.awt.Color(102, 153, 0));
+        ContentPanel.setOpaque(false);
         ContentPanel.setPreferredSize(new java.awt.Dimension(800, 0));
         ContentPanel.setLayout(new java.awt.BorderLayout());
         MainPanel.add(ContentPanel, java.awt.BorderLayout.CENTER);
@@ -214,6 +227,7 @@ public class AdminMainPanel extends javax.swing.JPanel {
         SideBarBut.setBackground(new java.awt.Color(111, 148, 85));
         SideBarBut.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         SideBarBut.setText("<");
+        SideBarBut.setBorder(null);
         SideBarBut.setPreferredSize(new java.awt.Dimension(50, 23));
         SideBarBut.addActionListener(this::SideBarButActionPerformed);
         MainPanel.add(SideBarBut, java.awt.BorderLayout.WEST);
@@ -221,6 +235,8 @@ public class AdminMainPanel extends javax.swing.JPanel {
         CMainPanel.add(MainPanel, java.awt.BorderLayout.CENTER);
 
         SideBarPanel.setBackground(new java.awt.Color(111, 148, 85));
+        SideBarPanel.setAlignmentX(0.0F);
+        SideBarPanel.setAlignmentY(0.0F);
         SideBarPanel.setPreferredSize(new java.awt.Dimension(350, 100));
         SideBarPanel.setLayout(new java.awt.BorderLayout());
 
@@ -233,32 +249,49 @@ public class AdminMainPanel extends javax.swing.JPanel {
         });
         InnerSideBarPanel.setLayout(new java.awt.GridLayout(0, 1));
 
-        AccountBut.setBackground(new java.awt.Color(111, 148, 85));
-        AccountBut.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        AccountBut.setText("Manage user accounts");
-        AccountBut.addActionListener(this::AccountButActionPerformed);
-        InnerSideBarPanel.add(AccountBut);
+        AccBut.setBackground(new java.awt.Color(111, 148, 85));
+        AccBut.setFont(new java.awt.Font("Bell MT", 1, 18)); // NOI18N
+        AccBut.setText("Manage user accounts");
+        AccBut.setActionCommand("Manage user accounts");
+        AccBut.setBorder(null);
+        AccBut.setContentAreaFilled(false);
+        AccBut.addActionListener(this::AccButActionPerformed);
+        InnerSideBarPanel.add(AccBut);
 
         StaffBut.setBackground(new java.awt.Color(111, 148, 85));
-        StaffBut.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        StaffBut.setFont(new java.awt.Font("Bell MT", 1, 18)); // NOI18N
         StaffBut.setText("Manage staff roster and schedules");
         StaffBut.setAlignmentY(0.0F);
+        StaffBut.setBorder(null);
+        StaffBut.setContentAreaFilled(false);
         StaffBut.addActionListener(this::StaffButActionPerformed);
         InnerSideBarPanel.add(StaffBut);
 
-        AppointBut.setBackground(new java.awt.Color(111, 148, 85));
-        AppointBut.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        AppointBut.setText("Monitor appointment statistics");
-        AppointBut.addActionListener(this::AppointButActionPerformed);
-        InnerSideBarPanel.add(AppointBut);
+        AppBut.setBackground(new java.awt.Color(111, 148, 85));
+        AppBut.setFont(new java.awt.Font("Bell MT", 1, 18)); // NOI18N
+        AppBut.setText("Monitor appointment statistics");
+        AppBut.setBorder(null);
+        AppBut.setContentAreaFilled(false);
+        AppBut.addActionListener(this::AppButActionPerformed);
+        InnerSideBarPanel.add(AppBut);
 
         ReportBut.setBackground(new java.awt.Color(111, 148, 85));
-        ReportBut.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        ReportBut.setFont(new java.awt.Font("Bell MT", 1, 18)); // NOI18N
         ReportBut.setText("Generate reports");
         ReportBut.setActionCommand("");
         ReportBut.setAlignmentX(0.5F);
+        ReportBut.setBorder(null);
+        ReportBut.setContentAreaFilled(false);
         ReportBut.addActionListener(this::ReportButActionPerformed);
         InnerSideBarPanel.add(ReportBut);
+
+        upBut.setBackground(new java.awt.Color(111, 148, 85));
+        upBut.setFont(new java.awt.Font("Bell MT", 1, 18)); // NOI18N
+        upBut.setText("Update Profile");
+        upBut.setBorder(null);
+        upBut.setContentAreaFilled(false);
+        upBut.addActionListener(this::upButActionPerformed);
+        InnerSideBarPanel.add(upBut);
 
         SideBarPanel.add(InnerSideBarPanel, java.awt.BorderLayout.NORTH);
 
@@ -266,7 +299,7 @@ public class AdminMainPanel extends javax.swing.JPanel {
 
         add(CMainPanel, java.awt.BorderLayout.CENTER);
 
-        TaskBar.setBackground(new java.awt.Color(26, 82, 28));
+        TaskBar.setOpaque(false);
         TaskBar.setPreferredSize(new java.awt.Dimension(0, 50));
 
         GitHub.setOpaque(false);
@@ -289,18 +322,31 @@ public class AdminMainPanel extends javax.swing.JPanel {
             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assignment/imgSrc/dark.png"))); // NOI18N
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jLabel1MouseReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout TaskBarLayout = new javax.swing.GroupLayout(TaskBar);
         TaskBar.setLayout(TaskBarLayout);
         TaskBarLayout.setHorizontalGroup(
             TaskBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TaskBarLayout.createSequentialGroup()
-                .addContainerGap(1144, Short.MAX_VALUE)
+                .addGap(19, 19, 19)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1087, Short.MAX_VALUE)
                 .addComponent(GitHub, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         TaskBarLayout.setVerticalGroup(
             TaskBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(GitHub, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TaskBarLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         add(TaskBar, java.awt.BorderLayout.SOUTH);
@@ -308,21 +354,25 @@ public class AdminMainPanel extends javax.swing.JPanel {
     
     private void butHighlight(javax.swing.JButton but){
         ReportBut.setContentAreaFilled(false);
-        AppointBut.setContentAreaFilled(false); 
+        AccBut.setContentAreaFilled(false); 
         StaffBut.setContentAreaFilled(false);
-        AccountBut.setContentAreaFilled(false); 
+        AppBut.setContentAreaFilled(false); 
+        upBut.setContentAreaFilled(false); 
         
         if(but.equals(ReportBut)){
             ReportBut.setContentAreaFilled(true);
         }
-        if(but.equals(AppointBut)){
-            AppointBut.setContentAreaFilled(true);
+        if(but.equals(AccBut)){
+            AccBut.setContentAreaFilled(true);
         }
         if(but.equals(StaffBut)){
             StaffBut.setContentAreaFilled(true);
         }
-        if(but.equals(AccountBut)){
-            AccountBut.setContentAreaFilled(true);
+        if(but.equals(AppBut)){
+            AppBut.setContentAreaFilled(true);
+        }
+        if(but.equals(upBut)){
+            upBut.setContentAreaFilled(true);
         }
     }
     
@@ -345,14 +395,13 @@ public class AdminMainPanel extends javax.swing.JPanel {
         butHighlight(ReportBut);
         reportPanel = new AReportPanel(frame);
         frame.switchContent(reportPanel, ContentPanel);
-        
     }//GEN-LAST:event_ReportButActionPerformed
 
-    private void AppointButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AppointButActionPerformed
-        butHighlight(AppointBut);
-        appPanel = new AAppointPanel(frame);
-        frame.switchContent(appPanel, ContentPanel);
-    }//GEN-LAST:event_AppointButActionPerformed
+    private void AccButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AccButActionPerformed
+        butHighlight(AccBut);
+        accPanel = new AAccountPanel(frame);
+        frame.switchContent(accPanel, ContentPanel);
+    }//GEN-LAST:event_AccButActionPerformed
 
     private void StaffButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StaffButActionPerformed
         butHighlight(StaffBut);
@@ -360,11 +409,11 @@ public class AdminMainPanel extends javax.swing.JPanel {
         frame.switchContent(staffPanel, ContentPanel);
     }//GEN-LAST:event_StaffButActionPerformed
 
-    private void AccountButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AccountButActionPerformed
-        butHighlight(AccountBut);
-        accountPanel = new AAccountPanel(frame);
-        frame.switchContent(accountPanel, ContentPanel);
-    }//GEN-LAST:event_AccountButActionPerformed
+    private void AppButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AppButActionPerformed
+        butHighlight(AppBut);
+        appPanel = new AAppointPanel(frame);
+        frame.switchContent(appPanel, ContentPanel);
+    }//GEN-LAST:event_AppButActionPerformed
 
     private void InnerSideBarPanelMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_InnerSideBarPanelMouseDragged
 
@@ -383,10 +432,36 @@ public class AdminMainPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jLabel2MouseReleased
 
+    private void jLabel1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseReleased
+        try {
+            String current = ((ImageIcon) jLabel1.getIcon()).getDescription();
+            if(current.equals("light")) {
+                UIManager.setLookAndFeel("com.formdev.flatlaf.FlatDarkLaf");
+                ImageIcon dark = new ImageIcon(getClass().getResource("/assignment/imgSrc/dark.png"));
+                dark.setDescription("dark");
+                jLabel1.setIcon(dark);
+            } else {
+                UIManager.setLookAndFeel("com.formdev.flatlaf.FlatLightLaf");
+                ImageIcon light = new ImageIcon(getClass().getResource("/assignment/imgSrc/light.png"));
+                light.setDescription("light");
+                jLabel1.setIcon(light);
+            }
+            SwingUtilities.updateComponentTreeUI(frame);
+        } catch(Exception e) {
+            System.out.println("eror");
+        }
+    }//GEN-LAST:event_jLabel1MouseReleased
+
+    private void upButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_upButActionPerformed
+        butHighlight(upBut);
+        upPanel = new UpdatePanel(frame,user);
+        frame.switchContent(upPanel, ContentPanel);
+    }//GEN-LAST:event_upButActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton AccountBut;
-    private javax.swing.JButton AppointBut;
+    private javax.swing.JButton AccBut;
+    private javax.swing.JButton AppBut;
     private javax.swing.JPanel CMainPanel;
     private javax.swing.JPanel Center;
     private javax.swing.JPanel ContentPanel;
@@ -405,6 +480,8 @@ public class AdminMainPanel extends javax.swing.JPanel {
     private javax.swing.JPanel TaskBar;
     private javax.swing.JPanel TopNavBar;
     private javax.swing.JLabel Welcome;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton upBut;
     // End of variables declaration//GEN-END:variables
 }

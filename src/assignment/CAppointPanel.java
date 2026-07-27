@@ -4,17 +4,40 @@
  */
 package assignment;
 
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+import java.util.Calendar;
+        
+
 /**
  *
  * @author User
  */
 public class CAppointPanel extends javax.swing.JPanel {
-
+    private DefaultTableModel model = new DefaultTableModel();
+    private String[] columnName = {"AppointID", "Counselor Name", "Student Name", "Date","Time"};
+    private int row = -1;
+    private OCounselor user;
+    private Calendar today = Calendar.getInstance();
     /**
      * Creates new form ARecomPanel
      */
-    public CAppointPanel() {
+    public CAppointPanel(OCounselor user) {
         initComponents();
+        this.user = user;
+        model.setColumnIdentifiers(columnName);
+        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(model);
+        jTable1.setRowSorter(sorter); 
+        for(String line : Functions.readFile("appointment.txt")){
+            if(!line.isEmpty()){
+                Calendar pTime = Functions.StringtoDateTime(line.split(",")[3]);
+                if(line.split(",")[1].equals(user.getId())&&pTime.after(today)){
+                    String[] p = line.split(",");
+                    String[] temp = {p[0],Functions.filterID(p[1], "userData.txt").split(",")[1],Functions.filterID(p[2], "userData.txt").split(",")[1],p[3].split(" ")[0],p[3].split(" ")[1]+"-"+p[4].split(" ")[1]};
+                    model.addRow(temp);
+                }
+            }
+        }
     }
 
     /**
@@ -26,57 +49,77 @@ public class CAppointPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
         Top = new javax.swing.JPanel();
         Left = new javax.swing.JPanel();
-        Center = new javax.swing.JPanel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
         Right = new javax.swing.JPanel();
         Bottom = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable2);
 
         setLayout(new java.awt.BorderLayout());
 
         Top.setMinimumSize(new java.awt.Dimension(0, 25));
-        Top.setPreferredSize(new java.awt.Dimension(0, 25));
+        Top.setPreferredSize(new java.awt.Dimension(0, 75));
 
         javax.swing.GroupLayout TopLayout = new javax.swing.GroupLayout(Top);
         Top.setLayout(TopLayout);
         TopLayout.setHorizontalGroup(
             TopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 1103, Short.MAX_VALUE)
         );
         TopLayout.setVerticalGroup(
             TopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 75, Short.MAX_VALUE)
         );
 
         add(Top, java.awt.BorderLayout.NORTH);
 
-        Left.setPreferredSize(new java.awt.Dimension(50, 0));
+        Left.setPreferredSize(new java.awt.Dimension(300, 0));
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All", "Today", "This week", "This month" }));
+        jComboBox1.addActionListener(this::jComboBox1ActionPerformed);
+
+        jLabel1.setText("Filter:");
 
         javax.swing.GroupLayout LeftLayout = new javax.swing.GroupLayout(Left);
         Left.setLayout(LeftLayout);
         LeftLayout.setHorizontalGroup(
             LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(LeftLayout.createSequentialGroup()
+                .addGap(68, 68, 68)
+                .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(108, Short.MAX_VALUE))
         );
         LeftLayout.setVerticalGroup(
             LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(LeftLayout.createSequentialGroup()
+                .addGap(58, 58, 58)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(421, Short.MAX_VALUE))
         );
 
         add(Left, java.awt.BorderLayout.WEST);
-
-        javax.swing.GroupLayout CenterLayout = new javax.swing.GroupLayout(Center);
-        Center.setLayout(CenterLayout);
-        CenterLayout.setHorizontalGroup(
-            CenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 848, Short.MAX_VALUE)
-        );
-        CenterLayout.setVerticalGroup(
-            CenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        add(Center, java.awt.BorderLayout.CENTER);
 
         Right.setPreferredSize(new java.awt.Dimension(50, 0));
 
@@ -88,33 +131,69 @@ public class CAppointPanel extends javax.swing.JPanel {
         );
         RightLayout.setVerticalGroup(
             RightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 523, Short.MAX_VALUE)
         );
 
         add(Right, java.awt.BorderLayout.EAST);
 
-        Bottom.setPreferredSize(new java.awt.Dimension(0, 25));
+        Bottom.setPreferredSize(new java.awt.Dimension(0, 75));
 
         javax.swing.GroupLayout BottomLayout = new javax.swing.GroupLayout(Bottom);
         Bottom.setLayout(BottomLayout);
         BottomLayout.setHorizontalGroup(
             BottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 948, Short.MAX_VALUE)
+            .addGap(0, 1103, Short.MAX_VALUE)
         );
         BottomLayout.setVerticalGroup(
             BottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 25, Short.MAX_VALUE)
+            .addGap(0, 75, Short.MAX_VALUE)
         );
 
         add(Bottom, java.awt.BorderLayout.SOUTH);
+
+        jTable1.setModel(model);
+        jScrollPane1.setViewportView(jTable1);
+
+        add(jScrollPane1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        if(jComboBox1.getSelectedItem()==null){return;}
+        int index = jComboBox1.getSelectedIndex();
+        Calendar target = Calendar.getInstance();
+        target.set(Calendar.HOUR, 23);
+        target.set(Calendar.MINUTE, 59);
+        target.set(Calendar.SECOND, 59);
+        model.setRowCount(0);
+        switch(index){
+            case 0 -> target.add(Calendar.YEAR,1);
+            case 2 -> target.add(Calendar.DAY_OF_MONTH,7);
+            case 3-> target.add(Calendar.MONTH,1);
+        }
+        
+        for(String line : Functions.readFile("appointment.txt")){
+            if(!line.isEmpty()){
+                Calendar pTime = Functions.StringtoDateTime(line.split(",")[3]);
+                if(line.split(",")[1].equals(user.getId())&&pTime.after(today)&&pTime.before(target)){
+                    String[] p = line.split(",");
+                    String[] temp = {p[0],Functions.filterID(p[1], "userData.txt").split(",")[1],Functions.filterID(p[2], "userData.txt").split(",")[1],p[3].split(" ")[0],p[3].split(" ")[1]+"-"+p[4].split(" ")[1]};
+                    model.addRow(temp);
+                }
+            }
+        }
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Bottom;
-    private javax.swing.JPanel Center;
     private javax.swing.JPanel Left;
     private javax.swing.JPanel Right;
     private javax.swing.JPanel Top;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
     // End of variables declaration//GEN-END:variables
 }

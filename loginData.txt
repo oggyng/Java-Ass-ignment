@@ -1,5 +1,4 @@
 A001,Admin,aaaaaaaa,Admin
-C001,CounA,aaaaaaaa,Counselor
 C002,CounC,aaaaaaaa,Counselor
 C003,CounP,aaaaaaaa,Counselor
 C004,CounS,aaaaaaaa,Counselor
@@ -13,3 +12,4 @@ S001,Stu1,aaaaaaaa,Student
 S002,Stu2,aaaaaaaa,Student
 S003,Stu3,aaaaaaaa,Student
 S004,Stu4,aaaaaaaa,Student
+C001,CounA,aaaaaaaa,Counselor

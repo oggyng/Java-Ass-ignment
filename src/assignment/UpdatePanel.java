@@ -31,6 +31,13 @@ public class UpdatePanel extends javax.swing.JPanel {
         eCPass.setVisible(false);
         if(role.equals("Counselor")){
             counPanel.setVisible(true);
+            String[] p = Functions.filterID(user.getId(), "cProfile.txt").split(",");
+            mon.setSelected(Boolean.parseBoolean(p[1]));
+            tue.setSelected(Boolean.parseBoolean(p[2]));
+            wed.setSelected(Boolean.parseBoolean(p[3]));
+            thu.setSelected(Boolean.parseBoolean(p[4]));
+            fri.setSelected(Boolean.parseBoolean(p[5]));
+            eDay.setVisible(false);
         }
         else{
             counPanel.setVisible(false);
@@ -70,8 +77,9 @@ public class UpdatePanel extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         specBox = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
-        mon = new javax.swing.JCheckBox();
+        jPanel1 = new javax.swing.JPanel();
         tue = new javax.swing.JCheckBox();
+        mon = new javax.swing.JCheckBox();
         wed = new javax.swing.JCheckBox();
         thu = new javax.swing.JCheckBox();
         fri = new javax.swing.JCheckBox();
@@ -130,9 +138,11 @@ public class UpdatePanel extends javax.swing.JPanel {
 
         jLabel6.setText("Available Days: ");
 
-        mon.setText("Monday");
+        jPanel1.setBackground(new java.awt.Color(102, 153, 0));
 
         tue.setText("Tuesday");
+
+        mon.setText("Monday");
 
         wed.setText("Wednesday");
 
@@ -142,6 +152,43 @@ public class UpdatePanel extends javax.swing.JPanel {
 
         eDay.setForeground(new java.awt.Color(255, 0, 0));
         eDay.setText("*Please select at least one day");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 231, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(7, 7, 7)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(mon)
+                        .addComponent(tue)
+                        .addComponent(wed)
+                        .addComponent(thu)
+                        .addComponent(fri)
+                        .addComponent(eDay))
+                    .addContainerGap(67, Short.MAX_VALUE)))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 185, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(18, 18, 18)
+                    .addComponent(mon)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(tue)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(wed)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(thu)
+                    .addGap(8, 8, 8)
+                    .addComponent(fri)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(eDay)
+                    .addContainerGap(19, Short.MAX_VALUE)))
+        );
 
         javax.swing.GroupLayout counPanelLayout = new javax.swing.GroupLayout(counPanel);
         counPanel.setLayout(counPanelLayout);
@@ -153,13 +200,8 @@ public class UpdatePanel extends javax.swing.JPanel {
                     .addComponent(jLabel5)
                     .addComponent(specBox, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
-                    .addComponent(mon)
-                    .addComponent(tue)
-                    .addComponent(wed)
-                    .addComponent(thu)
-                    .addComponent(fri)
-                    .addComponent(eDay))
-                .addContainerGap(237, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         counPanelLayout.setVerticalGroup(
             counPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -171,18 +213,8 @@ public class UpdatePanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(mon)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tue)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(wed)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(thu)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(fri)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(eDay)
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(10, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout CenterLayout = new javax.swing.GroupLayout(Center);
@@ -190,33 +222,34 @@ public class UpdatePanel extends javax.swing.JPanel {
         CenterLayout.setHorizontalGroup(
             CenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(CenterLayout.createSequentialGroup()
-                .addGap(60, 60, 60)
+                .addGap(139, 139, 139)
                 .addGroup(CenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(CPassField)
-                    .addComponent(MailField)
-                    .addComponent(PassField)
+                    .addGroup(CenterLayout.createSequentialGroup()
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(CenterLayout.createSequentialGroup()
                         .addGroup(CenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1)
-                            .addComponent(jCheckBox1)
-                            .addComponent(NameField, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(18, 18, 18)
-                .addGroup(CenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(eName)
-                    .addComponent(eMail)
-                    .addComponent(ePass)
-                    .addComponent(eCPass))
-                .addGap(57, 57, 57)
-                .addComponent(counPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(95, 95, 95))
-            .addGroup(CenterLayout.createSequentialGroup()
-                .addGap(390, 390, 390)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(CPassField)
+                            .addComponent(MailField)
+                            .addComponent(PassField)
+                            .addGroup(CenterLayout.createSequentialGroup()
+                                .addGroup(CenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jCheckBox1)
+                                    .addComponent(NameField, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(CenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(eName)
+                            .addComponent(eMail)
+                            .addComponent(ePass)
+                            .addComponent(eCPass))
+                        .addGap(60, 60, 60)
+                        .addComponent(counPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(272, 272, 272))))
         );
         CenterLayout.setVerticalGroup(
             CenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -252,9 +285,9 @@ public class UpdatePanel extends javax.swing.JPanel {
                                 .addComponent(CPassField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jCheckBox1)))))
-                .addGap(18, 18, 18)
+                .addGap(38, 38, 38)
                 .addComponent(jButton1)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(155, Short.MAX_VALUE))
         );
 
         add(Center, java.awt.BorderLayout.CENTER);
@@ -319,7 +352,8 @@ public class UpdatePanel extends javax.swing.JPanel {
             Functions.inputFile("loginData.txt", loginTxt, "append");
             if(role.equals("Counselor")){
                 String cProTxt = user.getId()+","+ Boolean.toString(mon.isSelected())+","+Boolean.toString(tue.isSelected())+","+Boolean.toString(wed.isSelected())+","+Boolean.toString(thu.isSelected())+","+Boolean.toString(fri.isSelected())+","+specBox.getSelectedItem();
-                System.out.println(cProTxt);
+                Functions.removeData(user.getId(), "cProfile.txt");
+                Functions.inputFile("cProfile.txt",cProTxt,"append");
             }
             JOptionPane.showMessageDialog(frame,"Profile updated successfully!");
             
@@ -364,6 +398,7 @@ public class UpdatePanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JCheckBox mon;
     private javax.swing.JComboBox<String> specBox;
     private javax.swing.JCheckBox thu;

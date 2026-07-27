@@ -81,6 +81,13 @@ public class Assignment extends JFrame{
             UIManager.put("TextComponent.arc", 10);
             UIManager.put("defaultFont", new Font("Bell MT", Font.BOLD, 14));
             UIManager.put("Component.focusColor", new Color(70, 130, 180));
+            UIManager.put("Table.background", new Color(102,153,0));
+            UIManager.put("TableHeader.background", new Color(51,102,0));
+            UIManager.put("Table.selectionBackground",new Color(153,255,153));
+            UIManager.put("Table.selectionForeground",new Color(0,51,51));
+            UIManager.put("Button.background",new Color(102,153,0));
+            UIManager.put("TextField.background",new Color(102,153,0));
+            UIManager.put("ComboBox.background",new Color(102,153,0));
         } catch(Exception e) {
 
         }

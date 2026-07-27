@@ -21,9 +21,9 @@ public class CounselorMainPanel extends javax.swing.JPanel {
     private OCounselor user;
     public LoginPanel loginPanel;
     public CRecomPanel recomPanel;
-    public CAppointPanel appPanel;
-    public CRecordPanel recordPanel;
     public CRosterPanel rostPanel;
+    public CRecordPanel recordPanel;
+    public CAppointPanel appPanel;
     public UpdatePanel upPanel;
     
     
@@ -94,6 +94,8 @@ public class CounselorMainPanel extends javax.swing.JPanel {
         setLayout(new java.awt.BorderLayout());
 
         TopNavBar.setBackground(new java.awt.Color(102, 153, 0));
+        TopNavBar.setAlignmentX(0.0F);
+        TopNavBar.setAlignmentY(0.0F);
         TopNavBar.setOpaque(false);
         TopNavBar.setPreferredSize(new java.awt.Dimension(0, 65));
         TopNavBar.setLayout(new java.awt.BorderLayout());
@@ -211,6 +213,8 @@ public class CounselorMainPanel extends javax.swing.JPanel {
         CMainPanel.setLayout(new java.awt.BorderLayout());
 
         MainPanel.setBackground(new java.awt.Color(255, 255, 255));
+        MainPanel.setAlignmentX(0.0F);
+        MainPanel.setAlignmentY(0.0F);
         MainPanel.setOpaque(false);
         MainPanel.setPreferredSize(new java.awt.Dimension(850, 100));
         MainPanel.setLayout(new java.awt.BorderLayout());
@@ -223,6 +227,7 @@ public class CounselorMainPanel extends javax.swing.JPanel {
         SideBarBut.setBackground(new java.awt.Color(111, 148, 85));
         SideBarBut.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         SideBarBut.setText("<");
+        SideBarBut.setBorder(null);
         SideBarBut.setPreferredSize(new java.awt.Dimension(50, 23));
         SideBarBut.addActionListener(this::SideBarButActionPerformed);
         MainPanel.add(SideBarBut, java.awt.BorderLayout.WEST);
@@ -230,6 +235,8 @@ public class CounselorMainPanel extends javax.swing.JPanel {
         CMainPanel.add(MainPanel, java.awt.BorderLayout.CENTER);
 
         SideBarPanel.setBackground(new java.awt.Color(111, 148, 85));
+        SideBarPanel.setAlignmentX(0.0F);
+        SideBarPanel.setAlignmentY(0.0F);
         SideBarPanel.setPreferredSize(new java.awt.Dimension(350, 100));
         SideBarPanel.setLayout(new java.awt.BorderLayout());
 
@@ -245,6 +252,8 @@ public class CounselorMainPanel extends javax.swing.JPanel {
         RosterBut.setBackground(new java.awt.Color(111, 148, 85));
         RosterBut.setFont(new java.awt.Font("Bell MT", 1, 18)); // NOI18N
         RosterBut.setText("View Personal Roster");
+        RosterBut.setBorder(null);
+        RosterBut.setContentAreaFilled(false);
         RosterBut.addActionListener(this::RosterButActionPerformed);
         InnerSideBarPanel.add(RosterBut);
 
@@ -252,12 +261,16 @@ public class CounselorMainPanel extends javax.swing.JPanel {
         AppointBut.setFont(new java.awt.Font("Bell MT", 1, 18)); // NOI18N
         AppointBut.setText("View Assigned Appoinments");
         AppointBut.setAlignmentY(0.0F);
+        AppointBut.setBorder(null);
+        AppointBut.setContentAreaFilled(false);
         AppointBut.addActionListener(this::AppointButActionPerformed);
         InnerSideBarPanel.add(AppointBut);
 
         RecordBut.setBackground(new java.awt.Color(111, 148, 85));
         RecordBut.setFont(new java.awt.Font("Bell MT", 1, 18)); // NOI18N
         RecordBut.setText("Student Consultation Records");
+        RecordBut.setBorder(null);
+        RecordBut.setContentAreaFilled(false);
         RecordBut.addActionListener(this::RecordButActionPerformed);
         InnerSideBarPanel.add(RecordBut);
 
@@ -266,12 +279,16 @@ public class CounselorMainPanel extends javax.swing.JPanel {
         RecomBut.setText("Add consultation notes and recommendations");
         RecomBut.setActionCommand("");
         RecomBut.setAlignmentX(0.5F);
+        RecomBut.setBorder(null);
+        RecomBut.setContentAreaFilled(false);
         RecomBut.addActionListener(this::RecomButActionPerformed);
         InnerSideBarPanel.add(RecomBut);
 
         upBut.setBackground(new java.awt.Color(111, 148, 85));
         upBut.setFont(new java.awt.Font("Bell MT", 1, 18)); // NOI18N
         upBut.setText("Update Profile");
+        upBut.setBorder(null);
+        upBut.setContentAreaFilled(false);
         upBut.addActionListener(this::upButActionPerformed);
         InnerSideBarPanel.add(upBut);
 
@@ -305,7 +322,6 @@ public class CounselorMainPanel extends javax.swing.JPanel {
         );
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assignment/imgSrc/dark.png"))); // NOI18N
-        jLabel1.setPreferredSize(new java.awt.Dimension(38, 38));
         jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 jLabel1MouseReleased(evt);
@@ -388,7 +404,7 @@ public class CounselorMainPanel extends javax.swing.JPanel {
 
     private void AppointButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AppointButActionPerformed
         butHighlight(AppointBut);
-        appPanel = new CAppointPanel();
+        appPanel = new CAppointPanel(user);
         frame.switchContent(appPanel, ContentPanel);
     }//GEN-LAST:event_AppointButActionPerformed
 

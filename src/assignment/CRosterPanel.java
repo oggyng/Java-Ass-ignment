@@ -4,40 +4,77 @@
  */
 package assignment;
 
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableRowSorter;
+import java.util.ArrayList;
 import java.util.Calendar;
-        
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author User
  */
 public class CRosterPanel extends javax.swing.JPanel {
+
     private DefaultTableModel model = new DefaultTableModel();
-    private String[] columnName = {"AppointID", "Counselor Name", "Student Name", "Date","Time"};
-    private int row = -1;
+    private String[] columnName = {"Time\\Day","Monday","TuesDay","Wednesday","Thursday","Friday"};
+    private String[] time = {"10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00"};
+    private Calendar sday = Calendar.getInstance();
+    
+    int row,col;
     private OCounselor user;
-    private Calendar today = Calendar.getInstance();
-    /**
-     * Creates new form ARecomPanel
-     */
+    
+
     public CRosterPanel(OCounselor user) {
-        initComponents();
         this.user = user;
-        model.setColumnIdentifiers(columnName);
-        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(model);
-        jTable1.setRowSorter(sorter); 
-        for(String line : Functions.readFile("appointment.txt")){
-            if(!line.isEmpty()){
-                Calendar pTime = Functions.StringtoDateTime(line.split(",")[3]);
-                if(line.split(",")[1].equals(user.getId())&&pTime.after(today)){
-                    String[] p = line.split(",");
-                    String[] temp = {p[0],Functions.filterID(p[1], "userData.txt").split(",")[1],Functions.filterID(p[2], "userData.txt").split(",")[1],p[3].split(" ")[0],p[3].split(" ")[1]+"-"+p[4].split(" ")[1]};
-                    model.addRow(temp);
-                }
-            }
+        initComponents();
+        while(sday.get(Calendar.DAY_OF_WEEK)!=1){
+            sday.add(Calendar.DAY_OF_MONTH, -1);
         }
+        sday.add(Calendar.DAY_OF_MONTH,1);
+        sday.set(Calendar.HOUR_OF_DAY,0);
+        sday.set(Calendar.MINUTE, 0);
+        sday.set(Calendar.SECOND, 0);
+        
+        ArrayList<Calendar> cList = new ArrayList<>();
+        for(int i=0;i<5;i++){
+            Calendar temp = (Calendar) sday.clone();
+            temp.add(Calendar.DAY_OF_MONTH,i);
+            cList.add(temp);
+        }
+        model.setColumnIdentifiers(columnName);
+        
+        for(int i=0;i<10;i++){
+            ArrayList<String> r = new ArrayList<>();
+            Boolean match = false;
+            for(int j=0;j<6;j++){
+                if(j==0){
+                    r.add(time[i]);
+                    continue;
+                }
+                else{
+                    
+                    String targetTime = Functions.getTargetDay(cList.get(j-1), time[i]);
+                    for(String line : Functions.readFile("appointment.txt")){
+                        if(!line.split(",")[1].equals(user.getId())){
+                            continue;
+                        }
+                        if(line.split(",")[3].equals(targetTime)){
+                            match = true;
+                        }
+                    }
+                }
+                if(match){
+                    r.add("Yes");
+                }
+                else{
+                    r.add("No");
+                }
+                match = false;
+                
+            }
+            model.addRow(r.toArray());
+        }
+        
     }
 
     /**
@@ -49,57 +86,51 @@ public class CRosterPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
         Top = new javax.swing.JPanel();
         Left = new javax.swing.JPanel();
+        picLabel = new javax.swing.JLabel();
         Right = new javax.swing.JPanel();
         Bottom = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
 
         setLayout(new java.awt.BorderLayout());
 
         Top.setMinimumSize(new java.awt.Dimension(0, 25));
-        Top.setPreferredSize(new java.awt.Dimension(0, 75));
+        Top.setPreferredSize(new java.awt.Dimension(0, 25));
 
         javax.swing.GroupLayout TopLayout = new javax.swing.GroupLayout(Top);
         Top.setLayout(TopLayout);
         TopLayout.setHorizontalGroup(
             TopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1103, Short.MAX_VALUE)
+            .addGap(0, 885, Short.MAX_VALUE)
         );
         TopLayout.setVerticalGroup(
             TopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 75, Short.MAX_VALUE)
+            .addGap(0, 25, Short.MAX_VALUE)
         );
 
         add(Top, java.awt.BorderLayout.NORTH);
 
-        Left.setPreferredSize(new java.awt.Dimension(300, 0));
+        Left.setPreferredSize(new java.awt.Dimension(250, 0));
+
+        picLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assignment/imgSrc/default.jpg"))); // NOI18N
 
         javax.swing.GroupLayout LeftLayout = new javax.swing.GroupLayout(Left);
         Left.setLayout(LeftLayout);
         LeftLayout.setHorizontalGroup(
             LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(LeftLayout.createSequentialGroup()
+                .addGap(44, 44, 44)
+                .addComponent(picLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(56, Short.MAX_VALUE))
         );
         LeftLayout.setVerticalGroup(
             LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 523, Short.MAX_VALUE)
+            .addGroup(LeftLayout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(picLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(253, Short.MAX_VALUE))
         );
 
         add(Left, java.awt.BorderLayout.WEST);
@@ -114,30 +145,30 @@ public class CRosterPanel extends javax.swing.JPanel {
         );
         RightLayout.setVerticalGroup(
             RightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 523, Short.MAX_VALUE)
+            .addGap(0, 431, Short.MAX_VALUE)
         );
 
         add(Right, java.awt.BorderLayout.EAST);
 
-        Bottom.setPreferredSize(new java.awt.Dimension(0, 75));
+        Bottom.setPreferredSize(new java.awt.Dimension(0, 25));
 
         javax.swing.GroupLayout BottomLayout = new javax.swing.GroupLayout(Bottom);
         Bottom.setLayout(BottomLayout);
         BottomLayout.setHorizontalGroup(
             BottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1103, Short.MAX_VALUE)
+            .addGap(0, 885, Short.MAX_VALUE)
         );
         BottomLayout.setVerticalGroup(
             BottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 75, Short.MAX_VALUE)
+            .addGap(0, 25, Short.MAX_VALUE)
         );
 
         add(Bottom, java.awt.BorderLayout.SOUTH);
 
-        jTable1.setModel(model);
-        jScrollPane1.setViewportView(jTable1);
+        jTable2.setModel(model);
+        jScrollPane2.setViewportView(jTable2);
 
-        add(jScrollPane1, java.awt.BorderLayout.CENTER);
+        add(jScrollPane2, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
 
@@ -146,9 +177,8 @@ public class CRosterPanel extends javax.swing.JPanel {
     private javax.swing.JPanel Left;
     private javax.swing.JPanel Right;
     private javax.swing.JPanel Top;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
+    private javax.swing.JLabel picLabel;
     // End of variables declaration//GEN-END:variables
 }

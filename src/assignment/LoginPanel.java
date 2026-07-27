@@ -78,10 +78,12 @@ public class LoginPanel extends javax.swing.JPanel {
 
         jLabel1.setText("Username: ");
 
+        jTextField1.setBackground(new java.awt.Color(91, 91, 91));
         jTextField1.setFont(new java.awt.Font("Trebuchet MS", 2, 12)); // NOI18N
 
         jLabel2.setText("Password: ");
 
+        jButton1.setBackground(new java.awt.Color(51, 51, 51));
         jButton1.setText("Sign In");
         jButton1.addActionListener(this::jButton1ActionPerformed);
 
@@ -96,7 +98,6 @@ public class LoginPanel extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CenterLayout.createSequentialGroup()
                 .addContainerGap(101, Short.MAX_VALUE)
                 .addGroup(CenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
                     .addComponent(jCheckBox1)
                     .addGroup(CenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -104,7 +105,11 @@ public class LoginPanel extends javax.swing.JPanel {
                         .addComponent(jLabel2)
                         .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(88, 88, 88))
+                .addGap(101, 101, 101))
+            .addGroup(CenterLayout.createSequentialGroup()
+                .addGap(66, 66, 66)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         CenterLayout.setVerticalGroup(
             CenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -244,12 +249,14 @@ public class LoginPanel extends javax.swing.JPanel {
         char[] passChar = jPasswordField1.getPassword();
         String password = new String (passChar);
         javax.swing.JLabel status = jLabel3;
+        Boolean login = false;
 
         ArrayList<String> userList = Functions.readFile(loginFile);
         for(String line : userList){
             String[] part = line.split(",");
 
             if(name.equals(part[1]) && password.equals(part[2])){
+                login = true;
                 switch(part[3]){
                     // Interfaces below (use switchTo)
                     case "Admin" ->{
@@ -283,6 +290,7 @@ public class LoginPanel extends javax.swing.JPanel {
                 }
             }
         }
+        if(login){return;}
         status.setForeground(Color.RED);
         if(name.length()==0||password.length()==0){
             status.setText("Username and Password field cannot be empty!");

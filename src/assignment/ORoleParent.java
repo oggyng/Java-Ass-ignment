@@ -105,7 +105,7 @@ public abstract class ORoleParent {
     }
     
     public void initData(){
-        Functions.inputFile("loginData.txt",ObjecttoString(),"append");
+        Functions.inputFile("userData.txt",ObjecttoString(),"append");
     }
     
     public void initLogin(String role){

@@ -298,5 +298,12 @@ public class Functions {
         inputFile("appointment.txt",tempData,"write");
     }
     
+    public static String getTargetDay(Calendar date, String time){
+        int hour = Integer.parseInt(time.split(":")[0]);
+        date.set(Calendar.HOUR_OF_DAY,hour);
+        String target = DateTimetoString(date);
+        return target;
+    }
+    
     
 }
