@@ -16,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
 public class CRosterPanel extends javax.swing.JPanel {
 
     private DefaultTableModel model = new DefaultTableModel();
-    private String[] columnName = {"Time\\Day","Monday","TuesDay","Wednesday","Thursday","Friday"};
+    private String[] columnName = {"Time\\Day","Monday","Tuesday","Wednesday","Thursday","Friday"};
     private String[] time = {"10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00"};
     private Calendar sday = Calendar.getInstance();
     
@@ -42,7 +42,7 @@ public class CRosterPanel extends javax.swing.JPanel {
             cList.add(temp);
         }
         model.setColumnIdentifiers(columnName);
-        
+
         for(int i=0;i<10;i++){
             ArrayList<String> r = new ArrayList<>();
             Boolean match = false;
@@ -55,7 +55,7 @@ public class CRosterPanel extends javax.swing.JPanel {
                     
                     String targetTime = Functions.getTargetDay(cList.get(j-1), time[i]);
                     for(String line : Functions.readFile("appointment.txt")){
-                        if(!line.split(",")[1].equals(user.getId())){
+                        if(!line.split(",")[1].equals(user.getId())||line.split(",")[7].equals("Cancelled")){
                             continue;
                         }
                         if(line.split(",")[3].equals(targetTime)){
@@ -87,8 +87,8 @@ public class CRosterPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         Top = new javax.swing.JPanel();
+        sName = new javax.swing.JLabel();
         Left = new javax.swing.JPanel();
-        picLabel = new javax.swing.JLabel();
         Right = new javax.swing.JPanel();
         Bottom = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -96,41 +96,39 @@ public class CRosterPanel extends javax.swing.JPanel {
 
         setLayout(new java.awt.BorderLayout());
 
-        Top.setMinimumSize(new java.awt.Dimension(0, 25));
-        Top.setPreferredSize(new java.awt.Dimension(0, 25));
+        Top.setMinimumSize(new java.awt.Dimension(0, 135));
+        Top.setPreferredSize(new java.awt.Dimension(0, 135));
 
         javax.swing.GroupLayout TopLayout = new javax.swing.GroupLayout(Top);
         Top.setLayout(TopLayout);
         TopLayout.setHorizontalGroup(
             TopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 885, Short.MAX_VALUE)
+            .addGroup(TopLayout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(sName, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(780, Short.MAX_VALUE))
         );
         TopLayout.setVerticalGroup(
             TopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 25, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TopLayout.createSequentialGroup()
+                .addContainerGap(101, Short.MAX_VALUE)
+                .addComponent(sName)
+                .addGap(18, 18, 18))
         );
 
         add(Top, java.awt.BorderLayout.NORTH);
 
-        Left.setPreferredSize(new java.awt.Dimension(250, 0));
-
-        picLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assignment/imgSrc/default.jpg"))); // NOI18N
+        Left.setPreferredSize(new java.awt.Dimension(75, 0));
 
         javax.swing.GroupLayout LeftLayout = new javax.swing.GroupLayout(Left);
         Left.setLayout(LeftLayout);
         LeftLayout.setHorizontalGroup(
             LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(LeftLayout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addComponent(picLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(56, Short.MAX_VALUE))
+            .addGap(0, 75, Short.MAX_VALUE)
         );
         LeftLayout.setVerticalGroup(
             LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(LeftLayout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(picLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(253, Short.MAX_VALUE))
+            .addGap(0, 211, Short.MAX_VALUE)
         );
 
         add(Left, java.awt.BorderLayout.WEST);
@@ -145,12 +143,12 @@ public class CRosterPanel extends javax.swing.JPanel {
         );
         RightLayout.setVerticalGroup(
             RightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 431, Short.MAX_VALUE)
+            .addGap(0, 211, Short.MAX_VALUE)
         );
 
         add(Right, java.awt.BorderLayout.EAST);
 
-        Bottom.setPreferredSize(new java.awt.Dimension(0, 25));
+        Bottom.setPreferredSize(new java.awt.Dimension(0, 135));
 
         javax.swing.GroupLayout BottomLayout = new javax.swing.GroupLayout(Bottom);
         Bottom.setLayout(BottomLayout);
@@ -160,7 +158,7 @@ public class CRosterPanel extends javax.swing.JPanel {
         );
         BottomLayout.setVerticalGroup(
             BottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 25, Short.MAX_VALUE)
+            .addGap(0, 135, Short.MAX_VALUE)
         );
 
         add(Bottom, java.awt.BorderLayout.SOUTH);
@@ -179,6 +177,6 @@ public class CRosterPanel extends javax.swing.JPanel {
     private javax.swing.JPanel Top;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable2;
-    private javax.swing.JLabel picLabel;
+    private javax.swing.JLabel sName;
     // End of variables declaration//GEN-END:variables
 }

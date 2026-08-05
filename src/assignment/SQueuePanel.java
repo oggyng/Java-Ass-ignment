@@ -4,17 +4,39 @@
  */
 package assignment;
 
+import java.util.Calendar;
+
 /**
  *
  * @author User
  */
 public class SQueuePanel extends javax.swing.JPanel {
-
+    private OStudent user;
+    private Calendar today = Calendar.getInstance();
     /**
      * Creates new form ARecomPanel
      */
-    public SQueuePanel() {
+    public SQueuePanel(OStudent user) {
+        this.user = user;
         initComponents();
+        Boolean check = false;
+        for(String line : Functions.readFile("appointment.txt")){
+            if(Functions.StringtoDateTime(line.split(",")[3]).before(today)){
+                continue;
+            }
+            if(line.split(",")[2].equals(user.getId())){
+                if(line.split(",")[6].equals("0")){continue;}
+                queueNumber.setText(line.split(",")[6]);
+                check = true;
+                break;
+            }
+        }
+        if(check){
+            jLabel3.setVisible(false);
+        }
+        else{
+            jPanel1.setVisible(false);
+        }
     }
 
     /**
@@ -29,6 +51,12 @@ public class SQueuePanel extends javax.swing.JPanel {
         Top = new javax.swing.JPanel();
         Left = new javax.swing.JPanel();
         Center = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        queueNumber = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        currentNumber = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         Right = new javax.swing.JPanel();
         Bottom = new javax.swing.JPanel();
 
@@ -41,11 +69,11 @@ public class SQueuePanel extends javax.swing.JPanel {
         Top.setLayout(TopLayout);
         TopLayout.setHorizontalGroup(
             TopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 979, Short.MAX_VALUE)
         );
         TopLayout.setVerticalGroup(
             TopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 25, Short.MAX_VALUE)
         );
 
         add(Top, java.awt.BorderLayout.NORTH);
@@ -56,24 +84,83 @@ public class SQueuePanel extends javax.swing.JPanel {
         Left.setLayout(LeftLayout);
         LeftLayout.setHorizontalGroup(
             LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 50, Short.MAX_VALUE)
         );
         LeftLayout.setVerticalGroup(
             LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 571, Short.MAX_VALUE)
         );
 
         add(Left, java.awt.BorderLayout.WEST);
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel1.setText("Your queue number for today:");
+
+        queueNumber.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
+        queueNumber.setPreferredSize(new java.awt.Dimension(154, 154));
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel2.setText("Current Number: ");
+
+        currentNumber.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        currentNumber.setPreferredSize(new java.awt.Dimension(75, 32));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(currentNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(queueNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(21, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(jLabel1)
+                .addGap(28, 28, 28)
+                .addComponent(queueNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(25, 25, 25))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(currentNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+        );
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel3.setText("You have no appointment for today!");
 
         javax.swing.GroupLayout CenterLayout = new javax.swing.GroupLayout(Center);
         Center.setLayout(CenterLayout);
         CenterLayout.setHorizontalGroup(
             CenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 848, Short.MAX_VALUE)
+            .addGroup(CenterLayout.createSequentialGroup()
+                .addGap(70, 70, 70)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3)
+                .addContainerGap(46, Short.MAX_VALUE))
         );
         CenterLayout.setVerticalGroup(
             CenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(CenterLayout.createSequentialGroup()
+                .addGap(132, 132, 132)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(143, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CenterLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addGap(258, 258, 258))
         );
 
         add(Center, java.awt.BorderLayout.CENTER);
@@ -88,7 +175,7 @@ public class SQueuePanel extends javax.swing.JPanel {
         );
         RightLayout.setVerticalGroup(
             RightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 571, Short.MAX_VALUE)
         );
 
         add(Right, java.awt.BorderLayout.EAST);
@@ -99,7 +186,7 @@ public class SQueuePanel extends javax.swing.JPanel {
         Bottom.setLayout(BottomLayout);
         BottomLayout.setHorizontalGroup(
             BottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 948, Short.MAX_VALUE)
+            .addGap(0, 979, Short.MAX_VALUE)
         );
         BottomLayout.setVerticalGroup(
             BottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -116,5 +203,11 @@ public class SQueuePanel extends javax.swing.JPanel {
     private javax.swing.JPanel Left;
     private javax.swing.JPanel Right;
     private javax.swing.JPanel Top;
+    private javax.swing.JLabel currentNumber;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel queueNumber;
     // End of variables declaration//GEN-END:variables
 }

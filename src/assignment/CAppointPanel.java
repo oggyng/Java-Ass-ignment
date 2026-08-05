@@ -55,6 +55,12 @@ public class CAppointPanel extends javax.swing.JPanel {
         Left = new javax.swing.JPanel();
         jComboBox1 = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        nameField = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        timeField = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        dateField = new javax.swing.JTextField();
         Right = new javax.swing.JPanel();
         Bottom = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -98,15 +104,34 @@ public class CAppointPanel extends javax.swing.JPanel {
 
         jLabel1.setText("Filter:");
 
+        jLabel2.setText("Student Name:");
+
+        nameField.setEditable(false);
+
+        jLabel3.setText("Time:");
+
+        timeField.setEditable(false);
+
+        jLabel4.setText("Date:");
+
+        dateField.setEditable(false);
+        dateField.addActionListener(this::dateFieldActionPerformed);
+
         javax.swing.GroupLayout LeftLayout = new javax.swing.GroupLayout(Left);
         Left.setLayout(LeftLayout);
         LeftLayout.setHorizontalGroup(
             LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(LeftLayout.createSequentialGroup()
                 .addGap(68, 68, 68)
-                .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel2)
                     .addComponent(jLabel1)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBox1, 0, 124, Short.MAX_VALUE)
+                    .addComponent(nameField)
+                    .addComponent(timeField)
+                    .addComponent(dateField))
                 .addContainerGap(108, Short.MAX_VALUE))
         );
         LeftLayout.setVerticalGroup(
@@ -116,7 +141,19 @@ public class CAppointPanel extends javax.swing.JPanel {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(421, Short.MAX_VALUE))
+                .addGap(92, 92, 92)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(dateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(timeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(173, Short.MAX_VALUE))
         );
 
         add(Left, java.awt.BorderLayout.WEST);
@@ -152,6 +189,11 @@ public class CAppointPanel extends javax.swing.JPanel {
         add(Bottom, java.awt.BorderLayout.SOUTH);
 
         jTable1.setModel(model);
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jTable1MouseReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         add(jScrollPane1, java.awt.BorderLayout.CENTER);
@@ -161,7 +203,7 @@ public class CAppointPanel extends javax.swing.JPanel {
         if(jComboBox1.getSelectedItem()==null){return;}
         int index = jComboBox1.getSelectedIndex();
         Calendar target = Calendar.getInstance();
-        target.set(Calendar.HOUR, 23);
+        target.set(Calendar.HOUR_OF_DAY, 23);
         target.set(Calendar.MINUTE, 59);
         target.set(Calendar.SECOND, 59);
         model.setRowCount(0);
@@ -183,17 +225,34 @@ public class CAppointPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
+    private void jTable1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseReleased
+        row = jTable1.convertRowIndexToModel(jTable1.getSelectedRow());
+        nameField.setText(String.valueOf((String)model.getValueAt(row, 2)));
+        dateField.setText(String.valueOf((String)model.getValueAt(row, 3)));
+        timeField.setText(String.valueOf((String)model.getValueAt(row, 4)));
+    }//GEN-LAST:event_jTable1MouseReleased
+
+    private void dateFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dateFieldActionPerformed
+        
+    }//GEN-LAST:event_dateFieldActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Bottom;
     private javax.swing.JPanel Left;
     private javax.swing.JPanel Right;
     private javax.swing.JPanel Top;
+    private javax.swing.JTextField dateField;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
+    private javax.swing.JTextField nameField;
+    private javax.swing.JTextField timeField;
     // End of variables declaration//GEN-END:variables
 }

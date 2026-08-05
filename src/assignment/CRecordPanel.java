@@ -4,17 +4,36 @@
  */
 package assignment;
 
-/**
- *
- * @author User
- */
-public class CRecordPanel extends javax.swing.JPanel {
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
+
+
+public class CRecordPanel extends javax.swing.JPanel {
+    private DefaultTableModel model = new DefaultTableModel();
+    private String[] columnName = {"Appointment ID", "Student", "Date"};
+    private OCounselor user;
+    int row = -1;
     /**
      * Creates new form ARecomPanel
      */
-    public CRecordPanel() {
+    public CRecordPanel(OCounselor user) {
+        this.user = user;
         initComponents();
+        model.setColumnIdentifiers(columnName);
+        showApp();
+    }
+    
+    private void showApp(){
+        for(String line : Functions.readFile("note.txt")){
+            String[] p = line.split("\\|");
+            System.out.println(p[1]+" "+user.getId());
+            if(!p[1].equals(user.getId())){
+                continue;
+            }
+            String[] data = {p[0],p[2],p[3]};
+            model.addRow(data);
+        }
     }
 
     /**
@@ -29,23 +48,35 @@ public class CRecordPanel extends javax.swing.JPanel {
         Top = new javax.swing.JPanel();
         Left = new javax.swing.JPanel();
         Center = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        jLabel4 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTextArea2 = new javax.swing.JTextArea();
         Right = new javax.swing.JPanel();
         Bottom = new javax.swing.JPanel();
 
         setLayout(new java.awt.BorderLayout());
 
         Top.setMinimumSize(new java.awt.Dimension(0, 25));
-        Top.setPreferredSize(new java.awt.Dimension(0, 25));
+        Top.setPreferredSize(new java.awt.Dimension(0, 55));
 
         javax.swing.GroupLayout TopLayout = new javax.swing.GroupLayout(Top);
         Top.setLayout(TopLayout);
         TopLayout.setHorizontalGroup(
             TopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 1051, Short.MAX_VALUE)
         );
         TopLayout.setVerticalGroup(
             TopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 55, Short.MAX_VALUE)
         );
 
         add(Top, java.awt.BorderLayout.NORTH);
@@ -56,24 +87,91 @@ public class CRecordPanel extends javax.swing.JPanel {
         Left.setLayout(LeftLayout);
         LeftLayout.setHorizontalGroup(
             LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 50, Short.MAX_VALUE)
         );
         LeftLayout.setVerticalGroup(
             LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 599, Short.MAX_VALUE)
         );
 
         add(Left, java.awt.BorderLayout.WEST);
+
+        jTable1.setModel(model);
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jTable1MouseReleased(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+
+        jLabel1.setText("Student Name:");
+
+        jTextField1.setEditable(false);
+
+        jLabel2.setText("Date Time:");
+
+        jTextField2.setEditable(false);
+
+        jLabel3.setText("Notes:");
+
+        jTextArea1.setEditable(false);
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane2.setViewportView(jTextArea1);
+
+        jLabel4.setText("Recommendation:");
+
+        jTextArea2.setEditable(false);
+        jTextArea2.setColumns(20);
+        jTextArea2.setRows(5);
+        jScrollPane3.setViewportView(jTextArea2);
 
         javax.swing.GroupLayout CenterLayout = new javax.swing.GroupLayout(Center);
         Center.setLayout(CenterLayout);
         CenterLayout.setHorizontalGroup(
             CenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 848, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 951, Short.MAX_VALUE)
+            .addGroup(CenterLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(CenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2)
+                    .addGroup(CenterLayout.createSequentialGroup()
+                        .addGroup(CenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(CenterLayout.createSequentialGroup()
+                                .addGroup(CenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(82, 82, 82)
+                                .addGroup(CenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane3))
+                .addContainerGap())
         );
         CenterLayout.setVerticalGroup(
             CenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(CenterLayout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addGroup(CenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(CenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 41, Short.MAX_VALUE))
         );
 
         add(Center, java.awt.BorderLayout.CENTER);
@@ -88,7 +186,7 @@ public class CRecordPanel extends javax.swing.JPanel {
         );
         RightLayout.setVerticalGroup(
             RightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 599, Short.MAX_VALUE)
         );
 
         add(Right, java.awt.BorderLayout.EAST);
@@ -99,7 +197,7 @@ public class CRecordPanel extends javax.swing.JPanel {
         Bottom.setLayout(BottomLayout);
         BottomLayout.setHorizontalGroup(
             BottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 948, Short.MAX_VALUE)
+            .addGap(0, 1051, Short.MAX_VALUE)
         );
         BottomLayout.setVerticalGroup(
             BottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -109,6 +207,15 @@ public class CRecordPanel extends javax.swing.JPanel {
         add(Bottom, java.awt.BorderLayout.SOUTH);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jTable1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseReleased
+        row = jTable1.convertRowIndexToModel(jTable1.getSelectedRow());
+        String appId = (String) String.valueOf(model.getValueAt(row, 0));
+        jTextField1.setText((String) String.valueOf(model.getValueAt(row, 1)));
+        jTextField2.setText((String) String.valueOf(model.getValueAt(row, 2)));
+        jTextArea1.setText(Functions.filterNote(appId, "note.txt").split("\\|")[4]);
+        jTextArea2.setText(Functions.filterNote(appId, "note.txt").split("\\|")[5]);
+    }//GEN-LAST:event_jTable1MouseReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Bottom;
@@ -116,5 +223,17 @@ public class CRecordPanel extends javax.swing.JPanel {
     private javax.swing.JPanel Left;
     private javax.swing.JPanel Right;
     private javax.swing.JPanel Top;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea jTextArea2;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }

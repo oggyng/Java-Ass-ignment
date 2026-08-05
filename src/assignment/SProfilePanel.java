@@ -15,6 +15,12 @@ public class SProfilePanel extends javax.swing.JPanel {
      */
     public SProfilePanel() {
         initComponents();
+        for(String line:Functions.readFile("userData.txt")){
+            String[] p = line.split(",");
+            if(p[0].substring(0,1).equals("C")){
+                counBox.addItem(Functions.filterID(p[0], "userData.txt").split(",")[1]);
+            }
+        }
     }
 
     /**
@@ -29,6 +35,16 @@ public class SProfilePanel extends javax.swing.JPanel {
         Top = new javax.swing.JPanel();
         Left = new javax.swing.JPanel();
         Center = new javax.swing.JPanel();
+        counBox = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        monBox = new javax.swing.JCheckBox();
+        tueBox = new javax.swing.JCheckBox();
+        wedBox = new javax.swing.JCheckBox();
+        thuBox = new javax.swing.JCheckBox();
+        friBox = new javax.swing.JCheckBox();
+        jLabel3 = new javax.swing.JLabel();
+        specField = new javax.swing.JTextField();
         Right = new javax.swing.JPanel();
         Bottom = new javax.swing.JPanel();
 
@@ -41,11 +57,11 @@ public class SProfilePanel extends javax.swing.JPanel {
         Top.setLayout(TopLayout);
         TopLayout.setHorizontalGroup(
             TopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 961, Short.MAX_VALUE)
         );
         TopLayout.setVerticalGroup(
             TopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 25, Short.MAX_VALUE)
         );
 
         add(Top, java.awt.BorderLayout.NORTH);
@@ -56,24 +72,79 @@ public class SProfilePanel extends javax.swing.JPanel {
         Left.setLayout(LeftLayout);
         LeftLayout.setHorizontalGroup(
             LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 50, Short.MAX_VALUE)
         );
         LeftLayout.setVerticalGroup(
             LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 571, Short.MAX_VALUE)
         );
 
         add(Left, java.awt.BorderLayout.WEST);
+
+        counBox.addActionListener(this::counBoxActionPerformed);
+
+        jLabel1.setText("Choose a counselor:");
+
+        jLabel2.setText("Available Day:");
+
+        monBox.setText("Monday");
+
+        tueBox.setText("Tuesday");
+
+        wedBox.setText("Wednesday");
+
+        thuBox.setText("Thursday");
+
+        friBox.setText("Friday");
+
+        jLabel3.setText("Specialism:");
+
+        specField.setEditable(false);
+        specField.addActionListener(this::specFieldActionPerformed);
 
         javax.swing.GroupLayout CenterLayout = new javax.swing.GroupLayout(Center);
         Center.setLayout(CenterLayout);
         CenterLayout.setHorizontalGroup(
             CenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 848, Short.MAX_VALUE)
+            .addGroup(CenterLayout.createSequentialGroup()
+                .addGap(144, 144, 144)
+                .addGroup(CenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel3)
+                    .addComponent(friBox, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(thuBox)
+                    .addComponent(wedBox)
+                    .addComponent(tueBox)
+                    .addComponent(monBox)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1)
+                    .addComponent(counBox, 0, 147, Short.MAX_VALUE)
+                    .addComponent(specField))
+                .addContainerGap(570, Short.MAX_VALUE))
         );
         CenterLayout.setVerticalGroup(
             CenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(CenterLayout.createSequentialGroup()
+                .addGap(132, 132, 132)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(counBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(monBox)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tueBox)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(wedBox)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(thuBox)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(friBox)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(specField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(169, Short.MAX_VALUE))
         );
 
         add(Center, java.awt.BorderLayout.CENTER);
@@ -88,7 +159,7 @@ public class SProfilePanel extends javax.swing.JPanel {
         );
         RightLayout.setVerticalGroup(
             RightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 571, Short.MAX_VALUE)
         );
 
         add(Right, java.awt.BorderLayout.EAST);
@@ -99,7 +170,7 @@ public class SProfilePanel extends javax.swing.JPanel {
         Bottom.setLayout(BottomLayout);
         BottomLayout.setHorizontalGroup(
             BottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 948, Short.MAX_VALUE)
+            .addGap(0, 961, Short.MAX_VALUE)
         );
         BottomLayout.setVerticalGroup(
             BottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -109,6 +180,23 @@ public class SProfilePanel extends javax.swing.JPanel {
         add(Bottom, java.awt.BorderLayout.SOUTH);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void specFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_specFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_specFieldActionPerformed
+
+    private void counBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_counBoxActionPerformed
+        if(counBox.getSelectedItem()==null){return;}
+        String coun = (String) counBox.getSelectedItem();
+        String id = Functions.filterName(coun, "userData.txt").split(",")[0];
+        String[] data = Functions.filterID(id, "cProfile.txt").split(",");
+        monBox.setSelected(Boolean.parseBoolean(data[1]));
+        tueBox.setSelected(Boolean.parseBoolean(data[2]));
+        wedBox.setSelected(Boolean.parseBoolean(data[3]));
+        thuBox.setSelected(Boolean.parseBoolean(data[4]));
+        friBox.setSelected(Boolean.parseBoolean(data[5]));
+        specField.setText(data[6]);
+    }//GEN-LAST:event_counBoxActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Bottom;
@@ -116,5 +204,15 @@ public class SProfilePanel extends javax.swing.JPanel {
     private javax.swing.JPanel Left;
     private javax.swing.JPanel Right;
     private javax.swing.JPanel Top;
+    private javax.swing.JComboBox<String> counBox;
+    private javax.swing.JCheckBox friBox;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JCheckBox monBox;
+    private javax.swing.JTextField specField;
+    private javax.swing.JCheckBox thuBox;
+    private javax.swing.JCheckBox tueBox;
+    private javax.swing.JCheckBox wedBox;
     // End of variables declaration//GEN-END:variables
 }

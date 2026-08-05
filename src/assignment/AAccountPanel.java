@@ -7,10 +7,9 @@ package assignment;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.util.Date;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 import java.util.Calendar;
-import javax.swing.table.TableRowSorter;
+
 /**
  *
  * @author User
@@ -30,8 +29,7 @@ public class AAccountPanel extends javax.swing.JPanel {
         this.frame = frame;
         initComponents();
         model.setColumnIdentifiers(columnName);
-        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(model);
-        jTable1.setRowSorter(sorter);
+
         for(int i=31;i>0;i--){
             DayList.addItem(i);
         }
@@ -153,34 +151,35 @@ public class AAccountPanel extends javax.swing.JPanel {
             .addGroup(LeftLayout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addComponent(RoleList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(GenderList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel4)
-                        .addComponent(jLabel3)
-                        .addComponent(jLabel2)
-                        .addComponent(jLabel1)
-                        .addGroup(LeftLayout.createSequentialGroup()
-                            .addComponent(DayList, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(MonthList, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(YearList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(MailField)
-                        .addComponent(NameField))
                     .addGroup(LeftLayout.createSequentialGroup()
                         .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(CreateBut)
                             .addComponent(UpdateBut)
                             .addComponent(DeleteBut))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
                         .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
                             .addComponent(RecepBox)
                             .addComponent(CounBox))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap(20, Short.MAX_VALUE))
+                        .addGap(13, 13, 13))
+                    .addGroup(LeftLayout.createSequentialGroup()
+                        .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(RoleList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(GenderList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1)
+                            .addGroup(LeftLayout.createSequentialGroup()
+                                .addComponent(DayList, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(MonthList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(4, 4, 4)
+                                .addComponent(YearList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(NameField, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(MailField, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         LeftLayout.setVerticalGroup(
             LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -279,6 +278,11 @@ public class AAccountPanel extends javax.swing.JPanel {
         Date dob = Functions.StringtoDate(tempDate);
         String mail = MailField.getText();
         ORoleParent newUser = null;
+        
+        if(name.isEmpty()){
+            JOptionPane.showMessageDialog(frame,"Name field cannot be empty!");
+            return;
+        }
         if(role.equals("Receptionist")){
             newUser = new OReceptionist(name,gender,dob,mail);
         }
@@ -286,6 +290,11 @@ public class AAccountPanel extends javax.swing.JPanel {
             newUser = new OCounselor(name,gender,dob,mail);
         }
         if(newUser == null){return;}
+        if(!newUser.setEmail(mail)){
+            JOptionPane.showMessageDialog(frame,"Invalid format for email!");
+            return;
+        }
+
         newUser.setId(role);
         if(newUser.getId()==null){
             frame.showError();
@@ -349,12 +358,16 @@ public class AAccountPanel extends javax.swing.JPanel {
     private void remove(){
         String tempId = String.valueOf(model.getValueAt(row,0));
         Functions.removeData(tempId, "userData.txt");
+        Functions.removeData(tempId, "loginData.txt");
+        if(tempId.startsWith("C")){
+            Functions.removeData(tempId, "cProfile.txt");
+        }
         model.removeRow(row);
         row=-1;
     }
     private void DeleteButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteButActionPerformed
         if(row==-1){
-            JOptionPane.showMessageDialog(frame, "Sum Ting Wong!");
+            JOptionPane.showMessageDialog(frame, "Select a row before action!");
         }
         else{
             if(JOptionPane.showConfirmDialog(frame, "Confirm delete? (No backsies)")==0){
@@ -365,11 +378,24 @@ public class AAccountPanel extends javax.swing.JPanel {
 
     private void UpdateButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateButActionPerformed
         if(row==-1){
-            JOptionPane.showMessageDialog(frame, "Sum Ting Wong!");
+            JOptionPane.showMessageDialog(frame, "Select a row before action!");
         }
         else{
-            remove();
-            create();
+            String id = String.valueOf(model.getValueAt(row, 0));
+            String name = NameField.getText().trim();
+            String gender = (String) GenderList.getSelectedItem();
+            String mail = MailField.getText().trim();
+            String dob = YearList.getSelectedItem()+"-"+ String.format("%02d", MonthList.getSelectedIndex()+1)+"-"+String.format("%02d", (int) DayList.getSelectedItem());
+            Functions.removeData(id, "userData.txt");
+            Functions.inputFile("userData.txt", (id+","+name+","+gender+","+dob+","+mail) , "append");
+            String role = (String) RoleList.getSelectedItem();
+            String login = Functions.filterID(id, "loginData.txt");
+            if(login != null){
+                String pass = login.split(",")[2];
+                Functions.removeData(id, "loginData.txt");
+                Functions.inputFile("loginData.txt", id+","+name+","+pass+","+role, "append");
+            }
+            row = -1;
         }
     }//GEN-LAST:event_UpdateButActionPerformed
 

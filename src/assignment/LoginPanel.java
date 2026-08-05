@@ -79,7 +79,7 @@ public class LoginPanel extends javax.swing.JPanel {
         jLabel1.setText("Username: ");
 
         jTextField1.setBackground(new java.awt.Color(91, 91, 91));
-        jTextField1.setFont(new java.awt.Font("Trebuchet MS", 2, 12)); // NOI18N
+        jTextField1.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
 
         jLabel2.setText("Password: ");
 

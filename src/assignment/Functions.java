@@ -33,6 +33,7 @@ public class Functions {
         
     }
     
+    
     public static void inputFile(String fileName, ArrayList<String> inputData, String mode){
         Boolean inputMode; 
         
@@ -118,6 +119,15 @@ public class Functions {
         }
         return null;
     }
+    public static String filterNote(String id, String fileName){
+        for(String line : readFile(fileName)){
+            String[] p = line.split("\\|");
+            if(p[0].equals(id)){
+                return line;
+            }
+        }
+        return null;
+    }
     
     public static String filterName(String name, String fileName){
         for(String line : readFile(fileName)){
@@ -192,6 +202,18 @@ public class Functions {
         ArrayList<String> timeSlot = new ArrayList<>();
         timeSlot.addAll(Arrays.asList(time));
         String targetDate  = DatetoString(date);
+        Calendar temp = Calendar.getInstance();
+        temp.setTime(date);
+        
+        String[] line = filterData(readFile("cProfile.txt"),counselorID, 0).get(0).split(",");
+        ArrayList<Boolean> available = new ArrayList<>();
+        for(int i=1;i<6;i++){
+            available.add(Boolean.valueOf(line[i]));
+        }
+        if(!available.get(temp.get(Calendar.DAY_OF_WEEK)-2)){
+            return new ArrayList<String>();
+        }
+        
         for(String lines : readFile("appointment.txt")){
             String[] p = lines.split(",");
             String appointDate = p[3].split(" ")[0];
@@ -305,5 +327,13 @@ public class Functions {
         return target;
     }
     
+    public static ArrayList<String> appointmentInNotes(){
+        ArrayList<String> data = new ArrayList<>();
+        for(String lines:readFile("note.txt")){
+            String[] p = lines.split("|");
+            data.add(p[0]);
+        }
+        return data;
+    }
     
 }

@@ -9,6 +9,7 @@ import javax.swing.table.DefaultTableModel;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import javax.swing.table.TableRowSorter;
 /**
  *
@@ -17,7 +18,7 @@ import javax.swing.table.TableRowSorter;
 public class RAccountPanel extends javax.swing.JPanel {
     private DefaultTableModel model = new DefaultTableModel();
     private String[] columnName = {"UID","Name","Gender","BoD","Mail"};
-    public int year = 2026;
+    private int year = Calendar.getInstance().get(Calendar.YEAR);
     private int row = -1;
     final Assignment frame;
 
@@ -289,12 +290,13 @@ public class RAccountPanel extends javax.swing.JPanel {
 
     private void DeleteButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteButActionPerformed
         if(row==-1){
-            JOptionPane.showMessageDialog(frame, "Sum Ting Wong!");
+            JOptionPane.showMessageDialog(frame, "Please select a row!");
         }
         else{
             if(JOptionPane.showConfirmDialog(frame, "Confirm delete? (No backsies)")==0){
                 String tempId = String.valueOf(model.getValueAt(row,0));
                 Functions.removeData(tempId, "userData.txt");
+                Functions.removeData(tempId, "loginData.txt");
                 model.removeRow(row);
                 row =-1;
             }
@@ -303,7 +305,7 @@ public class RAccountPanel extends javax.swing.JPanel {
 
     private void UpdateButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateButActionPerformed
         if(row==-1){
-            JOptionPane.showMessageDialog(frame, "Sum Ting Wong!");
+            JOptionPane.showMessageDialog(frame, "Please select a row!");
         }
         else{
             if(JOptionPane.showConfirmDialog(frame, "Are you sure you want to make changes?")==0){

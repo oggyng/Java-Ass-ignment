@@ -48,6 +48,7 @@ public class RAppointPanel extends javax.swing.JPanel {
                 }
             }
         }
+        avail.setVisible(false);
         endDay.add(Calendar.MONTH, 6);
         eYear    = endDay.get(Calendar.YEAR);
         eMonth   = endDay.get(Calendar.MONTH);
@@ -138,16 +139,6 @@ public class RAppointPanel extends javax.swing.JPanel {
         MonthList = new javax.swing.JComboBox<>();
         YearList = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
-        t1 = new javax.swing.JToggleButton();
-        t2 = new javax.swing.JToggleButton();
-        t3 = new javax.swing.JToggleButton();
-        t4 = new javax.swing.JToggleButton();
-        t5 = new javax.swing.JToggleButton();
-        t6 = new javax.swing.JToggleButton();
-        t7 = new javax.swing.JToggleButton();
-        t8 = new javax.swing.JToggleButton();
-        t9 = new javax.swing.JToggleButton();
-        t10 = new javax.swing.JToggleButton();
         jLabel4 = new javax.swing.JLabel();
         statusFix = new javax.swing.JLabel();
         statusLabel = new javax.swing.JLabel();
@@ -163,6 +154,18 @@ public class RAppointPanel extends javax.swing.JPanel {
         specialismLb = new javax.swing.JLabel();
         counselorLb = new javax.swing.JLabel();
         studentLb = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        t5 = new javax.swing.JToggleButton();
+        t1 = new javax.swing.JToggleButton();
+        t3 = new javax.swing.JToggleButton();
+        t4 = new javax.swing.JToggleButton();
+        t6 = new javax.swing.JToggleButton();
+        t2 = new javax.swing.JToggleButton();
+        t7 = new javax.swing.JToggleButton();
+        t8 = new javax.swing.JToggleButton();
+        t9 = new javax.swing.JToggleButton();
+        t10 = new javax.swing.JToggleButton();
+        avail = new javax.swing.JLabel();
         Right = new javax.swing.JPanel();
         Bottom = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -202,36 +205,6 @@ public class RAppointPanel extends javax.swing.JPanel {
 
         jLabel3.setText("Time: ");
 
-        t1.setText("10:00");
-        t1.addActionListener(this::t1ActionPerformed);
-
-        t2.setText("11:00");
-        t2.addActionListener(this::t2ActionPerformed);
-
-        t3.setText("12:00");
-        t3.addActionListener(this::t3ActionPerformed);
-
-        t4.setText("13:00");
-        t4.addActionListener(this::t4ActionPerformed);
-
-        t5.setText("14:00");
-        t5.addActionListener(this::t5ActionPerformed);
-
-        t6.setText("15:00");
-        t6.addActionListener(this::t6ActionPerformed);
-
-        t7.setText("16:00");
-        t7.addActionListener(this::t7ActionPerformed);
-
-        t8.setText("17:00");
-        t8.addActionListener(this::t8ActionPerformed);
-
-        t9.setText("18:00");
-        t9.addActionListener(this::t9ActionPerformed);
-
-        t10.setText("19:00");
-        t10.addActionListener(this::t10ActionPerformed);
-
         jLabel4.setText("Student: ");
 
         statusFix.setText("Booking status: ");
@@ -268,6 +241,98 @@ public class RAppointPanel extends javax.swing.JPanel {
 
         studentLb.setPreferredSize(new java.awt.Dimension(133, 16));
 
+        t5.setText("14:00");
+        t5.addActionListener(this::t5ActionPerformed);
+
+        t1.setText("10:00");
+        t1.addActionListener(this::t1ActionPerformed);
+
+        t3.setText("12:00");
+        t3.addActionListener(this::t3ActionPerformed);
+
+        t4.setText("13:00");
+        t4.addActionListener(this::t4ActionPerformed);
+
+        t6.setText("15:00");
+        t6.addActionListener(this::t6ActionPerformed);
+
+        t2.setText("11:00");
+        t2.addActionListener(this::t2ActionPerformed);
+
+        t7.setText("16:00");
+        t7.addActionListener(this::t7ActionPerformed);
+
+        t8.setText("17:00");
+        t8.addActionListener(this::t8ActionPerformed);
+
+        t9.setText("18:00");
+        t9.addActionListener(this::t9ActionPerformed);
+
+        t10.setText("19:00");
+        t10.addActionListener(this::t10ActionPerformed);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(t3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(t4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(t5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(t6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(t1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(t2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(t9, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(t10, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(t7, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(t8, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGap(0, 0, Short.MAX_VALUE))))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(t1)
+                    .addComponent(t2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(t3)
+                    .addComponent(t4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(t5)
+                    .addComponent(t6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(t7)
+                    .addComponent(t8))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(t9)
+                    .addComponent(t10))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        avail.setForeground(new java.awt.Color(255, 0, 0));
+        avail.setText("Counselor not available!");
+
         javax.swing.GroupLayout LeftLayout = new javax.swing.GroupLayout(Left);
         Left.setLayout(LeftLayout);
         LeftLayout.setHorizontalGroup(
@@ -277,31 +342,9 @@ public class RAppointPanel extends javax.swing.JPanel {
                 .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(LeftLayout.createSequentialGroup()
                         .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LeftLayout.createSequentialGroup()
-                                .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LeftLayout.createSequentialGroup()
-                                        .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(t3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(t1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(t2, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
-                                            .addComponent(t4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LeftLayout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
-                                        .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(t7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(t9, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(t10, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
-                                            .addComponent(t8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(t6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                    .addGroup(LeftLayout.createSequentialGroup()
-                                        .addComponent(t5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGap(96, 96, 96)))
-                                .addGap(21, 21, 21))
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(LeftLayout.createSequentialGroup()
                                 .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -321,19 +364,26 @@ public class RAppointPanel extends javax.swing.JPanel {
                                             .addComponent(studentLb, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                     .addComponent(jLabel2)
                                     .addGroup(LeftLayout.createSequentialGroup()
-                                        .addComponent(DayList, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(MonthList, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(YearList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(LeftLayout.createSequentialGroup()
                                         .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                             .addComponent(createBut, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
                                             .addComponent(cancelBut, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(updateBut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(deselectRowBut, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE))))
+                                            .addComponent(deselectRowBut, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)))
+                                    .addGroup(LeftLayout.createSequentialGroup()
+                                        .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, LeftLayout.createSequentialGroup()
+                                                .addGap(6, 6, 6)
+                                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                            .addComponent(DayList, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(LeftLayout.createSequentialGroup()
+                                                .addComponent(MonthList, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(YearList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(avail, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(12, 12, 12))
                     .addGroup(LeftLayout.createSequentialGroup()
@@ -343,12 +393,15 @@ public class RAppointPanel extends javax.swing.JPanel {
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(specialismLb, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(specialismBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(counselorBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(LeftLayout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(counselorLb, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(counselorLb, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(LeftLayout.createSequentialGroup()
+                                .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(counselorBox, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(specialismBox, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())))
         );
         LeftLayout.setVerticalGroup(
@@ -374,28 +427,12 @@ public class RAppointPanel extends javax.swing.JPanel {
                     .addComponent(MonthList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(YearList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(t1)
-                    .addComponent(t2))
+                    .addComponent(jLabel3)
+                    .addComponent(avail))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(t3)
-                    .addComponent(t4))
-                .addGap(5, 5, 5)
-                .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(t6)
-                    .addComponent(t5, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(t7)
-                    .addComponent(t8))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(t9)
-                    .addComponent(t10))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(studentLb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -417,7 +454,7 @@ public class RAppointPanel extends javax.swing.JPanel {
                 .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelBut)
                     .addComponent(updateBut))
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         add(Left, java.awt.BorderLayout.WEST);
@@ -479,6 +516,7 @@ public class RAppointPanel extends javax.swing.JPanel {
         else{
             counselorId = Functions.filterData(Functions.readFile("userData.txt"), choice, 1).get(0).split(",")[0];
         }
+        showTime();
     }//GEN-LAST:event_counselorBoxActionPerformed
 
     private void specialismBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_specialismBoxActionPerformed
@@ -491,6 +529,7 @@ public class RAppointPanel extends javax.swing.JPanel {
             }
         }
         counselorBox.setSelectedItem("None");
+        showTime();
     }//GEN-LAST:event_specialismBoxActionPerformed
     private void toggleButton(javax.swing.JToggleButton tb){
         javax.swing.JToggleButton[] butList = {t1,t2,t3,t4,t5,t6,t7,t8,t9,t10};
@@ -556,7 +595,8 @@ public class RAppointPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_t10ActionPerformed
     
     private void showTime(){
-        if(DayList.getSelectedItem()==null||MonthList.getSelectedItem()==null||YearList.getSelectedItem()==null){
+        avail.setVisible(false);
+        if(DayList.getSelectedItem()==null||MonthList.getSelectedItem()==null||YearList.getSelectedItem()==null||counselorId==null){
             return;
         }
         String d = String.format("%02d", (int) DayList.getSelectedItem());
@@ -588,6 +628,9 @@ public class RAppointPanel extends javax.swing.JPanel {
                 case "18:00" -> t9.setVisible(true);
                 case "19:00" -> t10.setVisible(true);
             }
+        }
+        if(Functions.checkDayClash(dChoice, counselorId).isEmpty()){
+            avail.setVisible(true);
         }
     }
     
@@ -682,12 +725,17 @@ public class RAppointPanel extends javax.swing.JPanel {
 
     private void cancelButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButActionPerformed
         if(row==-1){
-            JOptionPane.showMessageDialog(frame, "Sum Ting Wong!");
+            JOptionPane.showMessageDialog(frame, "Please select a row!");
         }
         else{
             if(JOptionPane.showConfirmDialog(frame, "Confirm delete? (No backsies)")==0){
                 String tempId = String.valueOf(model.getValueAt(row,0));
-                Functions.removeData(tempId, "userData.txt");
+                String data = Functions.filterID(tempId, "appointment.txt");
+                String[] templs = data.split(",");
+                templs[6] = "0";
+                templs[7] = "Cancelled";
+                Functions.removeData(tempId, "appointment.txt");
+                Functions.inputFile("appointment.txt", String.join(",", templs), "append");
                 model.removeRow(row);
             }
         }
@@ -695,7 +743,7 @@ public class RAppointPanel extends javax.swing.JPanel {
 
     private void updateButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButActionPerformed
         if(row==-1){
-            JOptionPane.showMessageDialog(frame, "Sum Ting Wong!");
+            JOptionPane.showMessageDialog(frame, "Please select a row!");
         }
         else{
             if(JOptionPane.showConfirmDialog(frame, "Are you sure you want to make changes?")==0){
@@ -771,6 +819,7 @@ public class RAppointPanel extends javax.swing.JPanel {
     private javax.swing.JPanel Right;
     private javax.swing.JPanel Top;
     private javax.swing.JComboBox<Integer> YearList;
+    private javax.swing.JLabel avail;
     private javax.swing.JButton cancelBut;
     private javax.swing.JComboBox<String> counselorBox;
     private javax.swing.JLabel counselorLb;
@@ -781,6 +830,7 @@ public class RAppointPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JComboBox<String> specialismBox;

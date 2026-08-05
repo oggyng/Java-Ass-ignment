@@ -82,8 +82,6 @@ public class ReceptionistMainPanel extends javax.swing.JPanel {
         queueBut = new javax.swing.JButton();
         upBut = new javax.swing.JButton();
         TaskBar = new javax.swing.JPanel();
-        GitHub = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(51, 102, 0));
@@ -301,26 +299,6 @@ public class ReceptionistMainPanel extends javax.swing.JPanel {
         TaskBar.setOpaque(false);
         TaskBar.setPreferredSize(new java.awt.Dimension(0, 50));
 
-        GitHub.setOpaque(false);
-
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assignment/imgSrc/github.png"))); // NOI18N
-        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jLabel2MouseReleased(evt);
-            }
-        });
-
-        javax.swing.GroupLayout GitHubLayout = new javax.swing.GroupLayout(GitHub);
-        GitHub.setLayout(GitHubLayout);
-        GitHubLayout.setHorizontalGroup(
-            GitHubLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        GitHubLayout.setVerticalGroup(
-            GitHubLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assignment/imgSrc/dark.png"))); // NOI18N
         jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
@@ -335,15 +313,12 @@ public class ReceptionistMainPanel extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TaskBarLayout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1087, Short.MAX_VALUE)
-                .addComponent(GitHub, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(1143, Short.MAX_VALUE))
         );
         TaskBarLayout.setVerticalGroup(
             TaskBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(GitHub, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TaskBarLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(8, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -392,7 +367,7 @@ public class ReceptionistMainPanel extends javax.swing.JPanel {
 
     private void queueButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_queueButActionPerformed
         butHighlight(queueBut);
-        queuePanel = new RQueuePanel();
+        queuePanel = new RQueuePanel(frame);
         frame.switchContent(queuePanel, ContentPanel);
     }//GEN-LAST:event_queueButActionPerformed
 
@@ -422,14 +397,6 @@ public class ReceptionistMainPanel extends javax.swing.JPanel {
         loginPanel = new LoginPanel(frame);
         frame.switchTo(loginPanel);        // TODO add your handling code here:
     }//GEN-LAST:event_LogoutActionPerformed
-
-    private void jLabel2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseReleased
-        try {
-            java.awt.Desktop.getDesktop().browse(new java.net.URI("https://github.com/oggyng/Java-Ass-ignment"));
-        } catch (Exception e) {
-            System.out.println("Cannot open: " + e.getMessage());
-        }
-    }//GEN-LAST:event_jLabel2MouseReleased
 
     private void jLabel1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseReleased
         try {
@@ -462,7 +429,6 @@ public class ReceptionistMainPanel extends javax.swing.JPanel {
     private javax.swing.JPanel CMainPanel;
     private javax.swing.JPanel Center;
     private javax.swing.JPanel ContentPanel;
-    private javax.swing.JPanel GitHub;
     private javax.swing.JPanel InnerSideBarPanel;
     private javax.swing.JPanel Left;
     private javax.swing.JPanel Logo;
@@ -479,7 +445,6 @@ public class ReceptionistMainPanel extends javax.swing.JPanel {
     private javax.swing.JButton appBut;
     private javax.swing.JButton assBut;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JButton queueBut;
     private javax.swing.JButton upBut;
     // End of variables declaration//GEN-END:variables

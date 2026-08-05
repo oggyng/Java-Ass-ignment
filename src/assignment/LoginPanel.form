@@ -153,7 +153,7 @@
                       <Color blue="5b" green="5b" red="5b" type="rgb"/>
                     </Property>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Trebuchet MS" size="12" style="2"/>
+                      <Font name="Trebuchet MS" size="12" style="0"/>
                     </Property>
                   </Properties>
                 </Component>

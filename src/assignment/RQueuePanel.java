@@ -13,12 +13,14 @@ import java.util.ArrayList;
  * @author User
  */
 public class RQueuePanel extends javax.swing.JPanel {
+    private Assignment frame;
     private DefaultTableModel model = new DefaultTableModel();
     private String[] columnName = {"AppointmentId","CounselorID","StudentID","Start Time","End Time","Queue Number","Specialism"};
     private Calendar sToday = Calendar.getInstance();
     private Calendar eToday = Calendar.getInstance();
     
-    public RQueuePanel() {
+    public RQueuePanel(Assignment frame) {
+        this.frame = frame;
         initComponents();
         sToday.set(Calendar.HOUR_OF_DAY,0);
         sToday.set(Calendar.MINUTE,0);
@@ -216,7 +218,7 @@ public class RQueuePanel extends javax.swing.JPanel {
     }//GEN-LAST:event_studentBoxActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        OAppointment newWalker = new OAppointment(Functions.filterData(Functions.readFile("userdata.txt"),(String)studentBox.getSelectedItem(), 1).get(0).split(",")[0],(String)specialismBox.getSelectedItem());
+        OAppointment newWalker = new OAppointment(Functions.filterData(Functions.readFile("userData.txt"),(String)studentBox.getSelectedItem(), 1).get(0).split(",")[0],(String)specialismBox.getSelectedItem());
         newWalker.setQueueNumber(Functions.filterName((String)counselorBox.getSelectedItem(), "userData.txt").split(",")[0]);
         newWalker.setAppointmentId();
         model.addRow(newWalker.toQueueString().split(","));

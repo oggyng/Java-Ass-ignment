@@ -4,17 +4,32 @@
  */
 package assignment;
 
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author User
  */
 public class CRecomPanel extends javax.swing.JPanel {
 
-    /**
-     * Creates new form CRecomPanel
-     */
-    public CRecomPanel() {
+    private OCounselor user;
+    private Assignment frame;
+    
+    public CRecomPanel(Assignment frame,OCounselor user) {
+        this.frame = frame;
+        this.user = user;
         initComponents();
+        appointWarn.setVisible(false);
+        recomWarn.setVisible(false);
+        notesWarn.setVisible(false);
+        studentBox.addItem("None");
+        for(String line : Functions.readFile("loginData.txt")){
+            if(line.split(",")[3].equals("Student")){
+                studentBox.addItem(line.split(",")[1]);
+            }
+        }
+        
     }
 
     /**
@@ -30,16 +45,25 @@ public class CRecomPanel extends javax.swing.JPanel {
         Bottom = new javax.swing.JPanel();
         Right = new javax.swing.JPanel();
         Left = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
+        Center = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        appointBox = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        studentBox = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        noteArea = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        recomArea = new javax.swing.JTextArea();
+        saveBut = new javax.swing.JButton();
+        appointWarn = new javax.swing.JLabel();
+        notesWarn = new javax.swing.JLabel();
+        recomWarn = new javax.swing.JLabel();
 
         setLayout(new java.awt.BorderLayout());
+
+        Top.setPreferredSize(new java.awt.Dimension(848, 50));
 
         javax.swing.GroupLayout TopLayout = new javax.swing.GroupLayout(Top);
         Top.setLayout(TopLayout);
@@ -49,10 +73,12 @@ public class CRecomPanel extends javax.swing.JPanel {
         );
         TopLayout.setVerticalGroup(
             TopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addGap(0, 50, Short.MAX_VALUE)
         );
 
         add(Top, java.awt.BorderLayout.NORTH);
+
+        Bottom.setPreferredSize(new java.awt.Dimension(848, 50));
 
         javax.swing.GroupLayout BottomLayout = new javax.swing.GroupLayout(Bottom);
         Bottom.setLayout(BottomLayout);
@@ -62,7 +88,7 @@ public class CRecomPanel extends javax.swing.JPanel {
         );
         BottomLayout.setVerticalGroup(
             BottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addGap(0, 50, Short.MAX_VALUE)
         );
 
         add(Bottom, java.awt.BorderLayout.SOUTH);
@@ -75,89 +101,172 @@ public class CRecomPanel extends javax.swing.JPanel {
         );
         RightLayout.setVerticalGroup(
             RightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 298, Short.MAX_VALUE)
+            .addGap(0, 398, Short.MAX_VALUE)
         );
 
         add(Right, java.awt.BorderLayout.EAST);
 
-        Left.setPreferredSize(new java.awt.Dimension(200, 298));
-
-        jLabel6.setText("jLabel6");
-
-        jLabel4.setText("jLabel4");
-
-        jLabel5.setText("jLabel5");
-
-        jTextField4.setText("jTextField4");
-
-        jTextField5.setText("jTextField5");
-
-        jTextField6.setText("jTextField6");
+        Left.setPreferredSize(new java.awt.Dimension(100, 298));
 
         javax.swing.GroupLayout LeftLayout = new javax.swing.GroupLayout(Left);
         Left.setLayout(LeftLayout);
         LeftLayout.setHorizontalGroup(
             LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(LeftLayout.createSequentialGroup()
-                .addGap(63, 63, 63)
-                .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addContainerGap(67, Short.MAX_VALUE))
+            .addGap(0, 100, Short.MAX_VALUE)
         );
         LeftLayout.setVerticalGroup(
             LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(LeftLayout.createSequentialGroup()
-                .addGap(52, 52, 52)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(78, Short.MAX_VALUE))
+            .addGap(0, 398, Short.MAX_VALUE)
         );
 
         add(Left, java.awt.BorderLayout.WEST);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane2.setViewportView(jTable2);
+        jLabel4.setText("Select an appointment:");
 
-        add(jScrollPane2, java.awt.BorderLayout.CENTER);
+        jLabel5.setText("Consultation notes:");
+
+        jLabel6.setText("Recomendation: ");
+
+        jLabel1.setText("Filter appointment by student:");
+
+        studentBox.addActionListener(this::studentBoxActionPerformed);
+
+        noteArea.setColumns(20);
+        noteArea.setRows(5);
+        jScrollPane1.setViewportView(noteArea);
+
+        recomArea.setColumns(20);
+        recomArea.setRows(5);
+        jScrollPane2.setViewportView(recomArea);
+
+        saveBut.setText("Save note");
+        saveBut.addActionListener(this::saveButActionPerformed);
+
+        appointWarn.setForeground(new java.awt.Color(255, 0, 0));
+        appointWarn.setText("Please select an appointment!");
+
+        notesWarn.setForeground(new java.awt.Color(255, 0, 51));
+        notesWarn.setText("Section cannot be empty!");
+
+        recomWarn.setForeground(new java.awt.Color(255, 0, 0));
+        recomWarn.setText("Section cannot be empty!");
+
+        javax.swing.GroupLayout CenterLayout = new javax.swing.GroupLayout(Center);
+        Center.setLayout(CenterLayout);
+        CenterLayout.setHorizontalGroup(
+            CenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(CenterLayout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addGroup(CenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(recomWarn)
+                    .addGroup(CenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 568, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2)
+                        .addComponent(saveBut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel5)
+                        .addComponent(jLabel6)
+                        .addGroup(CenterLayout.createSequentialGroup()
+                            .addComponent(jLabel4)
+                            .addGap(119, 119, 119)
+                            .addComponent(jLabel1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(studentBox, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(CenterLayout.createSequentialGroup()
+                            .addComponent(appointBox, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(appointWarn, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(notesWarn, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(41, Short.MAX_VALUE))
+        );
+        CenterLayout.setVerticalGroup(
+            CenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(CenterLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(CenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel1)
+                    .addComponent(studentBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(CenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(appointBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(appointWarn))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
+                .addComponent(notesWarn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(recomWarn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(saveBut)
+                .addGap(16, 16, 16))
+        );
+
+        add(Center, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
+    
+    private void showApp(String name){
+        for(String line:Functions.readFile("appointment.txt")){
+            String[] p = line.split(",");
+            if(!p[1].equals(user.getId())){
+                continue;
+            }
+            if(!p[7].equals("Done")){
+                continue;
+            }
+            if(Functions.appointmentInNotes().contains(p[0])){
+                continue;
+            }
+            if(name.equals("None")||name.equals(Functions.filterID(p[2], "userData.txt").split(",")[1])){
+                String data = p[0]+"--"+Functions.filterID(p[2], "userData.txt").split(",")[1]+"--"+p[3];
+                appointBox.addItem(data);
+            }
+            
+        }
+    }
+    
+    private void studentBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentBoxActionPerformed
+        String stuName = (String) studentBox.getSelectedItem();
+        appointBox.removeAllItems();
+        showApp(stuName);
+    }//GEN-LAST:event_studentBoxActionPerformed
+
+    private void saveButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButActionPerformed
+        if(appointBox.getSelectedItem()==null){appointWarn.setVisible(true);return;}
+        if(recomArea.getText().trim().isEmpty()){recomWarn.setVisible(true);return;}
+        if(noteArea.getText().trim().isEmpty()){notesWarn.setVisible(true);return;}
+        String temp = (String)appointBox.getSelectedItem();
+        String data = temp.split("--")[0]+"|"+user.getId()+"|"+temp.split("--")[1]+"|"+temp.split("--")[2]+"|"+noteArea.getText()+"|"+recomArea.getText();
+        Functions.inputFile("note.txt", data, "append");
+        appointBox.removeItem(temp);
+        JOptionPane.showMessageDialog(frame, "Successfully added note!");
+    }//GEN-LAST:event_saveButActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Bottom;
+    private javax.swing.JPanel Center;
     private javax.swing.JPanel Left;
     private javax.swing.JPanel Right;
     private javax.swing.JPanel Top;
+    private javax.swing.JComboBox<String> appointBox;
+    private javax.swing.JLabel appointWarn;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
+    private javax.swing.JTextArea noteArea;
+    private javax.swing.JLabel notesWarn;
+    private javax.swing.JTextArea recomArea;
+    private javax.swing.JLabel recomWarn;
+    private javax.swing.JButton saveBut;
+    private javax.swing.JComboBox<String> studentBox;
     // End of variables declaration//GEN-END:variables
 }
