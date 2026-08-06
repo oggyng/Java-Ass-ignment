@@ -694,7 +694,14 @@ public class RAppointPanel extends javax.swing.JPanel {
         String sp = (String) specialismBox.getSelectedItem();
         String cName = (String) counselorBox.getSelectedItem();
         String y = String.valueOf(YearList.getSelectedItem());
-        String m = String.format("%02d",MonthList.getSelectedIndex()+1);
+        String tempM = (String) MonthList.getSelectedItem();
+        String m = null;
+        for(int i=0;i<months.length;i++){
+            if(tempM.equals(months[i])){
+                m = String.format("%02d",i+1);
+                break;
+            }
+        }
         String d = String.format("%02d", DayList.getSelectedItem());
         String t = time; 
         String tempSDate = y+"-"+m+"-"+d+" "+t;
@@ -778,7 +785,7 @@ public class RAppointPanel extends javax.swing.JPanel {
                 updateApp.setEndTime(sDate);
                 updateApp.setSpecialism(special);
                 if(updateApp.getAppointmentId()==null){
-                    frame.showError();
+                    JOptionPane.showMessageDialog(frame, "Appointment already exists");
                     return;
                 }
                 

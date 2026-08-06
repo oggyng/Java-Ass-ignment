@@ -8,8 +8,8 @@ R001,Recep1,aaaaaaaa,Receptionist
 R002,Recep2,aaaaaaaa,Receptionist
 R003,Recep3,aaaaaaaa,Receptionist
 R004,Recep4,aaaaaaaa,Receptionist
-S001,Stu1,aaaaaaaa,Student
 S002,Stu2,aaaaaaaa,Student
 S003,Stu3,aaaaaaaa,Student
 S004,Stu4,aaaaaaaa,Student
 C001,CounA,aaaaaaaa,Counselor
+S001,Stu1,Stu1123,Student

@@ -334,8 +334,12 @@ public class RAccountPanel extends javax.swing.JPanel {
                     frame.showError();
                     return;
                 }
-                String[] newData = {updateUser.getId(),name,gender,tempDoB,mail};
-                model.addRow(newData);
+
+                model.setValueAt(updateUser.getId(), row, 0);
+                model.setValueAt(name, row, 1);
+                model.setValueAt(gender, row, 2);
+                model.setValueAt(tempDoB, row, 3);
+                model.setValueAt(mail, row, 4);
 
                 Functions.removeData(updateUser.getId(), "loginData.txt");
                 Functions.removeData(updateUser.getId(), "userData.txt");

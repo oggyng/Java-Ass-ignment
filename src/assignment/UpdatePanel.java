@@ -95,7 +95,7 @@ public class UpdatePanel extends javax.swing.JPanel {
         Top.setLayout(TopLayout);
         TopLayout.setHorizontalGroup(
             TopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 954, Short.MAX_VALUE)
+            .addGap(0, 1081, Short.MAX_VALUE)
         );
         TopLayout.setVerticalGroup(
             TopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -137,8 +137,6 @@ public class UpdatePanel extends javax.swing.JPanel {
         specBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Academic", "Career", "Personal", "Financial", "Mental Health" }));
 
         jLabel6.setText("Available Days: ");
-
-        jPanel1.setBackground(new java.awt.Color(102, 153, 0));
 
         tue.setText("Tuesday");
 
@@ -287,7 +285,7 @@ public class UpdatePanel extends javax.swing.JPanel {
                                 .addComponent(jCheckBox1)))))
                 .addGap(38, 38, 38)
                 .addComponent(jButton1)
-                .addContainerGap(155, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         add(Center, java.awt.BorderLayout.CENTER);
@@ -298,7 +296,7 @@ public class UpdatePanel extends javax.swing.JPanel {
         Bottom.setLayout(BottomLayout);
         BottomLayout.setHorizontalGroup(
             BottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 954, Short.MAX_VALUE)
+            .addGap(0, 1081, Short.MAX_VALUE)
         );
         BottomLayout.setVerticalGroup(
             BottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

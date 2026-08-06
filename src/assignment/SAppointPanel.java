@@ -665,7 +665,7 @@ public class SAppointPanel extends javax.swing.JPanel {
         
         OAppointment newApp = new OAppointment(sId,cId,Functions.StringtoDateTime(tempSDate),status,sp);
         if(newApp.getAppointmentId()==null){
-            frame.showError();
+            JOptionPane.showMessageDialog(frame, "Appointment already exists");
             return;
         }
         String data = newApp.toFileString();

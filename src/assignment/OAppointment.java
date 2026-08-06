@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 /**
- * Appointment class - represents a counselling appointment/booking.
+ * Appointment class - represents a counseling appointment/booking.
  * This is the CORE class for the Receptionist module:
  * - Create / Update / Cancel appointments
  * - Assign counselor

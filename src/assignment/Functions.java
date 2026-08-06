@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Functions {
+    
     public static ArrayList<String> readFile(String fileName){
         File f = new File(fileName);
         if(!f.exists()){
@@ -90,6 +91,7 @@ public class Functions {
     
     public static ArrayList<String> filterData(ArrayList<String> data, String target, int index){
         ArrayList<String> returnData = new ArrayList<>();
+        
         for(String lines : data){
             String[] dataId = lines.split(",");
             if(index!=-1){

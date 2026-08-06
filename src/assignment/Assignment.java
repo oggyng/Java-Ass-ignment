@@ -36,7 +36,7 @@ import javax.swing.*;
 
 public class Assignment extends JFrame{
     
-    // this is where you should put every panel
+
     public LoginPanel loginPanel;
 
 
