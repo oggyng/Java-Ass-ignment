@@ -4,6 +4,7 @@
  */
 package assignment;
 
+import assignment.Objects.ORoleParent;
 import java.util.Arrays;
 import javax.swing.JOptionPane;
 
@@ -14,12 +15,12 @@ import javax.swing.JOptionPane;
 public class UpdatePanel extends javax.swing.JPanel {
     private ORoleParent user;
     private char pwChar;
-    private Assignment frame;
+    private Main frame;
     private String role;
     /**
      * Creates new form ARecomPanel
      */
-    public UpdatePanel(Assignment frame, ORoleParent user) {
+    public UpdatePanel(Main frame, ORoleParent user) {
         this.frame = frame;
         this.user = user;
         this.role = Functions.filterID(user.getId(), "loginData.txt").split(",")[3];

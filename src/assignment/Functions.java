@@ -338,4 +338,239 @@ public class Functions {
         return data;
     }
     
+    //-------------------------------------------------------------------------------------------------------------------------------------------------------------
+    // The following functions are used for generating test case data, for lecturer to generate accurate data for assignment.txt and cProfile.txt
+    // simply call generateTestData() will overwrite every data in both file to sync with the current date
+    // THIS IS NOT RELATED TO ASSIGNMENT REQUIREMENTS, ONLY FOR ACCURATE TEST CASE PURPOSES
+    
+    public static void generateTestData(){
+        final String[] HOURS = {"10","11","12","13","14","15","16","17","18","19"};
+        SimpleDateFormat dtf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+        ArrayList<String>   cId   = new ArrayList<>();
+        ArrayList<String>   cSpec = new ArrayList<>();
+        ArrayList<boolean[]> cDay = new ArrayList<>();
+        for(String line : readFile("cProfile.txt")){
+            if(line.trim().isEmpty()) continue;
+            String[] p = line.split(",");
+            if(p.length < 7) continue;
+            cId.add(p[0]);
+            cSpec.add(p[6]);
+            cDay.add(new boolean[]{ Boolean.valueOf(p[1]), Boolean.valueOf(p[2]),
+                                    Boolean.valueOf(p[3]), Boolean.valueOf(p[4]),
+                                    Boolean.valueOf(p[5]) });
+        }
+
+        ArrayList<String> sId = new ArrayList<>();
+        for(String line : readFile("userData.txt")){
+            if(line.trim().isEmpty()) continue;
+            String[] p = line.split(",");
+            if(p.length >= 2 && p[0].startsWith("S")) sId.add(p[0]);
+        }
+        if(cId.isEmpty() || sId.isEmpty()){
+            System.out.println("Debug: cProfile.txt or userData.txt missing - aborted.");
+            return;
+        }
+
+        ArrayList<String[]> rows = new ArrayList<>();
+        ArrayList<String> usedC = new ArrayList<>();
+        ArrayList<String> usedS = new ArrayList<>();
+
+        Calendar now = Calendar.getInstance();
+        int nowHour  = now.get(Calendar.HOUR_OF_DAY);
+
+        ArrayList<Calendar> past = new ArrayList<>();
+        Calendar walk = (Calendar) now.clone();
+        while(past.size() < 12){
+            walk.add(Calendar.DAY_OF_MONTH, -1);
+            if(tdIsWeekday(walk)) past.add((Calendar) walk.clone());
+        }
+        for(int d = 0; d < past.size(); d++){
+            Calendar day = past.get(d);
+            int idx = tdDayIndex(day);
+            int slot = 0;
+            for(int k = 0; k < cId.size(); k++){
+                if(!cDay.get(k)[idx]) continue;
+                String start  = dtf.format(tdSetHour(day, 10 + slot).getTime());
+                String end    = dtf.format(tdSetHour(day, 11 + slot).getTime());
+                String stu    = sId.get((d + k) % sId.size());
+                String type   = ((d + k) % 2 == 0) ? "WalkIn" : "Online";
+                String status = ((d + k) % 7 == 0) ? "Cancelled" : "Done";
+                if(tdBook(usedC, usedS, cId.get(k), stu, start, status))
+                    rows.add(new String[]{cId.get(k), stu, start, end, type, "0", status, cSpec.get(k)});
+                slot++;
+                if(slot > 9) break;
+            }
+        }
+
+        if(tdIsWeekday(now)){
+            int idx = tdDayIndex(now);
+            ArrayList<Integer> working = new ArrayList<>();
+            for(int k = 0; k < cId.size(); k++) if(cDay.get(k)[idx]) working.add(k);
+
+            if(!working.isEmpty()){
+                int full = working.get(working.size() - 1);
+                for(int h = 0; h < HOURS.length; h++){
+                    String start = dtf.format(tdSetHour(now, 10 + h).getTime());
+                    String end   = dtf.format(tdSetHour(now, 11 + h).getTime());
+                    String stu   = sId.get(h % sId.size());
+                    String type  = (h % 2 == 0) ? "WalkIn" : "Online";
+                    if(tdBook(usedC, usedS, cId.get(full), stu, start, "Confirmed"))
+                        rows.add(new String[]{cId.get(full), stu, start, end, type,
+                                              "0", "Confirmed", cSpec.get(full)});
+                }
+                ArrayList<Integer> takenHour = new ArrayList<>();
+                int w = 0;
+                for(int wi = 0; wi < working.size(); wi++){
+                    int k = working.get(wi);
+                    if(k == full) continue;
+                    w++;
+                    for(int n = 0; n < 2; n++){
+                        int h = (w * 3 + n * 4) % 10;
+                        while(takenHour.contains(h)) h = (h + 1) % 10;
+                        takenHour.add(h);
+                        String start = dtf.format(tdSetHour(now, 10 + h).getTime());
+                        String end   = dtf.format(tdSetHour(now, 11 + h).getTime());
+                        String stu   = sId.get((h + 1) % sId.size());
+                        String type  = (n == 0) ? "WalkIn" : "Online";
+                        if(tdBook(usedC, usedS, cId.get(k), stu, start, "Confirmed"))
+                            rows.add(new String[]{cId.get(k), stu, start, end, type,
+                                                  "0", "Confirmed", cSpec.get(k)});
+                    }
+                }
+                int firstK = working.get(0);
+                int ch = 0;
+                while(ch < 9 && takenHour.contains(ch)) ch++;
+                String cStart = dtf.format(tdSetHour(now, 10 + ch).getTime());
+                String cEnd   = dtf.format(tdSetHour(now, 11 + ch).getTime());
+                rows.add(new String[]{cId.get(firstK), sId.get((ch + 2) % sId.size()),
+                                      cStart, cEnd, "WalkIn", "0", "Cancelled", cSpec.get(firstK)});
+            }
+        } else {
+            System.out.println("Debug: today is a weekend - no walk-in data generated.");
+        }
+
+        ArrayList<Calendar> future = new ArrayList<>();
+        walk = (Calendar) now.clone();
+        while(future.size() < 10){
+            walk.add(Calendar.DAY_OF_MONTH, 1);
+            if(tdIsWeekday(walk)) future.add((Calendar) walk.clone());
+        }
+        for(int d = 0; d < future.size(); d++){
+            Calendar day = future.get(d);
+            int idx = tdDayIndex(day);
+            int slot = 0;
+            for(int k = 0; k < cId.size(); k++){
+                if(!cDay.get(k)[idx]) continue;
+                if((d + k) % 2 != 0) continue;
+                String start = dtf.format(tdSetHour(day, 10 + slot).getTime());
+                String end   = dtf.format(tdSetHour(day, 11 + slot).getTime());
+                String stu   = sId.get((d + k) % sId.size());
+                if(tdBook(usedC, usedS, cId.get(k), stu, start, "Confirmed"))
+                    rows.add(new String[]{cId.get(k), stu, start, end, "Online",
+                                          "0", "Confirmed", cSpec.get(k)});
+                slot++;
+                if(slot > 9) break;
+            }
+        }
+
+        int made = 0;
+        for(int d = 0; d < future.size() && made < 5; d++){
+            Calendar day = future.get(d);
+            int idx = tdDayIndex(day);
+            for(int k = 0; k < cId.size() && made < 5; k++){
+                if(!cDay.get(k)[idx]) continue;
+                int h = 9 - made;
+                String start = dtf.format(tdSetHour(day, 10 + h).getTime());
+                String end   = dtf.format(tdSetHour(day, 11 + h).getTime());
+                String stu   = sId.get(made % sId.size());
+                if(tdBook(usedC, usedS, "null", stu, start, "Pending")){
+                    rows.add(new String[]{"null", stu, start, end, "Online",
+                                          "0", "Pending", cSpec.get(k)});
+                    made++;
+                }
+            }
+        }
+
+        rows.sort((a, b) -> a[2].compareTo(b[2]));
+        String today = new SimpleDateFormat("yyyy-MM-dd").format(now.getTime());
+        int q = 0;
+        for(String[] r : rows){
+            if(r[2].startsWith(today) && r[4].equals("WalkIn") && r[6].equals("Confirmed"))
+                r[5] = String.valueOf(++q);
+        }
+        for(String[] r : rows){
+            if(r[2].startsWith(today) && r[6].equals("Confirmed")){
+                int endH = Integer.parseInt(r[3].substring(11, 13));
+                if(endH <= nowHour){ r[6] = "Done"; r[5] = "0"; }
+            }
+        }
+
+        ArrayList<String> out = new ArrayList<>();
+        int n = 0;
+        for(String[] r : rows){
+            n++;
+            out.add(String.format("B%06d", n) + "," + r[0] + "," + r[1] + "," + r[2] + ","
+                  + r[3] + "," + r[4] + "," + r[5] + "," + r[6] + "," + r[7]);
+        }
+        inputFile("appointment.txt", out, "write");
+
+        String[][] text = {
+            {"Student reported exam stress and falling behind on coursework.",
+             "Weekly study plan agreed; review progress in two weeks."},
+            {"Follow-up session; routine is improving but notes remain disorganised.",
+             "Trial a structured note format; bring a study log next time."}
+        };
+        ArrayList<String> notes = new ArrayList<>();
+        for(int k = 0; k < cId.size(); k++){
+            int written = 0;
+            for(int i = out.size() - 1; i >= 0 && written < 2; i--){
+                String[] p = out.get(i).split(",");
+                if(!p[1].equals(cId.get(k)) || !p[7].equals("Done")) continue;
+                String sName = "Unknown";
+                String uLine = null;
+                for(String line : readFile("userData.txt")){
+                    if(line.startsWith(p[2] + ",")){ uLine = line; break; }
+                }
+                if(uLine != null) sName = uLine.split(",")[1];
+                notes.add(p[0] + "|" + p[1] + "|" + sName + "|" + p[3] + "|"
+                        + text[1 - written][0] + "|" + text[1 - written][1]);
+                written++;
+            }
+        }
+        notes.sort((a, b) -> a.compareTo(b));
+        inputFile("note.txt", notes, "write");
+
+        System.out.println("Debug: generated " + out.size() + " appointments, "
+                         + notes.size() + " notes.");
+    }
+
+    private static boolean tdIsWeekday(Calendar c){
+        int d = c.get(Calendar.DAY_OF_WEEK);
+        return d != Calendar.SATURDAY && d != Calendar.SUNDAY;
+    }
+    private static int tdDayIndex(Calendar c){          // Mon=0 ... Fri=4
+        return c.get(Calendar.DAY_OF_WEEK) - 2;
+    }
+    private static Calendar tdSetHour(Calendar day, int hour){
+        Calendar c = (Calendar) day.clone();
+        c.set(Calendar.HOUR_OF_DAY, hour);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MILLISECOND, 0);
+        return c;
+    }
+    private static boolean tdBook(ArrayList<String> usedC, ArrayList<String> usedS,
+                                String counselor, String student, String start, String status){
+        String ck = counselor + "|" + start;
+        String sk = student   + "|" + start;
+        if(usedS.contains(sk)) return false;
+        if(!counselor.equals("null") && usedC.contains(ck)) return false;
+        if(!status.equals("Cancelled")){
+            usedC.add(ck);
+            usedS.add(sk);
+        }
+        return true;
+    }
+    
 }

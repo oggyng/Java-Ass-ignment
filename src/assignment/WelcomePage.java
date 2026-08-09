@@ -370,7 +370,7 @@ public class WelcomePage extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         dispose();
         java.awt.EventQueue.invokeLater(() -> {
-            Assignment main = new Assignment();
+            Main main = new Main();
             main.setVisible(true);
         });
     }//GEN-LAST:event_jButton3ActionPerformed

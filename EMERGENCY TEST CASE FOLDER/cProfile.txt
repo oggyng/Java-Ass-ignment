@@ -1,0 +1,6 @@
+C001,true,true,true,true,true,Academic
+C002,true,false,true,false,true,Career
+C003,false,true,true,true,false,Personal
+C004,true,true,false,true,true,Social
+C005,true,false,true,true,false,Financial
+C006,false,true,true,false,true,Mental Health

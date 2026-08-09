@@ -4,6 +4,14 @@
  */
 package assignment;
 
+import assignment.Counselor.CounselorMainPanel;
+import assignment.Student.StudentMainPanel;
+import assignment.Receptionist.ReceptionistMainPanel;
+import assignment.Objects.OReceptionist;
+import assignment.Objects.OCounselor;
+import assignment.Objects.OAdmin;
+import assignment.Objects.OStudent;
+import assignment.Admin.AdminMainPanel;
 import java.util.ArrayList;
 import java.awt.*;
 import javax.swing.JOptionPane;
@@ -16,7 +24,7 @@ public class LoginPanel extends javax.swing.JPanel {
     /**
      * Creates new form LoginPanel
      */
-    final Assignment frame;
+    final Main frame;
     private int tries = 3;
     final String loginFile = "loginData.txt";
     final char pwChar;
@@ -31,7 +39,7 @@ public class LoginPanel extends javax.swing.JPanel {
     
     
     
-    public LoginPanel(Assignment frame) {
+    public LoginPanel(Main frame) {
         this.frame = frame;
         initComponents();
         Center.setBackground(new Color(0, 0, 0, 127)); 

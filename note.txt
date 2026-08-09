@@ -1,10 +1,12 @@
-B000028|C001|Stu2|2026-08-04 12:00|Reviewed revision timetable ahead of semester exams.|Two-hour blocks with breaks; avoid late-night cramming.
-B000030|C006|Stu4|2026-08-04 16:00|Ongoing anxiety before class presentations.|Breathing exercises before class; review in two weeks.
-B000031|C001|Stu1|2026-08-05 11:00|Discussed balancing coursework against part-time shifts.|Reduce shifts during assessment weeks; check in before finals.
-B000032|C002|Stu2|2026-08-05 12:00|Unsure between an internship and postgraduate study.|Draft a CV and shortlist three roles before next session.
-B000036|C001|Stu4|2026-08-05 17:00|Follow-up: study plan is working but note-taking still disorganised.|Trial the Cornell method; bring a study log next session.
-B000038|C001|Stu1|2026-08-06 10:00|Exam stress across two Academic modules; falling behind on coursework.|Weekly study plan agreed; review progress in two weeks.
-B000040|C003|Stu3|2026-08-06 11:00|Adjusting to living away from home; low motivation reported.|Set a small daily routine; join one campus society.
-B000041|C005|Stu1|2026-08-06 12:00|Budgeting difficulty after part-time hours were cut.|Apply for the hardship fund; build a monthly expense sheet.
-B000042|C004|Stu2|2026-08-06 12:00|Conflict with housemates affecting sleep and attendance.|Practise the agreed conversation script; follow up next week.
-B000001|C001|Stu1|2026-02-10 10:00|dw|dawd
+B000037|C006|Stu1|2026-08-04 13:00|Student reported exam stress and falling behind on coursework.|Weekly study plan agreed; review progress in two weeks.
+B000038|C001|Stu3|2026-08-05 10:00|Student reported exam stress and falling behind on coursework.|Weekly study plan agreed; review progress in two weeks.
+B000039|C002|Stu4|2026-08-05 11:00|Student reported exam stress and falling behind on coursework.|Weekly study plan agreed; review progress in two weeks.
+B000040|C003|Stu1|2026-08-05 12:00|Student reported exam stress and falling behind on coursework.|Weekly study plan agreed; review progress in two weeks.
+B000041|C005|Stu3|2026-08-05 13:00|Student reported exam stress and falling behind on coursework.|Weekly study plan agreed; review progress in two weeks.
+B000043|C001|Stu2|2026-08-06 10:00|Follow-up session; routine is improving but notes remain disorganised.|Trial a structured note format; bring a study log next time.
+B000044|C003|Stu4|2026-08-06 11:00|Follow-up session; routine is improving but notes remain disorganised.|Trial a structured note format; bring a study log next time.
+B000045|C004|Stu1|2026-08-06 12:00|Student reported exam stress and falling behind on coursework.|Weekly study plan agreed; review progress in two weeks.
+B000046|C005|Stu2|2026-08-06 13:00|Follow-up session; routine is improving but notes remain disorganised.|Trial a structured note format; bring a study log next time.
+B000048|C002|Stu2|2026-08-07 11:00|Follow-up session; routine is improving but notes remain disorganised.|Trial a structured note format; bring a study log next time.
+B000049|C004|Stu4|2026-08-07 12:00|Follow-up session; routine is improving but notes remain disorganised.|Trial a structured note format; bring a study log next time.
+B000050|C006|Stu2|2026-08-07 13:00|Follow-up session; routine is improving but notes remain disorganised.|Trial a structured note format; bring a study log next time.
